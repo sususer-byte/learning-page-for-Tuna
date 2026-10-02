@@ -1,0 +1,2166 @@
+{
+  "exam-cpp-m1": {
+    "exam_id": "exam-cpp-m1",
+    "track_id": "prog-lang",
+    "sub_track_id": "cpp",
+    "milestone_id": "cpp-m1",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Nền tảng (Foundation)",
+    "level": "Foundation",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-cpp-m1_1",
+        "question": "[Kiến thức C++ cốt lõi] Đặc điểm kỹ thuật và nguyên lý quan trọng nhất của \"Nền tảng\" là gì?",
+        "options": [
+          "Quản lý vòng đời tài nguyên chặt chẽ, tối ưu phân bổ bộ nhớ và tránh rò rỉ tài nguyên hệ thống.",
+          "Chỉ sử dụng trên nền tảng cũ, không khuyến nghị trong chuẩn C++ hiện đại.",
+          "Tự động giải phóng con trỏ mà không cần tuân thủ nguyên tắc RAII.",
+          "Bỏ qua bước kiểm tra kiểu dữ liệu trong giai đoạn biên dịch."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-cpp-m1_2",
+        "question": "[Tối ưu hóa hiệu năng] Khi áp dụng cấu trúc trong \"Nền tảng\", phương pháp nào sau đây giúp hạn chế tối đa chi phí sao chép (copy overhead)?",
+        "options": [
+          "Sử dụng tham chiếu hằng (const reference) hoặc ngữ nghĩa di chuyển (Move Semantics - std::move).",
+          "Truyền trực tiếp toàn bộ đối tượng theo giá trị (Pass-by-value) trong mọi hàm gọi.",
+          "Ép kiểu dữ liệu sang void* và không giải phóng bộ nhớ heap.",
+          "Nhân đôi kích thước bộ nhớ đệm trước mỗi lần đọc dữ liệu."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-cpp-m1_3",
+        "question": "[Xử lý biên & Lỗi tiềm ẩn] Sai lầm nghiêm trọng nào cần phòng tránh tuyệt đối khi làm việc với \"Nền tảng\" trong các hệ thống yêu cầu độ ổn định cao?",
+        "options": [
+          "Truy cập con trỏ hoang (Dangling Pointer), tràn bộ đệm (Buffer Overflow) hoặc giải phóng bộ nhớ hai lần (Double Free).",
+          "Khai báo tên biến quá ngắn khiến trình biên dịch từ chối liên kết mã nguồn.",
+          "Đặt comment tiếng Việt trong mã nguồn làm chậm tốc độ thực thi của CPU.",
+          "Sử dụng kiểu dữ liệu int thay vì long long cho biến đếm vòng lặp nhỏ."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 1,
+        "title": "Câu 1: Two Sum - LeetCode - Mức độ: Dễ",
+        "difficulty": "easy",
+        "platform": "LeetCode",
+        "description": "Đề bài:\n\nCho một mảng các số nguyên nums và một số nguyên target. Hãy tìm chỉ số (index) của hai phần tử trong mảng sao cho tổng của chúng bằng đúng target. Giả sử rằng mỗi bộ dữ liệu đầu vào luôn có duy nhất một lời giải hợp lệ, và bạn không được phép sử dụng cùng một phần tử tại một vị trí hai lần. Thứ tự của các chỉ số trong kết quả trả về có thể tùy ý.\n\nYêu cầu/Điều kiện cho bài:\n\n- 2 ≤ nums.length ≤ 10⁴\n\n- -10⁹ ≤ nums[i] ≤ 10⁹\n\n- -10⁹ ≤ target ≤ 10⁹\n\n- Chỉ tồn tại duy nhất một đáp án đúng.\n\n- Thuật toán tối ưu nên đạt độ phức tạp thời gian O(n) sử dụng bảng băm (Hash Map).\n\nInput:\n\n- Tham số 1: Mảng số nguyên nums (Array / Vector).\n\n- Tham số 2: Số nguyên target (Integer).\n\nOutput:\n\n- Mảng gồm hai số nguyên [i, j] là vị trí chỉ số của 2 phần tử thỏa mãn.\n\n- *Ví dụ:*\n\n- Input: nums = [2, 7, 11, 15], target = 9\n\n- Output: [0, 1] (vì nums[0] + nums[1] = 2 + 7 = 9).",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Two Sum\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "title": "Câu 2: Valid Parentheses - LeetCode - Mức độ: Dễ",
+        "difficulty": "easy",
+        "platform": "LeetCode",
+        "description": "Đề bài:\n\nCho một chuỗi s chỉ chứa các ký tự ngoặc đơn (, ), {, }, [ và ]. Hãy xác định xem chuỗi đầu vào có hợp lệ hay không. Một chuỗi ngoặc hợp lệ khi và chỉ khi:\n\n1. Các dấu ngoặc mở phải được đóng bằng cùng loại dấu ngoặc tương ứng.\n\n2. Các dấu ngoặc mở phải được đóng theo đúng thứ tự lồng nhau.\n\n3. Mỗi dấu ngoặc đóng đều phải có một dấu ngoặc mở cùng loại đứng trước nó.\n\nYêu cầu/Điều kiện cho bài:\n\n- 1 ≤ s.length ≤ 10⁴\n\n- Chuỗi s chỉ bao gồm các ký tự ngoặc: ()[]{}.\n\n- Thời gian thực thi khuyến nghị: O(n) sử dụng cấu trúc dữ liệu ngăn xếp (Stack).\n\nInput:\n\n- Một chuỗi ký tự s (String).\n\nOutput:\n\n- Giá trị boolean (true nếu chuỗi ngoặc hợp lệ, ngược lại trả về false).\n\n- *Ví dụ:*\n\n- Input: s = \"()[]{}\" -> Output: true\n\n- Input: s = \"(]\" -> Output: false",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Valid Parentheses\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "title": "Câu 3: Merge Two Sorted Lists - LeetCode - Mức độ: Dễ",
+        "difficulty": "easy",
+        "platform": "LeetCode",
+        "description": "Đề bài:\n\nCho con trỏ trỏ tới đầu của hai danh sách liên kết đơn đã được sắp xếp theo thứ tự tăng dần là list1 và list2. Hãy hợp nhất hai danh sách này thành một danh sách liên kết đơn duy nhất vẫn duy trì thứ tự sắp xếp tăng dần. Danh sách mới phải được tạo bằng cách nối các nút sẵn có của hai danh sách ban đầu lại với nhau.\n\nYêu cầu/Điều kiện cho bài:\n\n- Số lượng nút trong cả hai danh sách nằm trong khoảng [0, 50].\n\n- Giá trị mỗi nút: -100 ≤ Node.val ≤ 100.\n\n- Cả list1 và list2 đều đã được sắp xếp không giảm.\n\nInput:\n\n- Con trỏ list1 và list2 trỏ tới nút đầu tiên của hai danh sách liên kết đơn (ListNode).\n\nOutput:\n\n- Con trỏ trỏ tới nút đầu tiên của danh sách liên kết sau khi đã gộp.\n\n- *Ví dụ:*\n\n- Input: list1 = [1, 2, 4], list2 = [1, 3, 4]\n\n- Output: [1, 1, 2, 3, 4, 4]",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Merge Two Sorted Lists\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-cpp-m2": {
+    "exam_id": "exam-cpp-m2",
+    "track_id": "prog-lang",
+    "sub_track_id": "cpp",
+    "milestone_id": "cpp-m2",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Hàm & Phạm vi (Foundation)",
+    "level": "Foundation",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-cpp-m2_1",
+        "question": "[Kiến thức C++ cốt lõi] Đặc điểm kỹ thuật và nguyên lý quan trọng nhất của \"Hàm & Phạm vi\" là gì?",
+        "options": [
+          "Quản lý vòng đời tài nguyên chặt chẽ, tối ưu phân bổ bộ nhớ và tránh rò rỉ tài nguyên hệ thống.",
+          "Chỉ sử dụng trên nền tảng cũ, không khuyến nghị trong chuẩn C++ hiện đại.",
+          "Tự động giải phóng con trỏ mà không cần tuân thủ nguyên tắc RAII.",
+          "Bỏ qua bước kiểm tra kiểu dữ liệu trong giai đoạn biên dịch."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-cpp-m2_2",
+        "question": "[Tối ưu hóa hiệu năng] Khi áp dụng cấu trúc trong \"Hàm & Phạm vi\", phương pháp nào sau đây giúp hạn chế tối đa chi phí sao chép (copy overhead)?",
+        "options": [
+          "Sử dụng tham chiếu hằng (const reference) hoặc ngữ nghĩa di chuyển (Move Semantics - std::move).",
+          "Truyền trực tiếp toàn bộ đối tượng theo giá trị (Pass-by-value) trong mọi hàm gọi.",
+          "Ép kiểu dữ liệu sang void* và không giải phóng bộ nhớ heap.",
+          "Nhân đôi kích thước bộ nhớ đệm trước mỗi lần đọc dữ liệu."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-cpp-m2_3",
+        "question": "[Xử lý biên & Lỗi tiềm ẩn] Sai lầm nghiêm trọng nào cần phòng tránh tuyệt đối khi làm việc với \"Hàm & Phạm vi\" trong các hệ thống yêu cầu độ ổn định cao?",
+        "options": [
+          "Truy cập con trỏ hoang (Dangling Pointer), tràn bộ đệm (Buffer Overflow) hoặc giải phóng bộ nhớ hai lần (Double Free).",
+          "Khai báo tên biến quá ngắn khiến trình biên dịch từ chối liên kết mã nguồn.",
+          "Đặt comment tiếng Việt trong mã nguồn làm chậm tốc độ thực thi của CPU.",
+          "Sử dụng kiểu dữ liệu int thay vì long long cho biến đếm vòng lặp nhỏ."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 5,
+        "title": "Câu 5: Longest Substring Without Repeating Characters - LeetCode - Mức độ: Trung bình",
+        "difficulty": "medium",
+        "platform": "LeetCode",
+        "description": "Đề bài:\n\nCho một chuỗi ký tự s. Hãy tìm độ dài của chuỗi con liên tiếp (substring) dài nhất mà không chứa bất kỳ ký tự nào bị lặp lại.\n\nYêu cầu/Điều kiện cho bài:\n\n- 0 ≤ s.length ≤ 5 × 10⁴\n\n- Chuỗi s bao gồm các chữ cái tiếng Anh, chữ số, biểu tượng và khoảng trắng.\n\n- Độ phức tạp thời gian yêu cầu: O(n) bằng kỹ thuật cửa sổ trượt (Sliding Window) kết hợp bảng băm.\n\nInput:\n\n- Một chuỗi ký tự s (String).\n\nOutput:\n\n- Một số nguyên là độ dài chuỗi con không lặp dài nhất.\n\n- *Ví dụ:*\n\n- Input: s = \"abcabcbb\" -> Output: 3 (chuỗi con thỏa mãn là \"abc\").\n\n- Input: s = \"bbbbb\" -> Output: 1 (chuỗi con thỏa mãn là \"b\").",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Longest Substring Without Repeating Characters\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "title": "Câu 6: 3Sum - LeetCode - Mức độ: Trung bình",
+        "difficulty": "medium",
+        "platform": "LeetCode",
+        "description": "Đề bài:\n\nCho một mảng số nguyên nums. Hãy tìm tất cả các bộ ba số [nums[i], nums[j], nums[k]] sao cho i ≠ j, i ≠ k, j ≠ k và nums[i] + nums[j] + nums[k] == 0. Bộ kết quả trả về không được chứa bất kỳ bộ ba nào bị trùng lặp giá trị.\n\nYêu cầu/Điều kiện cho bài:\n\n- 3 ≤ nums.length ≤ 3000\n\n- -10⁵ ≤ nums[i] ≤ 10⁵\n\n- Độ phức tạp thời gian tối ưu: O(n²) bằng cách sắp xếp mảng kết hợp kỹ thuật hai con trỏ (Two Pointers).\n\nInput:\n\n- Mảng số nguyên nums (Array / Vector).\n\nOutput:\n\n- Danh sách các bộ ba số nguyên [[a, b, c], ...] có tổng bằng 0, không trùng lặp.\n\n- *Ví dụ:*\n\n- Input: nums = [-1, 0, 1, 2, -1, -4]\n\n- Output: [[-1, -1, 2], [-1, 0, 1]]",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: 3Sum\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "title": "Câu 7: Coin Change - LeetCode - Mức độ: Trung bình",
+        "difficulty": "medium",
+        "platform": "LeetCode",
+        "description": "Đề bài:\n\nCho một mảng số nguyên coins đại diện cho các mệnh giá tiền xu khác nhau và một số nguyên amount là tổng số tiền cần đổi. Hãy tính số lượng đồng xu ít nhất cần dùng để tạo thành số tiền đó. Bạn có thể sử dụng không giới hạn số lượng đồng xu của mỗi mệnh giá. Nếu không có bất kỳ cách đổi nào thỏa mãn, hãy trả về -1.\n\nYêu cầu/Điều kiện cho bài:\n\n- 1 ≤ coins.length ≤ 12\n\n- 1 ≤ coins[i] ≤ 2³¹ - 1\n\n- 0 ≤ amount ≤ 10⁴\n\n- Tối ưu bằng thuật toán quy hoạch động (DP) hoặc tìm kiếm theo chiều rộng (BFS).\n\nInput:\n\n- Tham số 1: Mảng số nguyên dương coins.\n\n- Tham số 2: Số nguyên không âm amount.\n\nOutput:\n\n- Số nguyên là số đồng xu tối thiểu cần dùng, hoặc -1 nếu không thể đổi.\n\n- *Ví dụ:*\n\n- Input: coins = [1, 2, 5], amount = 11\n\n- Output: 3 (vì 11 = 5 + 5 + 1).\n\n- Input: coins = [2], amount = 3\n\n- Output: -1",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Coin Change\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-cpp-m3": {
+    "exam_id": "exam-cpp-m3",
+    "track_id": "prog-lang",
+    "sub_track_id": "cpp",
+    "milestone_id": "cpp-m3",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Con trỏ & Quản lý bộ nhớ (Intermediate)",
+    "level": "Intermediate",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-cpp-m3_1",
+        "question": "[Kiến thức C++ cốt lõi] Đặc điểm kỹ thuật và nguyên lý quan trọng nhất của \"Con trỏ & Quản lý bộ nhớ\" là gì?",
+        "options": [
+          "Quản lý vòng đời tài nguyên chặt chẽ, tối ưu phân bổ bộ nhớ và tránh rò rỉ tài nguyên hệ thống.",
+          "Chỉ sử dụng trên nền tảng cũ, không khuyến nghị trong chuẩn C++ hiện đại.",
+          "Tự động giải phóng con trỏ mà không cần tuân thủ nguyên tắc RAII.",
+          "Bỏ qua bước kiểm tra kiểu dữ liệu trong giai đoạn biên dịch."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-cpp-m3_2",
+        "question": "[Tối ưu hóa hiệu năng] Khi áp dụng cấu trúc trong \"Con trỏ & Quản lý bộ nhớ\", phương pháp nào sau đây giúp hạn chế tối đa chi phí sao chép (copy overhead)?",
+        "options": [
+          "Sử dụng tham chiếu hằng (const reference) hoặc ngữ nghĩa di chuyển (Move Semantics - std::move).",
+          "Truyền trực tiếp toàn bộ đối tượng theo giá trị (Pass-by-value) trong mọi hàm gọi.",
+          "Ép kiểu dữ liệu sang void* và không giải phóng bộ nhớ heap.",
+          "Nhân đôi kích thước bộ nhớ đệm trước mỗi lần đọc dữ liệu."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-cpp-m3_3",
+        "question": "[Xử lý biên & Lỗi tiềm ẩn] Sai lầm nghiêm trọng nào cần phòng tránh tuyệt đối khi làm việc với \"Con trỏ & Quản lý bộ nhớ\" trong các hệ thống yêu cầu độ ổn định cao?",
+        "options": [
+          "Truy cập con trỏ hoang (Dangling Pointer), tràn bộ đệm (Buffer Overflow) hoặc giải phóng bộ nhớ hai lần (Double Free).",
+          "Khai báo tên biến quá ngắn khiến trình biên dịch từ chối liên kết mã nguồn.",
+          "Đặt comment tiếng Việt trong mã nguồn làm chậm tốc độ thực thi của CPU.",
+          "Sử dụng kiểu dữ liệu int thay vì long long cho biến đếm vòng lặp nhỏ."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 9,
+        "title": "Câu 9: Median of Two Sorted Arrays - LeetCode - Mức độ: Khó",
+        "difficulty": "hard",
+        "platform": "LeetCode",
+        "description": "Đề bài:\n\nCho hai mảng số nguyên đã sắp xếp tăng dần nums1 và nums2 có kích thước lần lượt là m và n. Hãy tìm giá trị trung vị (median) của tập hợp hợp nhất từ hai mảng này. Thuật toán của bạn bắt buộc phải có độ phức tạp thời gian thực thi ở mức O(log(m+n)).\n\nYêu cầu/Điều kiện cho bài:\n\n- nums1.length == m, nums2.length == n\n\n- 0 ≤ m ≤ 1000, 0 ≤ n ≤ 1000\n\n- 1 ≤ m + n ≤ 2000\n\n- -10⁶ ≤ nums1[i], nums2[i] ≤ 10⁶\n\n- Bắt buộc dùng tìm kiếm nhị phân chia nhị phân phân vùng (Binary Search on Partitions).\n\nInput:\n\n- Hai mảng số nguyên đã sắp xếp nums1 và nums2.\n\nOutput:\n\n- Số thực (Float/Double) là giá trị trung vị của hai mảng.\n\n- *Ví dụ:*\n\n- Input: nums1 = [1, 3], nums2 = [2] -> Output: 2.00000\n\n- Input: nums1 = [1, 2], nums2 = [3, 4] -> Output: 2.50000 (vì (2 + 3) / 2 = 2.5).",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Median of Two Sorted Arrays\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 10,
+        "title": "Câu 10: Merge k Sorted Lists - LeetCode - Mức độ: Khó",
+        "difficulty": "hard",
+        "platform": "LeetCode",
+        "description": "Đề bài:\n\nCho một mảng lists gồm k danh sách liên kết đơn, trong đó mỗi danh sách liên kết đã được sắp xếp theo thứ tự tăng dần. Hãy hợp nhất tất cả k danh sách này thành một danh sách liên kết đơn duy nhất và giữ nguyên thứ tự sắp xếp tăng dần.\n\nYêu cầu/Điều kiện cho bài:\n\n- k == lists.length\n\n- 0 ≤ k ≤ 10⁴\n\n- 0 ≤ độ dài mỗi danh sách ≤ 500\n\n- -10⁴ ≤ Node.val ≤ 10⁴\n\n- Tổng số nút trên toàn bộ k danh sách không vượt quá 10⁴.\n\n- Độ phức tạp thời gian khuyến nghị: O(N log k), trong đó N là tổng số nút (dùng Hàng đợi ưu tiên / Min-Heap hoặc Chia để trị).\n\nInput:\n\n- Mảng các con trỏ lists chứa k danh sách liên kết đơn (Array of ListNode*).\n\nOutput:\n\n- Con trỏ trỏ tới đầu danh sách liên kết duy nhất sau khi gộp.\n\n- *Ví dụ:*\n\n- Input: lists = [[1, 4, 5], [1, 3, 4], [2, 6]]\n\n- Output: [1, 1, 2, 3, 4, 4, 5, 6]",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Merge k Sorted Lists\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 11,
+        "title": "Câu 11: Even or Odd - Codewars - Mức độ: Dễ (8 kyu)",
+        "difficulty": "easy",
+        "platform": "Codewars",
+        "description": "Đề bài:\n\nViết một hàm nhận vào một số nguyên number và kiểm tra tính chẵn lẻ của nó. Trả về chuỗi \"Even\" nếu số đó là số chẵn, hoặc chuỗi \"Odd\" nếu số đó là số lẻ.\n\nYêu cầu/Điều kiện cho bài:\n\n- number là số nguyên (có thể là số dương, số âm hoặc số 0).\n\n- Thời gian chạy O(1).\n\nInput:\n\n- Một số nguyên number (Integer).\n\nOutput:\n\n- Chuỗi ký tự \"Even\" hoặc \"Odd\".\n\n- *Ví dụ:*\n\n- Input: 2 -> Output: \"Even\"\n\n- Input: 7 -> Output: \"Odd\"\n\n- Input: -4 -> Output: \"Even\"",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Even or Odd\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-cpp-m4": {
+    "exam_id": "exam-cpp-m4",
+    "track_id": "prog-lang",
+    "sub_track_id": "cpp",
+    "milestone_id": "cpp-m4",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Lập trình hướng đối tượng (Intermediate)",
+    "level": "Intermediate",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-cpp-m4_1",
+        "question": "[Kiến thức C++ cốt lõi] Đặc điểm kỹ thuật và nguyên lý quan trọng nhất của \"Lập trình hướng đối tượng\" là gì?",
+        "options": [
+          "Quản lý vòng đời tài nguyên chặt chẽ, tối ưu phân bổ bộ nhớ và tránh rò rỉ tài nguyên hệ thống.",
+          "Chỉ sử dụng trên nền tảng cũ, không khuyến nghị trong chuẩn C++ hiện đại.",
+          "Tự động giải phóng con trỏ mà không cần tuân thủ nguyên tắc RAII.",
+          "Bỏ qua bước kiểm tra kiểu dữ liệu trong giai đoạn biên dịch."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-cpp-m4_2",
+        "question": "[Tối ưu hóa hiệu năng] Khi áp dụng cấu trúc trong \"Lập trình hướng đối tượng\", phương pháp nào sau đây giúp hạn chế tối đa chi phí sao chép (copy overhead)?",
+        "options": [
+          "Sử dụng tham chiếu hằng (const reference) hoặc ngữ nghĩa di chuyển (Move Semantics - std::move).",
+          "Truyền trực tiếp toàn bộ đối tượng theo giá trị (Pass-by-value) trong mọi hàm gọi.",
+          "Ép kiểu dữ liệu sang void* và không giải phóng bộ nhớ heap.",
+          "Nhân đôi kích thước bộ nhớ đệm trước mỗi lần đọc dữ liệu."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-cpp-m4_3",
+        "question": "[Xử lý biên & Lỗi tiềm ẩn] Sai lầm nghiêm trọng nào cần phòng tránh tuyệt đối khi làm việc với \"Lập trình hướng đối tượng\" trong các hệ thống yêu cầu độ ổn định cao?",
+        "options": [
+          "Truy cập con trỏ hoang (Dangling Pointer), tràn bộ đệm (Buffer Overflow) hoặc giải phóng bộ nhớ hai lần (Double Free).",
+          "Khai báo tên biến quá ngắn khiến trình biên dịch từ chối liên kết mã nguồn.",
+          "Đặt comment tiếng Việt trong mã nguồn làm chậm tốc độ thực thi của CPU.",
+          "Sử dụng kiểu dữ liệu int thay vì long long cho biến đếm vòng lặp nhỏ."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 13,
+        "title": "Câu 13: Vowel Count - Codewars - Mức độ: Dễ (7 kyu)",
+        "difficulty": "easy",
+        "platform": "Codewars",
+        "description": "Đề bài:\n\nViết hàm đếm số lượng nguyên âm xuất hiện trong một chuỗi ký tự cho trước. Trong bài toán này, các chữ cái được tính là nguyên âm chỉ bao gồm 5 ký tự: a, e, i, o, u (chữ cái thường). Ký tự y không được coi là nguyên âm. Chuỗi đầu vào đảm bảo chỉ chứa các chữ cái tiếng Anh in thường và/hoặc dấu khoảng trắng.\n\nYêu cầu/Điều kiện cho bài:\n\n- Độ dài chuỗi 0 ≤ length ≤ 10⁵.\n\n- Ký tự chỉ gồm chữ cái thường tiếng Anh và dấu cách.\n\nInput:\n\n- Một chuỗi ký tự inputStr (String).\n\nOutput:\n\n- Một số nguyên không âm là tổng số nguyên âm có trong chuỗi.\n\n- *Ví dụ:*\n\n- Input: \"abracadabra\" -> Output: 5\n\n- Input: \"my pyx\" -> Output: 0",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Vowel Count\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 14,
+        "title": "Câu 14: Multiples of 3 or 5 - Codewars - Mức độ: Trung bình (6 kyu)",
+        "difficulty": "medium",
+        "platform": "Codewars",
+        "description": "Đề bài:\n\nNếu chúng ta liệt kê tất cả các số tự nhiên nhỏ hơn 10 mà là bội số của 3 hoặc 5, ta được các số: 3, 5, 6 và 9. Tổng của các số này là 23. Hãy viết hàm tính tổng của tất cả các bội số của 3 hoặc 5 nhỏ hơn một số nguyên number cho trước. Nếu một số vừa là bội của 3 vừa là bội của 5 (như số 15), số đó chỉ được tính một lần. Nếu number là số âm, hãy trả về 0.\n\nYêu cầu/Điều kiện cho bài:\n\n- number là số nguyên bất kỳ.\n\n- Cần tối ưu thuật toán (vòng lặp O(n) hoặc công thức cấp số cộng O(1)).\n\nInput:\n\n- Một số nguyên number (Integer).\n\nOutput:\n\n- Một số nguyên là tổng các bội số thỏa mãn.\n\n- *Ví dụ:*\n\n- Input: 10 -> Output: 23\n\n- Input: 16 -> Output: 60 (các số: 3, 5, 6, 9, 10, 12, 15; tổng = 60).\n\n- Input: -5 -> Output: 0",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Multiples of 3 or 5\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 15,
+        "title": "Câu 15: Who likes it? - Codewars - Mức độ: Trung bình (6 kyu)",
+        "difficulty": "medium",
+        "platform": "Codewars",
+        "description": "Đề bài:\n\nBạn chắc hẳn đã quen thuộc với hệ thống \"thích\" bài viết trên Facebook hoặc các mạng xã hội. Hãy viết hàm nhận vào một mảng chứa tên của những người đã nhấn thích bài viết và trả về chuỗi văn bản thông báo được định dạng chính xác theo các quy tắc sau:\n\n- [] → \"no one likes this\"\n\n- [\"Peter\"] → \"Peter likes this\"\n\n- [\"Jacob\", \"Alex\"] → \"Jacob and Alex like this\"\n\n- [\"Max\", \"John\", \"Mark\"] → \"Max, John and Mark like this\"\n\n- [\"Alex\", \"Jacob\", \"Mark\", \"Max\"] → \"Alex, Jacob and 2 others like this\" (với từ 4 người trở lên, hiển thị 2 tên đầu kèm số lượng còn lại).\n\nYêu cầu/Điều kiện cho bài:\n\n- Mảng đầu vào chứa các chuỗi ký tự tên người dùng.\n\n- Xử lý chính xác dạng số ít (\"likes\") và số nhiều (\"like\").\n\nInput:\n\n- Mảng các chuỗi ký tự names (Array of Strings).\n\nOutput:\n\n- Chuỗi thông báo kết quả định dạng đúng quy tắc.\n\n- *Ví dụ:*\n\n- Input: [\"Peter\"] -> Output: \"Peter likes this\"\n\n- Input: [\"Alex\", \"Jacob\", \"Mark\", \"Max\"] -> Output: \"Alex, Jacob and 2 others like this\"",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Who likes it?\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-cpp-m5": {
+    "exam_id": "exam-cpp-m5",
+    "track_id": "prog-lang",
+    "sub_track_id": "cpp",
+    "milestone_id": "cpp-m5",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Template & Generic Programming (Advanced)",
+    "level": "Advanced",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-cpp-m5_1",
+        "question": "[Kiến thức C++ cốt lõi] Đặc điểm kỹ thuật và nguyên lý quan trọng nhất của \"Template & Generic Programming\" là gì?",
+        "options": [
+          "Quản lý vòng đời tài nguyên chặt chẽ, tối ưu phân bổ bộ nhớ và tránh rò rỉ tài nguyên hệ thống.",
+          "Chỉ sử dụng trên nền tảng cũ, không khuyến nghị trong chuẩn C++ hiện đại.",
+          "Tự động giải phóng con trỏ mà không cần tuân thủ nguyên tắc RAII.",
+          "Bỏ qua bước kiểm tra kiểu dữ liệu trong giai đoạn biên dịch."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-cpp-m5_2",
+        "question": "[Tối ưu hóa hiệu năng] Khi áp dụng cấu trúc trong \"Template & Generic Programming\", phương pháp nào sau đây giúp hạn chế tối đa chi phí sao chép (copy overhead)?",
+        "options": [
+          "Sử dụng tham chiếu hằng (const reference) hoặc ngữ nghĩa di chuyển (Move Semantics - std::move).",
+          "Truyền trực tiếp toàn bộ đối tượng theo giá trị (Pass-by-value) trong mọi hàm gọi.",
+          "Ép kiểu dữ liệu sang void* và không giải phóng bộ nhớ heap.",
+          "Nhân đôi kích thước bộ nhớ đệm trước mỗi lần đọc dữ liệu."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-cpp-m5_3",
+        "question": "[Xử lý biên & Lỗi tiềm ẩn] Sai lầm nghiêm trọng nào cần phòng tránh tuyệt đối khi làm việc với \"Template & Generic Programming\" trong các hệ thống yêu cầu độ ổn định cao?",
+        "options": [
+          "Truy cập con trỏ hoang (Dangling Pointer), tràn bộ đệm (Buffer Overflow) hoặc giải phóng bộ nhớ hai lần (Double Free).",
+          "Khai báo tên biến quá ngắn khiến trình biên dịch từ chối liên kết mã nguồn.",
+          "Đặt comment tiếng Việt trong mã nguồn làm chậm tốc độ thực thi của CPU.",
+          "Sử dụng kiểu dữ liệu int thay vì long long cho biến đếm vòng lặp nhỏ."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 17,
+        "title": "Câu 17: Moving Zeros To The End - Codewars - Mức độ: Trung bình (5 kyu)",
+        "difficulty": "medium",
+        "platform": "Codewars",
+        "description": "Đề bài:\n\nViết một thuật toán nhận vào một mảng và di chuyển tất cả các phần tử có giá trị bằng số 0 (hoặc số 0) về vị trí cuối mảng, đồng thời phải bảo toàn tuyệt đối thứ tự xuất hiện ban đầu của tất cả các phần tử khác không phải số 0.\n\nYêu cầu/Điều kiện cho bài:\n\n- Mảng có thể chứa các kiểu dữ liệu khác nhau (số nguyên, boolean, chuỗi...). Lưu ý: giá trị false không được xem là số 0.\n\n- Độ phức tạp thời gian khuyến nghị: O(n), không gian bộ nhớ tối ưu tại chỗ O(1) hoặc mảng phụ O(n).\n\nInput:\n\n- Mảng phần tử arr.\n\nOutput:\n\n- Mảng sau khi đã dồn tất cả số 0 về cuối.\n\n- *Ví dụ:*\n\n- Input: [false, 1, 0, 1, 2, 0, 1, 3, \"a\"]\n\n- Output: [false, 1, 1, 2, 1, 3, \"a\", 0, 0]",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Moving Zeros To The End\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 18,
+        "title": "Câu 18: Snail - Codewars - Mức độ: Khó (4 kyu)",
+        "difficulty": "hard",
+        "platform": "Codewars",
+        "description": "Đề bài:\n\nCho một ma trận vuông kích thước n × n. Hãy viết hàm duyệt qua các phần tử của ma trận theo đường xoắn ốc (Snail Sort) cùng chiều kim đồng hồ, bắt đầu từ phần tử góc trên bên trái (0, 0) đi sang phải, xuống dưới, sang trái, lên trên và dần tiến vào tâm ma trận. Trả về mảng một chiều gồm các phần tử theo thứ tự duyệt này.\n\nYêu cầu/Điều kiện cho bài:\n\n- Ma trận có kích thước n × n với 0 ≤ n ≤ 100.\n\n- Nếu ma trận rỗng hoặc là [[]], trả về mảng rỗng [].\n\nInput:\n\n- Mảng hai chiều số nguyên snail_map (Matrix n × n).\n\nOutput:\n\n- Mảng một chiều chứa các phần tử theo thứ tự xoắn ốc.\n\n- *Ví dụ:*\n\n- Input:\n\n`\n\narray = [[1, 2, 3],\n\n[4, 5, 6],\n\n[7, 8, 9]]\n\n`\n\n- Output: [1, 2, 3, 6, 9, 8, 7, 4, 5]",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Snail\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 19,
+        "title": "Câu 19: Sum of Intervals - Codewars - Mức độ: Khó (4 kyu)",
+        "difficulty": "hard",
+        "platform": "Codewars",
+        "description": "Đề bài:\n\nViết hàm tính tổng độ dài của tất cả các khoảng số nguyên (intervals) cho trước. Mỗi khoảng được biểu diễn dưới dạng một cặp hai số [start, end], với độ dài của khoảng là end - start. Các khoảng có thể gối đầu lên nhau (overlapping) hoặc bao trùm nhau hoàn toàn. Khi các khoảng gối nhau, phần trùng lặp chỉ được tính một lần duy nhất.\n\nYêu cầu/Điều kiện cho bài:\n\n- Mỗi khoảng luôn có start < end.\n\n- Các giá trị số có thể âm hoặc dương (trong khoảng [-10⁹, 10⁹]).\n\n- Số lượng khoảng có thể rất lớn (10⁵), do đó thuật toán cần đạt O(n log n) bằng cách sắp xếp khoảng thay vì đánh dấu từng số.\n\nInput:\n\n- Mảng các cặp số nguyên intervals = [[start_1, end_1], [start_2, end_2], ...].\n\nOutput:\n\n- Một số nguyên là tổng độ dài thực tế của các khoảng sau khi đã hợp nhất các đoạn trùng.\n\n- *Ví dụ:*\n\n- Input: [[1, 2], [6, 10], [11, 15]] -> Output: 9 (vì (2-1) + (10-6) + (15-11) = 1 + 4 + 4 = 9).\n\n- Input: [[1, 4], [7, 10], [3, 5]] -> Output: 7 (vì [1, 4] và [3, 5] gộp thành [1, 5] có độ dài 4; cộng với [7, 10] có độ dài 3 → 4 + 3 = 7).",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Sum of Intervals\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-cpp-m6": {
+    "exam_id": "exam-cpp-m6",
+    "track_id": "prog-lang",
+    "sub_track_id": "cpp",
+    "milestone_id": "cpp-m6",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: STL chuyên sâu (Advanced)",
+    "level": "Advanced",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-cpp-m6_1",
+        "question": "[Kiến thức C++ cốt lõi] Đặc điểm kỹ thuật và nguyên lý quan trọng nhất của \"STL chuyên sâu\" là gì?",
+        "options": [
+          "Quản lý vòng đời tài nguyên chặt chẽ, tối ưu phân bổ bộ nhớ và tránh rò rỉ tài nguyên hệ thống.",
+          "Chỉ sử dụng trên nền tảng cũ, không khuyến nghị trong chuẩn C++ hiện đại.",
+          "Tự động giải phóng con trỏ mà không cần tuân thủ nguyên tắc RAII.",
+          "Bỏ qua bước kiểm tra kiểu dữ liệu trong giai đoạn biên dịch."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-cpp-m6_2",
+        "question": "[Tối ưu hóa hiệu năng] Khi áp dụng cấu trúc trong \"STL chuyên sâu\", phương pháp nào sau đây giúp hạn chế tối đa chi phí sao chép (copy overhead)?",
+        "options": [
+          "Sử dụng tham chiếu hằng (const reference) hoặc ngữ nghĩa di chuyển (Move Semantics - std::move).",
+          "Truyền trực tiếp toàn bộ đối tượng theo giá trị (Pass-by-value) trong mọi hàm gọi.",
+          "Ép kiểu dữ liệu sang void* và không giải phóng bộ nhớ heap.",
+          "Nhân đôi kích thước bộ nhớ đệm trước mỗi lần đọc dữ liệu."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-cpp-m6_3",
+        "question": "[Xử lý biên & Lỗi tiềm ẩn] Sai lầm nghiêm trọng nào cần phòng tránh tuyệt đối khi làm việc với \"STL chuyên sâu\" trong các hệ thống yêu cầu độ ổn định cao?",
+        "options": [
+          "Truy cập con trỏ hoang (Dangling Pointer), tràn bộ đệm (Buffer Overflow) hoặc giải phóng bộ nhớ hai lần (Double Free).",
+          "Khai báo tên biến quá ngắn khiến trình biên dịch từ chối liên kết mã nguồn.",
+          "Đặt comment tiếng Việt trong mã nguồn làm chậm tốc độ thực thi của CPU.",
+          "Sử dụng kiểu dữ liệu int thay vì long long cho biến đếm vòng lặp nhỏ."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 21,
+        "title": "Câu 21: Two Fer - Exercism - Mức độ: Dễ",
+        "difficulty": "easy",
+        "platform": "Exercism",
+        "description": "Đề bài:\n\nNhiệm vụ của bạn là tạo ra câu nói chia sẻ: \"One for you, one for me.\"\n\nHãy viết hàm nhận vào một tham số tên gọi name. Nếu name được cung cấp (khác rỗng), hãy trả về câu \"One for <name>, one for me.\". Nếu không có tên nào được truyền vào, hãy mặc định coi đối phương là \"you\" và trả về \"One for you, one for me.\".\n\nYêu cầu/Điều kiện cho bài:\n\n- Áp dụng kỹ thuật giá trị mặc định cho tham số (default parameter) theo chuẩn của từng ngôn ngữ.\n\n- name là chuỗi ký tự.\n\nInput:\n\n- Tham số tùy chọn name (String, có thể vắng mặt hoặc rỗng).\n\nOutput:\n\n- Chuỗi ký tự thông điệp hoàn chỉnh.\n\n- *Ví dụ:*\n\n- Input: name = \"Alice\" -> Output: \"One for Alice, one for me.\"\n\n- Input: (không truyền tham số) -> Output: \"One for you, one for me.\"",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Two Fer\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 22,
+        "title": "Câu 22: Reverse String - Exercism - Mức độ: Dễ",
+        "difficulty": "easy",
+        "platform": "Exercism",
+        "description": "Đề bài:\n\nCho một chuỗi ký tự bất kỳ. Hãy viết hàm trả về chuỗi đó theo thứ tự đảo ngược các ký tự từ sau ra trước, đảm bảo hỗ trợ chuẩn mã hóa UTF-8 / ASCII.\n\nYêu cầu/Điều kiện cho bài:\n\n- Thời gian thực thi: O(n) với n là độ dài chuỗi.\n\n- Không gian phụ trợ: O(n) hoặc O(1) tùy thuộc ngôn ngữ.\n\nInput:\n\n- Một chuỗi ký tự input (String).\n\nOutput:\n\n- Chuỗi ký tự đã được đảo ngược.\n\n- *Ví dụ:*\n\n- Input: \"cool\" -> Output: \"looc\"\n\n- Input: \"radar\" -> Output: \"radar\"",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Reverse String\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 23,
+        "title": "Câu 23: Leap - Exercism - Mức độ: Dễ",
+        "difficulty": "easy",
+        "platform": "Exercism",
+        "description": "Đề bài:\n\nViết hàm xác định xem một năm cho trước có phải là năm nhuận (leap year) theo lịch Gregory hay không.\n\nMột năm là năm nhuận nếu thỏa mãn các điều kiện sau:\n\n1. Năm đó chia hết cho 4.\n\n2. NGOẠI TRỪ các năm chia hết cho 100 thì KHÔNG phải là năm nhuận.\n\n3. NGOẠI TRỪ TIẾP các năm chia hết cho 400 thì VẪN LÀ năm nhuận.\n\nYêu cầu/Điều kiện cho bài:\n\n- year là số nguyên dương (1 ≤ year ≤ 9999).\n\n- Cần sử dụng các toán tử logic Boole ngắn gọn, rõ ràng.\n\nInput:\n\n- Một số nguyên dương year.\n\nOutput:\n\n- Giá trị boolean (true nếu là năm nhuận, false nếu không phải).\n\n- *Ví dụ:*\n\n- Input: 1996 -> Output: true (chia hết cho 4).\n\n- Input: 1900 -> Output: false (chia hết cho 100 nhưng không chia hết cho 400).\n\n- Input: 2000 -> Output: true (chia hết cho 400).",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Leap\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-cpp-m7": {
+    "exam_id": "exam-cpp-m7",
+    "track_id": "prog-lang",
+    "sub_track_id": "cpp",
+    "milestone_id": "cpp-m7",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Quản lý lỗi & Chuẩn hiện đại (Intensive)",
+    "level": "Intensive",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-cpp-m7_1",
+        "question": "[Kiến thức C++ cốt lõi] Đặc điểm kỹ thuật và nguyên lý quan trọng nhất của \"Quản lý lỗi & Chuẩn hiện đại\" là gì?",
+        "options": [
+          "Quản lý vòng đời tài nguyên chặt chẽ, tối ưu phân bổ bộ nhớ và tránh rò rỉ tài nguyên hệ thống.",
+          "Chỉ sử dụng trên nền tảng cũ, không khuyến nghị trong chuẩn C++ hiện đại.",
+          "Tự động giải phóng con trỏ mà không cần tuân thủ nguyên tắc RAII.",
+          "Bỏ qua bước kiểm tra kiểu dữ liệu trong giai đoạn biên dịch."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-cpp-m7_2",
+        "question": "[Tối ưu hóa hiệu năng] Khi áp dụng cấu trúc trong \"Quản lý lỗi & Chuẩn hiện đại\", phương pháp nào sau đây giúp hạn chế tối đa chi phí sao chép (copy overhead)?",
+        "options": [
+          "Sử dụng tham chiếu hằng (const reference) hoặc ngữ nghĩa di chuyển (Move Semantics - std::move).",
+          "Truyền trực tiếp toàn bộ đối tượng theo giá trị (Pass-by-value) trong mọi hàm gọi.",
+          "Ép kiểu dữ liệu sang void* và không giải phóng bộ nhớ heap.",
+          "Nhân đôi kích thước bộ nhớ đệm trước mỗi lần đọc dữ liệu."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-cpp-m7_3",
+        "question": "[Xử lý biên & Lỗi tiềm ẩn] Sai lầm nghiêm trọng nào cần phòng tránh tuyệt đối khi làm việc với \"Quản lý lỗi & Chuẩn hiện đại\" trong các hệ thống yêu cầu độ ổn định cao?",
+        "options": [
+          "Truy cập con trỏ hoang (Dangling Pointer), tràn bộ đệm (Buffer Overflow) hoặc giải phóng bộ nhớ hai lần (Double Free).",
+          "Khai báo tên biến quá ngắn khiến trình biên dịch từ chối liên kết mã nguồn.",
+          "Đặt comment tiếng Việt trong mã nguồn làm chậm tốc độ thực thi của CPU.",
+          "Sử dụng kiểu dữ liệu int thay vì long long cho biến đếm vòng lặp nhỏ."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 25,
+        "title": "Câu 25: Anagram - Exercism - Mức độ: Trung bình",
+        "difficulty": "medium",
+        "platform": "Exercism",
+        "description": "Đề bài:\n\nCho một từ mục tiêu (target word) và một danh sách các từ ứng viên. Hãy lọc và trả về danh sách các từ là phép đảo chữ (anagram) của từ mục tiêu.\n\nMột từ được gọi là anagram của từ khác nếu nó có thể được tạo thành bằng cách sắp xếp lại chính xác tất cả các chữ cái của từ đó (không phân biệt chữ hoa, chữ thường).\n\n*Lưu ý quan trọng:* Một từ giống hệt từ mục tiêu (kể cả khác cách viết hoa/thường) thì KHÔNG được xem là anagram của chính nó (ví dụ: \"banana\" không phải là anagram của \"Banana\").\n\nYêu cầu/Điều kiện cho bài:\n\n- So sánh không phân biệt chữ hoa, chữ thường (case-insensitive).\n\n- Giữ nguyên dạng chữ hoa/thường ban đầu của từ ứng viên trong kết quả trả về.\n\nInput:\n\n- Tham số 1: Chuỗi ký tự word.\n\n- Tham số 2: Mảng các chuỗi ký tự candidates.\n\nOutput:\n\n- Mảng chứa các từ ứng viên là anagram hợp lệ của word.\n\n- *Ví dụ:*\n\n- Input: word = \"listen\", candidates = [\"enlists\", \"google\", \"inlets\", \"banana\"]\n\n- Output: [\"inlets\"]",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Anagram\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 26,
+        "title": "Câu 26: Allergies - Exercism - Mức độ: Trung bình",
+        "difficulty": "medium",
+        "platform": "Exercism",
+        "description": "Đề bài:\n\nCho hệ thống đánh giá dị ứng của một người dựa trên điểm số nhị phân. Mỗi chất gây dị ứng tương ứng với một giá trị lũy thừa của 2:\n\n- eggs: 1 (2⁰)\n\n- peanuts: 2 (2¹)\n\n- shellfish: 4 (2²)\n\n- strawberries: 8 (2³)\n\n- tomatoes: 16 (2⁴)\n\n- chocolate: 32 (2⁵)\n\n- pollen: 64 (2⁶)\n\n- cats: 128 (2⁷)\n\nHãy hiện thực một lớp hoặc hàm cho phép:\n\n1. allergic_to(item): Kiểm tra xem người có điểm số đã cho có bị dị ứng với chất item hay không.\n\n2. list(): Trả về danh sách tất cả các chất mà người đó bị dị ứng. Nếu điểm số chứa các bit lớn hơn 128 (ví dụ 256, 512...), các bit lạ này bị bỏ qua và không làm ảnh hưởng đến danh sách 8 chất trên.\n\nYêu cầu/Điều kiện cho bài:\n\n- Điểm số là số nguyên không âm (có thể vượt quá 255).\n\n- Bắt buộc dùng toán tử thao tác bit (Bitwise AND &).\n\nInput:\n\n- Khởi tạo với một số nguyên score.\n\nOutput:\n\n- Hàm kiểm tra trả về true/false; hàm danh sách trả về mảng chuỗi tên các chất gây dị ứng.\n\n- *Ví dụ:*\n\n- Với score = 34 (32 + 2):\n\n- allergic_to(\"peanuts\") -> true\n\n- allergic_to(\"chocolate\") -> true\n\n- allergic_to(\"eggs\") -> false\n\n- list() -> [\"peanuts\", \"chocolate\"]",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Allergies\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 27,
+        "title": "Câu 27: Queen Attack - Exercism - Mức độ: Trung bình",
+        "difficulty": "medium",
+        "platform": "Exercism",
+        "description": "Đề bài:\n\nTrên bàn cờ vua tiêu chuẩn kích thước 8 × 8 (tọa độ hàng từ 0 đến 7, tọa độ cột từ 0 đến 7), cho vị trí của quân Hậu Trắng (White Queen) và quân Hậu Đen (Black Queen).\n\nHãy viết chương trình thực hiện:\n\n1. Kiểm tra tính hợp lệ của tọa độ hai quân Hậu (tọa độ phải nằm trong khoảng [0, 7] và hai quân Hậu không được đặt cùng một ô). Nếu vi phạm, ném ra ngoại lệ/lỗi tương ứng.\n\n2. Xác định xem hai quân Hậu có thể tấn công lẫn nhau hay không. Hai quân Hậu có thể tấn công nhau nếu chúng nằm trên cùng một hàng, cùng một cột hoặc trên cùng một đường chéo.\n\nYêu cầu/Điều kiện cho bài:\n\n- Hàng: 0 ≤ row ≤ 7, Cột: 0 ≤ column ≤ 7.\n\n- Điều kiện đường chéo: |row_1 - row_2| == |col_1 - col_2|.\n\nInput:\n\n- Tọa độ quân Hậu Trắng (white_row, white_col) và Hậu Đen (black_row, black_col).\n\nOutput:\n\n- true nếu hai quân tấn công được nhau, ngược lại false.\n\n- *Ví dụ:*\n\n- Input: White Queen = (2, 2), Black Queen = (5, 5) -> Output: true (cùng đường chéo).\n\n- Input: White Queen = (2, 4), Black Queen = (6, 6) -> Output: false",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Queen Attack\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-cpp-m8": {
+    "exam_id": "exam-cpp-m8",
+    "track_id": "prog-lang",
+    "sub_track_id": "cpp",
+    "milestone_id": "cpp-m8",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Quản lý dự án C++ (Proficiency)",
+    "level": "Proficiency",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-cpp-m8_1",
+        "question": "[Kiến thức C++ cốt lõi] Đặc điểm kỹ thuật và nguyên lý quan trọng nhất của \"Quản lý dự án C++\" là gì?",
+        "options": [
+          "Quản lý vòng đời tài nguyên chặt chẽ, tối ưu phân bổ bộ nhớ và tránh rò rỉ tài nguyên hệ thống.",
+          "Chỉ sử dụng trên nền tảng cũ, không khuyến nghị trong chuẩn C++ hiện đại.",
+          "Tự động giải phóng con trỏ mà không cần tuân thủ nguyên tắc RAII.",
+          "Bỏ qua bước kiểm tra kiểu dữ liệu trong giai đoạn biên dịch."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-cpp-m8_2",
+        "question": "[Tối ưu hóa hiệu năng] Khi áp dụng cấu trúc trong \"Quản lý dự án C++\", phương pháp nào sau đây giúp hạn chế tối đa chi phí sao chép (copy overhead)?",
+        "options": [
+          "Sử dụng tham chiếu hằng (const reference) hoặc ngữ nghĩa di chuyển (Move Semantics - std::move).",
+          "Truyền trực tiếp toàn bộ đối tượng theo giá trị (Pass-by-value) trong mọi hàm gọi.",
+          "Ép kiểu dữ liệu sang void* và không giải phóng bộ nhớ heap.",
+          "Nhân đôi kích thước bộ nhớ đệm trước mỗi lần đọc dữ liệu."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-cpp-m8_3",
+        "question": "[Xử lý biên & Lỗi tiềm ẩn] Sai lầm nghiêm trọng nào cần phòng tránh tuyệt đối khi làm việc với \"Quản lý dự án C++\" trong các hệ thống yêu cầu độ ổn định cao?",
+        "options": [
+          "Truy cập con trỏ hoang (Dangling Pointer), tràn bộ đệm (Buffer Overflow) hoặc giải phóng bộ nhớ hai lần (Double Free).",
+          "Khai báo tên biến quá ngắn khiến trình biên dịch từ chối liên kết mã nguồn.",
+          "Đặt comment tiếng Việt trong mã nguồn làm chậm tốc độ thực thi của CPU.",
+          "Sử dụng kiểu dữ liệu int thay vì long long cho biến đếm vòng lặp nhỏ."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 29,
+        "title": "Câu 29: Poker - Exercism - Mức độ: Khó",
+        "difficulty": "hard",
+        "platform": "Exercism",
+        "description": "Đề bài:\n\nCho một danh sách các tay bài Poker, mỗi tay bài gồm chính xác 5 lá bài. Hãy xác định và trả về tay bài chiến thắng (hoặc danh sách các tay bài hòa nhau nếu có cùng độ mạnh cao nhất).\n\nMỗi lá bài được biểu diễn bởi giá trị (2 đến 10, J, Q, K, A) và chất (S - bích, H - cơ, D - rô, C - chuồn).\n\nThứ hạng các bộ bài theo luật Texas Hold'em / 5-card Draw chuẩn quốc tế từ cao xuống thấp:\n\n1. Straight Flush (Thùng phá sảnh)\n\n2. Four of a Kind (Tứ quý)\n\n3. Full House (Cù lũ)\n\n4. Flush (Thùng)\n\n5. Straight (Sảnh - lưu ý: lá A có thể tạo sảnh A-2-3-4-5 hoặc 10-J-Q-K-A)\n\n6. Three of a Kind (Sám cô)\n\n7. Two Pair (Hai đôi)\n\n8. One Pair (Một đôi)\n\n9. High Card (Bài cao)\n\nNếu hai tay bài cùng hạng, so sánh lá bài cao nhất trong bộ; nếu vẫn bằng nhau thì so sánh kicker.\n\nYêu cầu/Điều kiện cho bài:\n\n- Xử lý chính xác quân A đóng vai trò lá bài thấp nhất trong sảnh A-2-3-4-5 (với sảnh này, lá cao nhất tính là 5).\n\n- Trả về danh sách gồm một hoặc nhiều tay bài nếu đồng điểm số 1.\n\nInput:\n\n- Mảng các chuỗi đại diện cho từng tay bài, ví dụ: [\"4S 5S 7H 8D JC\", \"2S 4C 7S 9H 10H\"].\n\nOutput:\n\n- Mảng chứa chuỗi đại diện cho (các) tay bài mạnh nhất.\n\n- *Ví dụ:*\n\n- Input: [\"4D 5S 6S 8D 3C\", \"2S 4C 7S 9H 10H\", \"3S 4S 5D 6H JH\"]\n\n- Output: [\"3S 4S 5D 6H JH\"] (vì có lá J cao hơn các tay bài High Card khác).",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Poker\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 30,
+        "title": "Câu 30: Bowling - Exercism - Mức độ: Khó",
+        "difficulty": "hard",
+        "platform": "Exercism",
+        "description": "Đề bài:\n\nViết hệ thống tính điểm cho một ván thi đấu Bowling tiêu chuẩn gồm 10 khung (frames):\n\n1. Trong mỗi khung từ 1 đến 9, người chơi có tối đa 2 lượt ném để làm đổ 10 chai gỗ (pins).\n\n- Open frame: Nếu sau 2 lượt không đổ hết 10 chai, điểm của khung bằng tổng số chai đổ được.\n\n- Spare: Nếu đổ hết 10 chai sau 2 lượt ném, điểm của khung bằng 10 cộng số chai đổ được ở lượt ném ngay tiếp theo.\n\n- Strike: Nếu đổ hết 10 chai ngay ở lượt ném thứ 1 của khung, khung kết thúc ngay lập tức; điểm của khung bằng 10 cộng tổng số chai đổ được ở 2 lượt ném ngay tiếp theo.\n\n2. Khung thứ 10:\n\n- Nếu người chơi đạt Strike ở lượt đầu, họ được ném thêm 2 lượt thưởng.\n\n- Nếu người chơi đạt Spare sau 2 lượt đầu, họ được ném thêm 1 lượt thưởng.\n\n- Điểm của khung 10 là tổng số chai đổ được trong tối đa 3 lượt ném của khung đó.\n\nChương trình phải kiểm tra tính hợp lệ của từng lượt ném (số chai từ 0 đến 10, tổng 2 lượt ném trong một khung thường không vượt quá 10, không ghi điểm khi ván đấu chưa bắt đầu hoặc đã kết thúc).\n\nYêu cầu/Điều kiện cho bài:\n\n- Cài đặt hai phương thức: roll(pins) để nạp số chai đổ mỗi lượt và score() để lấy tổng điểm sau khi ván đấu kết thúc.\n\n- Ném ra lỗi nếu gọi score() khi ván đấu chưa kết thúc, hoặc gọi roll() khi ván đấu đã kết thúc, hoặc số chai ném không hợp lệ (< 0, > 10, hoặc tổng > 10 trong 1 frame thường).\n\nInput:\n\n- Chuỗi các lần gọi hàm roll(pins) và kết thúc bằng hàm score().\n\nOutput:\n\n- Một số nguyên là tổng điểm cả ván đấu (tối đa 300 điểm cho ván đấu hoàn hảo - Perfect Game 12 cú Strike liên tiếp).\n\n- *Ví dụ:*\n\n- 12 lượt ném đều là 10 (Strike): roll(10) x 12 -> score() trả về 300.\n\n- 20 lượt ném đều là 0: roll(0) x 20 -> score() trả về 0.\n\n- 10 cặp ném 9 và spare 1, ném thưởng 9: [9, 1] x 10 + 9 -> score() trả về 171.",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Bowling\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 31,
+        "title": "Câu 31: Simple Array Sum - HackerRank - Dễ",
+        "difficulty": "easy",
+        "platform": "HackerRank",
+        "description": "Đề bài:\n\nCho một mảng gồm n số nguyên, hãy tính và in ra tổng giá trị của tất cả các phần tử có trong mảng.\n\nYêu cầu/Điều kiện cho bài:\n\n* 0 < n ≤ 1000\n\n* 0 < ar[i] ≤ 1000 với mọi 0 ≤ i < n\n\n* Giới hạn thời gian chạy: 2.0s đối với C++, 10.0s đối với Python, 10.0s đối với JavaScript.\n\nInput:\n\n* Dòng 1: Một số nguyên n đại diện cho số lượng phần tử của mảng.\n\n* Dòng 2: Gồm n số nguyên cách nhau bởi dấu cách biểu diễn các phần tử ar[0], ar[1], ..., ar[n-1].\n\nOutput:\n\n* In ra một số nguyên duy nhất là tổng các phần tử của mảng.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n6\n\n1 2 3 4 10 11\n\n`\n\n* Output:\n\n`text\n\n31\n\n`\n\n* *Giải thích:* 1 + 2 + 3 + 4 + 10 + 11 = 31.",
+        "language": "cpp",
+        "starter_code": "#include <iostream>\n#include <vector>\nusing namespace std;\n\n// Lời giải cho: Simple Array Sum\nvoid solve() {\n    // Viết mã nguồn tại đây\n}\n\nint main() {\n    solve();\n    return 0;\n}",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-js-m1": {
+    "exam_id": "exam-js-m1",
+    "track_id": "prog-lang",
+    "sub_track_id": "js",
+    "milestone_id": "js-m1",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Nền tảng (Foundation)",
+    "level": "Foundation",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-js-m1_1",
+        "question": "[Kiến thức JavaScript cốt lõi] Đặc điểm vận hành và nguyên lý quan trọng nhất của \"Nền tảng\" là gì?",
+        "options": [
+          "Cơ chế đơn luồng (Single-threaded) phối hợp cùng Event Loop, Microtask Queue và Macrotask Queue để xử lý tác vụ hiệu quả.",
+          "Tự động chạy đa luồng thật trên tất cả các nhân CPU mà không cần Web Worker.",
+          "Tất cả các biến đều được gán kiểu tĩnh và không thể thay đổi sau khi khởi tạo.",
+          "Loại bỏ hoàn toàn cơ chế kế thừa prototype để chuyển sang class thuần C++."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-js-m1_2",
+        "question": "[Xử lý bất đồng bộ & Bẫy lỗi] Điều gì xảy ra nếu lập trình viên không xử lý ngoại lệ trong một Promise bị Reject?",
+        "options": [
+          "Phát sinh sự kiện UnhandledPromiseRejection, có thể làm crash tiến trình Node.js trên môi trường sản xuất.",
+          "Trình duyệt tự động sửa lỗi và trả về giá trị null mà không cần can thiệp.",
+          "Mã nguồn tự động chuyển sang chạy đồng bộ và dừng lại ở dòng lệnh lỗi.",
+          "Bộ nhớ RAM được giải phóng ngay lập tức để bảo vệ trình duyệt."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-js-m1_3",
+        "question": "[Tối ưu hóa hiệu năng V8] Khi thao tác với đối tượng trong \"Nền tảng\", hành động nào sau đây làm mất Hidden Class và gây giảm tốc độ thực thi?",
+        "options": [
+          "Thêm hoặc xóa thuộc tính động (dynamic delete) sau khi đối tượng đã được khởi tạo.",
+          "Sử dụng Object.freeze() để cố định cấu trúc đối tượng ngay từ đầu.",
+          "Khởi tạo tất cả thuộc tính của đối tượng theo đúng cùng một thứ tự thống nhất trong constructor.",
+          "Sử dụng toán tử so sánh tuyệt đối === thay vì toán tử ==."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 35,
+        "title": "Câu 35: Climbing the Leaderboard - HackerRank - Trung bình",
+        "difficulty": "medium",
+        "platform": "HackerRank",
+        "description": "Đề bài:\n\nMột trò chơi sử dụng bảng xếp hạng dạng dày (Dense Ranking): người chơi có điểm cao nhất xếp hạng 1; những người chơi có cùng điểm số sẽ có cùng thứ hạng; thứ hạng tiếp theo sẽ là số nguyên liền sau thứ hạng trước đó. Cho danh sách điểm của bảng xếp hạng hiện tại đã được sắp xếp giảm dần và danh sách điểm của một người chơi mới sau mỗi vòng đấu, hãy xác định thứ hạng của người chơi đó sau mỗi vòng.\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ n ≤ 2 × 10⁵ (số người trên bảng xếp hạng)\n\n* 1 ≤ ranked[i] ≤ 10⁹ với 0 ≤ i < n\n\n* 1 ≤ m ≤ 2 × 10⁵ (số vòng người chơi mới tham gia)\n\n* 1 ≤ player[j] ≤ 10⁹ với 0 ≤ j < m\n\n* Điểm số của người chơi mới player tăng dần qua từng vòng.\n\nInput:\n\n* Dòng 1: Số nguyên n.\n\n* Dòng 2: n số nguyên phân tách bởi dấu cách là mảng ranked (giảm dần).\n\n* Dòng 3: Số nguyên m.\n\n* Dòng 4: m số nguyên phân tách bởi dấu cách là mảng player (tăng dần).\n\nOutput:\n\n* Gồm m số nguyên, mỗi số trên một dòng (hoặc trả về mảng m phần tử), biểu thị thứ hạng sau từng vòng chơi.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n7\n\n100 100 50 40 40 20 10\n\n4\n\n5 25 50 120\n\n`\n\n* Output:\n\n`text\n\n6\n\n4\n\n2\n\n1\n\n`",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Climbing the Leaderboard\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 36,
+        "title": "Câu 36: Extra Long Factorials - HackerRank - Trung bình",
+        "difficulty": "medium",
+        "platform": "HackerRank",
+        "description": "Đề bài:\n\nTính và in ra giá trị giai thừa n! = n × (n-1) × ... × 1. Với giá trị n lớn, kết quả sẽ vượt quá giới hạn biểu diễn của số nguyên 64-bit chuẩn (long long trong C++). Yêu cầu xử lý số học chính xác lớn (BigInt).\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ n ≤ 100\n\n* Đảm bảo tính toán và xuất ra chính xác từng chữ số của kết quả, không dùng dạng làm tròn khoa học (1.23 × 10²⁰).\n\nInput:\n\n* Một số nguyên duy nhất n.\n\nOutput:\n\n* In ra toàn bộ chuỗi số của giá trị n!.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n25\n\n`\n\n* Output:\n\n`text\n\n15511210043330985984000000\n\n`",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Extra Long Factorials\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 37,
+        "title": "Câu 37: Sherlock and Anagrams - HackerRank - Trung bình",
+        "difficulty": "medium",
+        "platform": "HackerRank",
+        "description": "Đề bài:\n\nHai chuỗi là đảo chữ (anagram) của nhau nếu các ký tự của chuỗi này có thể được sắp xếp lại để tạo thành chuỗi kia. Cho một chuỗi s, hãy tìm số lượng cặp chuỗi con (substring) không có thứ tự của s sao cho chúng là đảo chữ của nhau.\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ q ≤ 10 (số lượng test cases)\n\n* 2 ≤ |s| ≤ 100\n\n* Chuỗi s chỉ bao gồm các ký tự tiếng Anh in thường (a-z).\n\nInput:\n\n* Dòng 1: Số nguyên q là số bộ test.\n\n* q dòng tiếp theo, mỗi dòng chứa một chuỗi ký tự s.\n\nOutput:\n\n* Với mỗi test case, in ra một số nguyên trên một dòng là số lượng cặp chuỗi con thỏa mãn.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n2\n\nabba\n\nabcd\n\n`\n\n* Output:\n\n`text\n\n4\n\n0\n\n`\n\n* *Giải thích:* Với abba, các cặp đảo chữ là: (\"a\", \"a\") tại vị trí [0] và [3]; (\"b\", \"b\") tại [1] và [2]; (\"ab\", \"ba\") tại [0..1] và [2..3]; (\"abb\", \"bba\") tại [0..2] và [1..3]. Tổng cộng 4 cặp.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Sherlock and Anagrams\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-js-m2": {
+    "exam_id": "exam-js-m2",
+    "track_id": "prog-lang",
+    "sub_track_id": "js",
+    "milestone_id": "js-m2",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Cấu trúc điều khiển & Hàm (Foundation)",
+    "level": "Foundation",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-js-m2_1",
+        "question": "[Kiến thức JavaScript cốt lõi] Đặc điểm vận hành và nguyên lý quan trọng nhất của \"Cấu trúc điều khiển & Hàm\" là gì?",
+        "options": [
+          "Cơ chế đơn luồng (Single-threaded) phối hợp cùng Event Loop, Microtask Queue và Macrotask Queue để xử lý tác vụ hiệu quả.",
+          "Tự động chạy đa luồng thật trên tất cả các nhân CPU mà không cần Web Worker.",
+          "Tất cả các biến đều được gán kiểu tĩnh và không thể thay đổi sau khi khởi tạo.",
+          "Loại bỏ hoàn toàn cơ chế kế thừa prototype để chuyển sang class thuần C++."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-js-m2_2",
+        "question": "[Xử lý bất đồng bộ & Bẫy lỗi] Điều gì xảy ra nếu lập trình viên không xử lý ngoại lệ trong một Promise bị Reject?",
+        "options": [
+          "Phát sinh sự kiện UnhandledPromiseRejection, có thể làm crash tiến trình Node.js trên môi trường sản xuất.",
+          "Trình duyệt tự động sửa lỗi và trả về giá trị null mà không cần can thiệp.",
+          "Mã nguồn tự động chuyển sang chạy đồng bộ và dừng lại ở dòng lệnh lỗi.",
+          "Bộ nhớ RAM được giải phóng ngay lập tức để bảo vệ trình duyệt."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-js-m2_3",
+        "question": "[Tối ưu hóa hiệu năng V8] Khi thao tác với đối tượng trong \"Cấu trúc điều khiển & Hàm\", hành động nào sau đây làm mất Hidden Class và gây giảm tốc độ thực thi?",
+        "options": [
+          "Thêm hoặc xóa thuộc tính động (dynamic delete) sau khi đối tượng đã được khởi tạo.",
+          "Sử dụng Object.freeze() để cố định cấu trúc đối tượng ngay từ đầu.",
+          "Khởi tạo tất cả thuộc tính của đối tượng theo đúng cùng một thứ tự thống nhất trong constructor.",
+          "Sử dụng toán tử so sánh tuyệt đối === thay vì toán tử ==."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 39,
+        "title": "Câu 39: Matrix Layer Rotation - HackerRank - Khó",
+        "difficulty": "hard",
+        "platform": "HackerRank",
+        "description": "Đề bài:\n\nCho một ma trận kích thước m × n và một số nguyên r. Bạn cần xoay từng vòng lớp (layer) của ma trận ngược chiều kim đồng hồ đúng r lần. Vòng ngoài cùng là lớp 1, vòng tiếp giáp bên trong là lớp 2, v.v.\n\nYêu cầu/Điều kiện cho bài:\n\n* 2 ≤ m, n ≤ 300\n\n* 1 ≤ r ≤ 10⁹\n\n* min(m, n) luôn là một số chẵn.\n\n* 1 ≤ a_{ij} ≤ 10⁸\n\nInput:\n\n* Dòng 1: Ba số nguyên cách nhau bởi khoảng trắng: m, n, r.\n\n* m dòng tiếp theo: Mỗi dòng chứa n số nguyên phân tách bởi dấu cách biểu thị các phần tử của ma trận.\n\nOutput:\n\n* In ra ma trận sau khi đã xoay r lần, gồm m dòng, mỗi dòng chứa n số nguyên cách nhau bởi dấu cách.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n4 4 1\n\n1 2 3 4\n\n5 6 7 8\n\n9 10 11 12\n\n13 14 15 16\n\n`\n\n* Output:\n\n`text\n\n2 3 4 8\n\n1 7 11 12\n\n5 6 10 16\n\n9 13 14 15\n\n`",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Matrix Layer Rotation\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 40,
+        "title": "Câu 40: Morgan and a String - HackerRank - Khó",
+        "difficulty": "hard",
+        "platform": "HackerRank",
+        "description": "Đề bài:\n\nJack và Daniel cùng chơi một trò chơi với hai ngăn xếp chữ cái (biểu diễn bằng hai chuỗi a và b). Trong mỗi lượt, người chơi chọn ký tự ở đỉnh của một trong hai ngăn xếp, lấy ký tự đó ra và nối vào cuối chuỗi kết quả chung. Quá trình dừng lại khi cả hai ngăn xếp đều rỗng. Hãy tìm chuỗi kết quả có thứ tự từ điển nhỏ nhất có thể tạo ra.\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ T ≤ 5 (số bộ test)\n\n* 1 ≤ |a|, |b| ≤ 10⁵\n\n* Chuỗi chỉ gồm các chữ cái in hoa (A-Z).\n\n* Cần tối ưu thuật toán so sánh chuỗi con khi hai ký tự ở đỉnh bằng nhau (dùng Suffix Array hoặc thuật toán so sánh chuỗi nhảy cóc) để tránh độ phức tạp O(N²) trong trường hợp xấu nhất (ví dụ các chuỗi lặp như AAAA...).\n\nInput:\n\n* Dòng 1: Số nguyên T là số lượng test case.\n\n* Mỗi test case gồm 2 dòng: dòng đầu chứa chuỗi a, dòng thứ hai chứa chuỗi b.\n\nOutput:\n\n* Với mỗi test case, in ra chuỗi có thứ tự từ điển nhỏ nhất trên một dòng riêng biệt.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n2\n\nJACK\n\nDANIEL\n\nABACABA\n\nABACABA\n\n`\n\n* Output:\n\n`text\n\nDAJACKNIEL\n\nAABABACABACABA\n\n`",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Morgan and a String\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 41,
+        "title": "Câu 41: 2023 Day 1: Trebuchet?! - Advent of Code - Dễ",
+        "difficulty": "easy",
+        "platform": "Advent of Code",
+        "description": "Đề bài:\n\nBạn nhận được một tài liệu hiệu chuẩn chứa nhiều dòng văn bản. Trên mỗi dòng, giá trị hiệu chuẩn được tìm bằng cách ghép chữ số đầu tiên và chữ số cuối cùng xuất hiện trên dòng đó lại để tạo thành một số nguyên có hai chữ số. Lưu ý mở rộng (Part 2): Một chữ số có thể xuất hiện dưới dạng ký tự số (1, 2,..., 9) hoặc được đánh vần bằng chữ tiếng Anh (one, two, three, four, five, six, seven, eight, nine). Hãy tính tổng tất cả các giá trị hiệu chuẩn của toàn bộ các dòng.\n\nYêu cầu/Điều kiện cho bài:\n\n* File văn bản đầu vào gồm khoảng 1000 dòng.\n\n* Xử lý trường hợp các từ ghép chồng ký tự (ví dụ: eightwo tính chữ số đầu là 8, chữ số sau là 2).\n\nInput:\n\n* Một chuỗi nhiều dòng văn bản (multiline string).\n\nOutput:\n\n* Một số nguyên duy nhất là tổng các giá trị hai chữ số của tất cả các dòng.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\ntwo1nine\n\neightwothree\n\nabcone2threexyz\n\nxtwone3four\n\n4nineeightseven2\n\nzoneight234\n\n7pqrstsixteen\n\n`\n\n* Output:\n\n`text\n\n281\n\n`\n\n* *Giải thích:* Các giá trị tương ứng là 29, 83, 13, 24, 42, 14, 76. Tổng: 29 + 83 + 13 + 24 + 42 + 14 + 76 = 281.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: 2023 Day 1: Trebuchet?!\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-js-m3": {
+    "exam_id": "exam-js-m3",
+    "track_id": "prog-lang",
+    "sub_track_id": "js",
+    "milestone_id": "js-m3",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Cấu trúc dữ liệu trong JS (Intermediate)",
+    "level": "Intermediate",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-js-m3_1",
+        "question": "[Kiến thức JavaScript cốt lõi] Đặc điểm vận hành và nguyên lý quan trọng nhất của \"Cấu trúc dữ liệu trong JS\" là gì?",
+        "options": [
+          "Cơ chế đơn luồng (Single-threaded) phối hợp cùng Event Loop, Microtask Queue và Macrotask Queue để xử lý tác vụ hiệu quả.",
+          "Tự động chạy đa luồng thật trên tất cả các nhân CPU mà không cần Web Worker.",
+          "Tất cả các biến đều được gán kiểu tĩnh và không thể thay đổi sau khi khởi tạo.",
+          "Loại bỏ hoàn toàn cơ chế kế thừa prototype để chuyển sang class thuần C++."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-js-m3_2",
+        "question": "[Xử lý bất đồng bộ & Bẫy lỗi] Điều gì xảy ra nếu lập trình viên không xử lý ngoại lệ trong một Promise bị Reject?",
+        "options": [
+          "Phát sinh sự kiện UnhandledPromiseRejection, có thể làm crash tiến trình Node.js trên môi trường sản xuất.",
+          "Trình duyệt tự động sửa lỗi và trả về giá trị null mà không cần can thiệp.",
+          "Mã nguồn tự động chuyển sang chạy đồng bộ và dừng lại ở dòng lệnh lỗi.",
+          "Bộ nhớ RAM được giải phóng ngay lập tức để bảo vệ trình duyệt."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-js-m3_3",
+        "question": "[Tối ưu hóa hiệu năng V8] Khi thao tác với đối tượng trong \"Cấu trúc dữ liệu trong JS\", hành động nào sau đây làm mất Hidden Class và gây giảm tốc độ thực thi?",
+        "options": [
+          "Thêm hoặc xóa thuộc tính động (dynamic delete) sau khi đối tượng đã được khởi tạo.",
+          "Sử dụng Object.freeze() để cố định cấu trúc đối tượng ngay từ đầu.",
+          "Khởi tạo tất cả thuộc tính của đối tượng theo đúng cùng một thứ tự thống nhất trong constructor.",
+          "Sử dụng toán tử so sánh tuyệt đối === thay vì toán tử ==."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 43,
+        "title": "Câu 43: 2021 Day 1: Sonar Sweep - Advent of Code - Dễ",
+        "difficulty": "easy",
+        "platform": "Advent of Code",
+        "description": "Đề bài:\n\nBáo cáo siêu âm đáy biển cung cấp một chuỗi các số đo độ sâu. Hãy đếm xem có bao nhiêu lần một số đo độ sâu lớn hơn số đo liền trước nó. Ở phần mở rộng: xét tổng các cửa sổ trượt 3 phần tử liên tiếp (A+B+C) so với (B+C+D), hãy đếm số lần tổng cửa sổ trượt tăng lên.\n\nYêu cầu/Điều kiện cho bài:\n\n* Dữ liệu gồm khoảng 2000 số nguyên đo độ sâu.\n\n* Các số đo là số nguyên dương.\n\nInput:\n\n* Một chuỗi các dòng văn bản, mỗi dòng chứa một số nguyên dương.\n\nOutput:\n\n* Số lần số đo độ sâu tăng so với lần đo liền trước (cho cả phần đơn lẻ và phần cửa sổ trượt 3 phần tử).\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n199\n\n200\n\n208\n\n210\n\n200\n\n207\n\n240\n\n269\n\n260\n\n263\n\n`\n\n* Output:\n\n`text\n\nPart 1: 7\n\nPart 2: 5\n\n`",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: 2021 Day 1: Sonar Sweep\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 44,
+        "title": "Câu 44: 2023 Day 6: Wait For It - Advent of Code - Trung bình",
+        "difficulty": "medium",
+        "platform": "Advent of Code",
+        "description": "Đề bài:\n\nBạn tham gia cuộc đua thuyền đồ chơi. Cuộc đua kéo dài trong khoảng thời gian T mili-giây. Bạn có thể giữ nút khởi động trong x mili-giây (0 ≤ x ≤ T). Mỗi mili-giây giữ nút sẽ tăng vận tốc của thuyền thêm 1 mm/mili-giây. Sau khi thả nút, thuyền chạy với vận tốc đó trong toàn bộ thời gian còn lại (T - x) mili-giây, đạt quãng đường D = x × (T - x). Cho thời gian của cuộc đua và kỷ lục quãng đường R, hãy đếm số cách chọn thời gian nhấn nút nguyên x sao cho quãng đường đạt được vượt qua kỷ lục (D > R).\n\nYêu cầu/Điều kiện cho bài:\n\n* Dữ liệu Part 1 gồm 3 - 4 chặng đua với T, R ≤ 1000.\n\n* Part 2 ghép các con số lại thành một chặng đua duy nhất với T, R lên tới 10¹⁴ (yêu cầu giải phương trình bậc hai hoặc tìm kiếm nhị phân với độ phức tạp O(1) hoặc O(log T)).\n\nInput:\n\n* 2 dòng văn bản: dòng 1 là danh sách các mốc thời gian Time:, dòng 2 là khoảng cách kỷ lục Distance:.\n\nOutput:\n\n* Tích số cách thắng của tất cả các chặng đua (Part 1) hoặc số cách thắng của chặng đua hợp nhất (Part 2).\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\nTime: 7 15 30\n\nDistance: 9 40 200\n\n`\n\n* Output:\n\n`text\n\n288\n\n`\n\n* *Giải thích:* Chặng 1 có 4 cách, chặng 2 có 8 cách, chặng 3 có 9 cách. Tích là 4 × 8 × 9 = 288.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: 2023 Day 6: Wait For It\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 45,
+        "title": "Câu 45: 2022 Day 8: Treetop Tree House - Advent of Code - Trung bình",
+        "difficulty": "medium",
+        "platform": "Advent of Code",
+        "description": "Đề bài:\n\nCho một bản đồ lưới 2D biểu diễn độ cao các cây trong khu rừng (từ 0 đến 9). Một cái cây được coi là \"nhìn thấy được\" từ bên ngoài nếu toàn bộ các cây nằm giữa nó và một trong bốn cạnh của khu rừng (trên, dưới, trái, phải) đều có chiều cao thấp hơn nó. Ngoài ra, \"điểm ngắm cảnh\" (scenic score) của một cây bằng tích khoảng cách nhìn thấy cây theo 4 hướng. Hãy tính:\n\n1. Tổng số cây có thể nhìn thấy từ bên ngoài rìa rừng.\n\n2. Điểm ngắm cảnh cao nhất của một cây bất kỳ trong rừng.\n\nYêu cầu/Điều kiện cho bài:\n\n* Lưới vuông kích thước 99 × 99.\n\n* Chiều cao mỗi cây là một chữ số từ 0 đến 9.\n\nInput:\n\n* Lưới chữ nhật các chữ số không có khoảng trắng giữa các cột.\n\nOutput:\n\n* Kết quả Part 1 (số cây nhìn thấy được) và Part 2 (điểm ngắm cảnh tối đa).\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n30373\n\n25512\n\n65332\n\n33549\n\n35390\n\n`\n\n* Output:\n\n`text\n\nPart 1: 21\n\nPart 2: 8\n\n`",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: 2022 Day 8: Treetop Tree House\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-js-m4": {
+    "exam_id": "exam-js-m4",
+    "track_id": "prog-lang",
+    "sub_track_id": "js",
+    "milestone_id": "js-m4",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Bất đồng bộ (Asynchronous JS) (Intermediate)",
+    "level": "Intermediate",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-js-m4_1",
+        "question": "[Kiến thức JavaScript cốt lõi] Đặc điểm vận hành và nguyên lý quan trọng nhất của \"Bất đồng bộ (Asynchronous JS)\" là gì?",
+        "options": [
+          "Cơ chế đơn luồng (Single-threaded) phối hợp cùng Event Loop, Microtask Queue và Macrotask Queue để xử lý tác vụ hiệu quả.",
+          "Tự động chạy đa luồng thật trên tất cả các nhân CPU mà không cần Web Worker.",
+          "Tất cả các biến đều được gán kiểu tĩnh và không thể thay đổi sau khi khởi tạo.",
+          "Loại bỏ hoàn toàn cơ chế kế thừa prototype để chuyển sang class thuần C++."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-js-m4_2",
+        "question": "[Xử lý bất đồng bộ & Bẫy lỗi] Điều gì xảy ra nếu lập trình viên không xử lý ngoại lệ trong một Promise bị Reject?",
+        "options": [
+          "Phát sinh sự kiện UnhandledPromiseRejection, có thể làm crash tiến trình Node.js trên môi trường sản xuất.",
+          "Trình duyệt tự động sửa lỗi và trả về giá trị null mà không cần can thiệp.",
+          "Mã nguồn tự động chuyển sang chạy đồng bộ và dừng lại ở dòng lệnh lỗi.",
+          "Bộ nhớ RAM được giải phóng ngay lập tức để bảo vệ trình duyệt."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-js-m4_3",
+        "question": "[Tối ưu hóa hiệu năng V8] Khi thao tác với đối tượng trong \"Bất đồng bộ (Asynchronous JS)\", hành động nào sau đây làm mất Hidden Class và gây giảm tốc độ thực thi?",
+        "options": [
+          "Thêm hoặc xóa thuộc tính động (dynamic delete) sau khi đối tượng đã được khởi tạo.",
+          "Sử dụng Object.freeze() để cố định cấu trúc đối tượng ngay từ đầu.",
+          "Khởi tạo tất cả thuộc tính của đối tượng theo đúng cùng một thứ tự thống nhất trong constructor.",
+          "Sử dụng toán tử so sánh tuyệt đối === thay vì toán tử ==."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 47,
+        "title": "Câu 47: 2023 Day 10: Pipe Maze - Advent of Code - Trung bình",
+        "difficulty": "medium",
+        "platform": "Advent of Code",
+        "description": "Đề bài:\n\nBản đồ dạng lưới chứa mạng lưới đường ống bao gồm các đoạn nối: | (bắc-nam), - (đông-tây), L (bắc-đông), J (bắc-tây), 7 (nam-tây), F (nam-đông), . (đất trống) và S (vị trí xuất phát). Các đường ống nối tạo thành một chu trình khép kín lớn duy nhất.\n\n1. Tìm khoảng cách xa nhất dọc theo vòng lặp tính từ điểm bắt đầu S.\n\n2. Tính tổng số ô nguyên nằm hoàn toàn bên trong vòng lặp khép kín đó (dù bị ép hẹp giữa các đường ống).\n\nYêu cầu/Điều kiện cho bài:\n\n* Kích thước bản đồ khoảng 140 × 140.\n\n* Thuật toán: Duyệt đồ thị, Định lý Pick và Công thức diện tích Shoelace hoặc thuật toán Ray-casting.\n\nInput:\n\n* Ma trận ký tự biểu diễn các đoạn ống dẫn.\n\nOutput:\n\n* Số bước xa nhất (Part 1) và số ô nằm kín bên trong vòng lặp (Part 2).\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n..F7.\n\n.FJ|.\n\nSJ.L7\n\n|F--J\n\nLJ...\n\n`\n\n* Output:\n\n`text\n\nPart 1: 8\n\nPart 2: 1\n\n`",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: 2023 Day 10: Pipe Maze\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 48,
+        "title": "Câu 48: 2023 Day 17: Clumsy Crucible - Advent of Code - Khó",
+        "difficulty": "hard",
+        "platform": "Advent of Code",
+        "description": "Đề bài:\n\nBạn cần dẫn xe chở kim loại nóng chảy di chuyển từ góc trên bên trái (0, 0) đến góc dưới bên phải của một bản đồ lưới 2D chứa các giá trị mất nhiệt (từ 1 đến 9). Ràng buộc: Xe chỉ có thể đi thẳng tối đa 3 bước liên tiếp trước khi bắt buộc phải rẽ trái hoặc rẽ phải 90 độ, và không được phép quay đầu 180 độ. Ở phần siêu xe đẩy (Ultra Crucible), xe phải đi thẳng ít nhất 4 bước mới được phép rẽ và đi thẳng tối đa không quá 10 bước. Hãy tìm đường đi có tổng lượng nhiệt hao tổn nhỏ nhất.\n\nYêu cầu/Điều kiện cho bài:\n\n* Bản đồ lưới kích thước khoảng 141 × 141.\n\n* Thuật toán: Dijkstra mở rộng không gian trạng thái: (row, col, direction, consecutive_steps).\n\nInput:\n\n* Ma trận số nguyên biểu thị mức hao nhiệt của từng ô.\n\nOutput:\n\n* Một số nguyên duy nhất là tổng mức mất nhiệt tối thiểu để tới đích.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n2413432311323\n\n3215453535623\n\n3255245654254\n\n3446585845452\n\n4546657867536\n\n1438598798454\n\n4457876987766\n\n3637877979653\n\n4654967986887\n\n4564679986453\n\n1224686865563\n\n2546548887735\n\n4322674655533\n\n`\n\n* Output:\n\n`text\n\n102\n\n`",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: 2023 Day 17: Clumsy Crucible\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 49,
+        "title": "Câu 49: 2022 Day 16: Proboscidea Volcanium - Advent of Code - Khó",
+        "difficulty": "hard",
+        "platform": "Advent of Code",
+        "description": "Đề bài:\n\nBạn ở trong một hệ thống hang núi lửa có nhiều van xả khí (valves). Mỗi van có tốc độ xả áp suất nhất định (flow rate) và các đường hầm dẫn sang các van kề cạnh. Mỗi hành động di chuyển qua đường hầm hoặc mở van đều tốn đúng 1 phút. Bạn có tổng cộng 30 phút. Hãy tìm thứ tự di chuyển và mở van để xả được lượng áp suất tối đa. Ở phần 2, bạn và một chú voi cùng nhau phối hợp mở van trong thời gian 26 phút.\n\nYêu cầu/Điều kiện cho bài:\n\n* Số lượng van khoảng 50 - 60, nhưng chỉ có khoảng 15 van có tốc độ xả > 0.\n\n* Thuật toán: Floyd-Warshall để rút gọn khoảng cách giữa các van có ích, sau đó dùng Quy hoạch động trạng thái (Bitmask DP) hoặc Duyệt nhánh cận DFS.\n\nInput:\n\n* Danh sách các dòng định dạng: Valve AA has flow rate=0; tunnels lead to valves DD, II, BB.\n\nOutput:\n\n* Lượng áp suất tối đa có thể giải phóng trong thời gian cho phép.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\nValve AA has flow rate=0; tunnels lead to valves DD, II, BB\n\nValve BB has flow rate=13; tunnels lead to valves CC, AA\n\nValve CC has flow rate=2; tunnels lead to valves DD, BB\n\nValve DD has flow rate=20; tunnels lead to valves CC, AA, EE\n\nValve EE has flow rate=3; tunnels lead to valves FF, DD\n\nValve FF has flow rate=0; tunnels lead to valves EE, GG\n\nValve GG has flow rate=0; tunnels lead to valves FF, HH\n\nValve HH has flow rate=22; tunnel leads to valve GG\n\nValve II has flow rate=0; tunnels lead to valves AA, JJ\n\nValve JJ has flow rate=21; tunnel leads to valve II\n\n`\n\n* Output:\n\n`text\n\nPart 1: 1651\n\nPart 2: 1707\n\n`",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: 2022 Day 16: Proboscidea Volcanium\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-js-m5": {
+    "exam_id": "exam-js-m5",
+    "track_id": "prog-lang",
+    "sub_track_id": "js",
+    "milestone_id": "js-m5",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: OOP trong JavaScript (Advanced)",
+    "level": "Advanced",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-js-m5_1",
+        "question": "[Kiến thức JavaScript cốt lõi] Đặc điểm vận hành và nguyên lý quan trọng nhất của \"OOP trong JavaScript\" là gì?",
+        "options": [
+          "Cơ chế đơn luồng (Single-threaded) phối hợp cùng Event Loop, Microtask Queue và Macrotask Queue để xử lý tác vụ hiệu quả.",
+          "Tự động chạy đa luồng thật trên tất cả các nhân CPU mà không cần Web Worker.",
+          "Tất cả các biến đều được gán kiểu tĩnh và không thể thay đổi sau khi khởi tạo.",
+          "Loại bỏ hoàn toàn cơ chế kế thừa prototype để chuyển sang class thuần C++."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-js-m5_2",
+        "question": "[Xử lý bất đồng bộ & Bẫy lỗi] Điều gì xảy ra nếu lập trình viên không xử lý ngoại lệ trong một Promise bị Reject?",
+        "options": [
+          "Phát sinh sự kiện UnhandledPromiseRejection, có thể làm crash tiến trình Node.js trên môi trường sản xuất.",
+          "Trình duyệt tự động sửa lỗi và trả về giá trị null mà không cần can thiệp.",
+          "Mã nguồn tự động chuyển sang chạy đồng bộ và dừng lại ở dòng lệnh lỗi.",
+          "Bộ nhớ RAM được giải phóng ngay lập tức để bảo vệ trình duyệt."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-js-m5_3",
+        "question": "[Tối ưu hóa hiệu năng V8] Khi thao tác với đối tượng trong \"OOP trong JavaScript\", hành động nào sau đây làm mất Hidden Class và gây giảm tốc độ thực thi?",
+        "options": [
+          "Thêm hoặc xóa thuộc tính động (dynamic delete) sau khi đối tượng đã được khởi tạo.",
+          "Sử dụng Object.freeze() để cố định cấu trúc đối tượng ngay từ đầu.",
+          "Khởi tạo tất cả thuộc tính của đối tượng theo đúng cùng một thứ tự thống nhất trong constructor.",
+          "Sử dụng toán tử so sánh tuyệt đối === thay vì toán tử ==."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 51,
+        "title": "Câu 51: Problem 1: Multiples of 3 or 5 - Project Euler - Dễ",
+        "difficulty": "easy",
+        "platform": "Project Euler",
+        "description": "Đề bài:\n\nNếu liệt kê tất cả các số tự nhiên nhỏ hơn 10 mà là bội số của 3 hoặc 5, ta được 3, 5, 6 và 9. Tổng của các số này là 23. Hãy tính tổng của tất cả các số tự nhiên nhỏ hơn 1000 là bội số của 3 hoặc 5.\n\nYêu cầu/Điều kiện cho bài:\n\n* Giới hạn: Số tự nhiên n < 1000.\n\n* Bội số chung của 3 và 5 (tức bội của 15) chỉ được cộng một lần (nguyên lý bù trừ).\n\nInput:\n\n* Bài toán mặc định tính cho N = 1000. (Dạng mở rộng nhận số nguyên dương N).\n\nOutput:\n\n* Một số nguyên duy nhất là tổng tính được.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\nN = 10\n\n`\n\n* Output:\n\n`text\n\n23\n\n`\n\n* *Kết quả chuẩn với N = 1000:* 233168.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Problem 1: Multiples of 3 or 5\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 52,
+        "title": "Câu 52: Problem 2: Even Fibonacci Numbers - Project Euler - Dễ",
+        "difficulty": "easy",
+        "platform": "Project Euler",
+        "description": "Đề bài:\n\nMỗi số hạng mới trong dãy Fibonacci được tạo ra bằng cách cộng hai số hạng liền trước nó. Bắt đầu với 1 và 2, 10 số hạng đầu tiên là: 1, 2, 3, 5, 8, 13, 21, 34, 55, 89,... Xét các số hạng trong dãy Fibonacci có giá trị không vượt quá bốn triệu (4,000,000), hãy tính tổng của tất cả các số hạng có giá trị chẵn.\n\nYêu cầu/Điều kiện cho bài:\n\n* Giá trị phần tử Fibonacci F_k ≤ 4 × 10⁶.\n\n* Chỉ tính các số hạng mang giá trị chẵn (F_2 = 2, F_5 = 8, F_8 = 34, ...).\n\nInput:\n\n* Không có input đầu vào (hằng số giới hạn 4 × 10⁶).\n\nOutput:\n\n* Một số nguyên duy nhất là tổng các số chẵn.\n\n* *Ví dụ:*\n\n* Với giới hạn giá trị ≤ 100: tổng là 2 + 8 + 34 = 44.\n\n* *Kết quả chuẩn với giới hạn 4 × 10⁶:* 4613732.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Problem 2: Even Fibonacci Numbers\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 53,
+        "title": "Câu 53: Problem 3: Largest Prime Factor - Project Euler - Dễ",
+        "difficulty": "easy",
+        "platform": "Project Euler",
+        "description": "Đề bài:\n\nCác thừa số nguyên tố của số 13195 là 5, 7, 13 và 29. Hãy tìm thừa số nguyên tố lớn nhất của số nguyên dương lớn 600851475143.\n\nYêu cầu/Điều kiện cho bài:\n\n* Số cần phân tích: N = 600851475143.\n\n* Cần sử dụng kiểu dữ liệu số nguyên 64-bit (long long trong C++, số nguyên không giới hạn trong Python, BigInt hoặc Number an toàn trong JS).\n\n* Thuật toán: Thử nghiệm chia loại bỏ thừa số nguyên tố với độ phức tạp O(√(N)).\n\nInput:\n\n* Số nguyên dương N (mặc định là 600851475143).\n\nOutput:\n\n* Một số nguyên duy nhất là ước nguyên tố lớn nhất.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\nN = 13195\n\n`\n\n* Output:\n\n`text\n\n29\n\n`\n\n* *Kết quả chuẩn với N = 600851475143:* 6857.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Problem 3: Largest Prime Factor\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-js-m6": {
+    "exam_id": "exam-js-m6",
+    "track_id": "prog-lang",
+    "sub_track_id": "js",
+    "milestone_id": "js-m6",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: JS nâng cao (Intensive)",
+    "level": "Intensive",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-js-m6_1",
+        "question": "[Kiến thức JavaScript cốt lõi] Đặc điểm vận hành và nguyên lý quan trọng nhất của \"JS nâng cao\" là gì?",
+        "options": [
+          "Cơ chế đơn luồng (Single-threaded) phối hợp cùng Event Loop, Microtask Queue và Macrotask Queue để xử lý tác vụ hiệu quả.",
+          "Tự động chạy đa luồng thật trên tất cả các nhân CPU mà không cần Web Worker.",
+          "Tất cả các biến đều được gán kiểu tĩnh và không thể thay đổi sau khi khởi tạo.",
+          "Loại bỏ hoàn toàn cơ chế kế thừa prototype để chuyển sang class thuần C++."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-js-m6_2",
+        "question": "[Xử lý bất đồng bộ & Bẫy lỗi] Điều gì xảy ra nếu lập trình viên không xử lý ngoại lệ trong một Promise bị Reject?",
+        "options": [
+          "Phát sinh sự kiện UnhandledPromiseRejection, có thể làm crash tiến trình Node.js trên môi trường sản xuất.",
+          "Trình duyệt tự động sửa lỗi và trả về giá trị null mà không cần can thiệp.",
+          "Mã nguồn tự động chuyển sang chạy đồng bộ và dừng lại ở dòng lệnh lỗi.",
+          "Bộ nhớ RAM được giải phóng ngay lập tức để bảo vệ trình duyệt."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-js-m6_3",
+        "question": "[Tối ưu hóa hiệu năng V8] Khi thao tác với đối tượng trong \"JS nâng cao\", hành động nào sau đây làm mất Hidden Class và gây giảm tốc độ thực thi?",
+        "options": [
+          "Thêm hoặc xóa thuộc tính động (dynamic delete) sau khi đối tượng đã được khởi tạo.",
+          "Sử dụng Object.freeze() để cố định cấu trúc đối tượng ngay từ đầu.",
+          "Khởi tạo tất cả thuộc tính của đối tượng theo đúng cùng một thứ tự thống nhất trong constructor.",
+          "Sử dụng toán tử so sánh tuyệt đối === thay vì toán tử ==."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 55,
+        "title": "Câu 55: Problem 15: Lattice Paths - Project Euler - Trung bình",
+        "difficulty": "medium",
+        "platform": "Project Euler",
+        "description": "Đề bài:\n\nBắt đầu từ góc trên bên trái của một lưới ô vuông kích thước 2 × 2 và chỉ được phép di chuyển sang phải hoặc đi xuống dưới, có chính xác 6 đường đi khác nhau để đến góc dưới bên phải. Hỏi có bao nhiêu đường đi như vậy trên một lưới kích thước 20 × 20?\n\nYêu cầu/Điều kiện cho bài:\n\n* Kích thước lưới: n = 20, m = 20.\n\n* Tổng số bước đi luôn là n + m = 40 bước, trong đó có đúng n bước đi xuống và m bước đi sang phải.\n\n* Bài toán quy về tính số tổ hợp chập n của 2n: binom{2n}{n} = ((2n)! / (n!)^2). Kết quả vượt quá phạm vi số nguyên 32-bit (cần số nguyên 64-bit).\n\nInput:\n\n* Hai số nguyên n, m (mặc định n = 20, m = 20).\n\nOutput:\n\n* Một số nguyên duy nhất là tổng số đường đi hợp lệ.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\nn = 2, m = 2\n\n`\n\n* Output:\n\n`text\n\n6\n\n`\n\n* *Kết quả chuẩn với lưới 20 × 20:* 137846528820.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Problem 15: Lattice Paths\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 56,
+        "title": "Câu 56: Problem 18: Maximum Path Sum I - Project Euler - Trung bình",
+        "difficulty": "medium",
+        "platform": "Project Euler",
+        "description": "Đề bài:\n\nBắt đầu từ đỉnh của một tam giác số và di chuyển xuống các số liền kề ở hàng phía dưới, hãy tìm tổng lớn nhất của đường đi từ đỉnh xuống đáy.\n\n`text\n\n3\n\n7 4\n\n2 4 6\n\n8 5 9 3\n\n`\n\nĐường đi có tổng lớn nhất trong ví dụ trên là 3 + 7 + 4 + 9 = 23. Áp dụng thuật toán cho một tam giác số gồm 15 hàng.\n\nYêu cầu/Điều kiện cho bài:\n\n* Tam giác có N = 15 hàng.\n\n* Ở mỗi bước tại vị trí (i, j), chỉ được phép di chuyển tới (i+1, j) hoặc (i+1, j+1).\n\n* Thuật toán: Quy hoạch động từ dưới lên (Bottom-up DP) với độ phức tạp O(N²).\n\nInput:\n\n* N dòng, dòng thứ i (1 ≤ i ≤ N) chứa i số nguyên.\n\nOutput:\n\n* Một số nguyên duy nhất là tổng đường đi lớn nhất.\n\n* *Ví dụ:*\n\n* Input:\n\n`text\n\n3\n\n7 4\n\n2 4 6\n\n8 5 9 3\n\n`\n\n* Output:\n\n`text\n\n23\n\n`\n\n* *Kết quả chuẩn với tam giác 15 hàng của đề bài:* 1074.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Problem 18: Maximum Path Sum I\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 57,
+        "title": "Câu 57: Problem 31: Coin Sums - Project Euler - Trung bình",
+        "difficulty": "medium",
+        "platform": "Project Euler",
+        "description": "Đề bài:\n\nTại vương quốc Anh, đồng tiền tệ sử dụng các đồng xu có mệnh giá: 1p, 2p, 5p, 10p, 20p, 50p, £1 (100p), và £2 (200p). Có thể tạo ra £2 theo nhiều cách khác nhau, ví dụ: 1 × £1 + 1 × 50p + 2 × 20p + 1 × 5p + 1 × 2p + 3 × 1p. Hỏi có bao nhiêu cách khác nhau để đổi được đúng 2 bảng Anh (£2 = 200p) từ các đồng xu nói trên?\n\nYêu cầu/Điều kiện cho bài:\n\n* Tổng tiền cần đổi: M = 200.\n\n* Mệnh giá các đồng xu: {1, 2, 5, 10, 20, 50, 100, 200}.\n\n* Số lượng mỗi loại đồng xu không giới hạn (bài toán Unbounded Knapsack / Coin Change 2).\n\nInput:\n\n* Số nguyên mục tiêu M (mặc định M = 200).\n\nOutput:\n\n* Một số nguyên duy nhất là tổng số cách đổi tiền.\n\n* *Ví dụ:*\n\n* Với M = 5 và tập xu {1, 2, 5}, các cách tạo thành là: 5; 2+2+1; 2+1+1+1; 1+1+1+1+1 (4 cách).\n\n* *Kết quả chuẩn với M = 200:* 73682.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Problem 31: Coin Sums\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-js-m7": {
+    "exam_id": "exam-js-m7",
+    "track_id": "prog-lang",
+    "sub_track_id": "js",
+    "milestone_id": "js-m7",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Testing & Tooling (Proficiency)",
+    "level": "Proficiency",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-js-m7_1",
+        "question": "[Kiến thức JavaScript cốt lõi] Đặc điểm vận hành và nguyên lý quan trọng nhất của \"Testing & Tooling\" là gì?",
+        "options": [
+          "Cơ chế đơn luồng (Single-threaded) phối hợp cùng Event Loop, Microtask Queue và Macrotask Queue để xử lý tác vụ hiệu quả.",
+          "Tự động chạy đa luồng thật trên tất cả các nhân CPU mà không cần Web Worker.",
+          "Tất cả các biến đều được gán kiểu tĩnh và không thể thay đổi sau khi khởi tạo.",
+          "Loại bỏ hoàn toàn cơ chế kế thừa prototype để chuyển sang class thuần C++."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-js-m7_2",
+        "question": "[Xử lý bất đồng bộ & Bẫy lỗi] Điều gì xảy ra nếu lập trình viên không xử lý ngoại lệ trong một Promise bị Reject?",
+        "options": [
+          "Phát sinh sự kiện UnhandledPromiseRejection, có thể làm crash tiến trình Node.js trên môi trường sản xuất.",
+          "Trình duyệt tự động sửa lỗi và trả về giá trị null mà không cần can thiệp.",
+          "Mã nguồn tự động chuyển sang chạy đồng bộ và dừng lại ở dòng lệnh lỗi.",
+          "Bộ nhớ RAM được giải phóng ngay lập tức để bảo vệ trình duyệt."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-js-m7_3",
+        "question": "[Tối ưu hóa hiệu năng V8] Khi thao tác với đối tượng trong \"Testing & Tooling\", hành động nào sau đây làm mất Hidden Class và gây giảm tốc độ thực thi?",
+        "options": [
+          "Thêm hoặc xóa thuộc tính động (dynamic delete) sau khi đối tượng đã được khởi tạo.",
+          "Sử dụng Object.freeze() để cố định cấu trúc đối tượng ngay từ đầu.",
+          "Khởi tạo tất cả thuộc tính của đối tượng theo đúng cùng một thứ tự thống nhất trong constructor.",
+          "Sử dụng toán tử so sánh tuyệt đối === thay vì toán tử ==."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 59,
+        "title": "Câu 59: Problem 81: Path Sum: Two Ways - Project Euler - Khó",
+        "difficulty": "hard",
+        "platform": "Project Euler",
+        "description": "Đề bài:\n\nCho một ma trận vuông kích thước 80 × 80 chứa các số nguyên dương. Bắt đầu từ ô góc trên bên trái (0, 0) và di chuyển đến ô góc dưới bên phải (79, 79), bạn chỉ được phép di chuyển sang ô bên phải hoặc ô bên dưới. Hãy tìm đường đi có tổng giá trị các ô đi qua là nhỏ nhất.\n\nYêu cầu/Điều kiện cho bài:\n\n* Ma trận có kích thước 80 × 80.\n\n* Ràng buộc hướng di chuyển: Chỉ đi xuống (Down) hoặc đi sang phải (Right).\n\n* Thuật toán: Quy hoạch động lưới dp[i][j] = matrix[i][j] + min(dp[i-1][j], dp[i][j-1]) với độ phức tạp thời gian O(N²).\n\nInput:\n\n* 80 dòng, mỗi dòng chứa 80 số nguyên phân tách bởi dấu phẩy đại diện cho ma trận.\n\nOutput:\n\n* Một số nguyên duy nhất là tổng đường đi nhỏ nhất.\n\n* *Ví dụ:*\n\n* Với ma trận 5 × 5:\n\n`text\n\n131, 673, 234, 103, 18\n\n201, 96, 342, 965, 150\n\n630, 803, 746, 422, 111\n\n537, 699, 497, 121, 956\n\n805, 732, 524, 37, 331\n\n`\n\n* Tổng nhỏ nhất là: 131 + 201 + 96 + 342 + 234 + 103 + 18 + 150 + 111 + 121 + 37 + 331 = 2427.\n\n* *Kết quả chuẩn của Problem 81:* 427337.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Problem 81: Path Sum: Two Ways\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 60,
+        "title": "Câu 60: Problem 88: Product-sum Numbers - Project Euler - Khó",
+        "difficulty": "hard",
+        "platform": "sum Numbers",
+        "description": "Đề bài:\n\nMột số tự nhiên N được gọi là một số tích-tổng (product-sum number) của một tập hợp gồm k số nguyên dương {a_1, a_2, ..., a_k} nếu nó có thể đồng thời được biểu diễn dưới dạng tích và tổng của các số đó:\n\nN = a_1 × a_2 × ... × a_k = a_1 + a_2 + ... + a_k\n\nVí dụ với k = 5: 8 = 1 × 1 × 1 × 2 × 4 = 1 + 1 + 1 + 2 + 4.\n\nVới một tập kích thước k cho trước, gọi N = M(k) là số tích-tổng nhỏ nhất khả dĩ. Hãy tính tổng của tất cả các số tích-tổng nhỏ nhất duy nhất (loại bỏ các giá trị trùng lặp) cho các tập kích thước k trong khoảng 2 ≤ k ≤ 12000.\n\nYêu cầu/Điều kiện cho bài:\n\n* 2 ≤ k ≤ 12000.\n\n* Với mỗi k, luôn tồn tại ít nhất một số thỏa mãn: M(k) ≤ 2k. Do đó giới hạn cận trên của N là 24000.\n\n* Thuật toán: Phân tích nhân tử đệ quy (recursive factorization) kết hợp nhánh cận DFS để tìm các tổ hợp nhân tử nguyên lớn hơn 1, sau đó đệm các thừa số 1 để đạt số lượng phần tử k.\n\nInput:\n\n* Khoảng giá trị của k: 2 ≤ k ≤ 12000.\n\nOutput:\n\n* Một số nguyên duy nhất là tổng các giá trị M(k) phân biệt.\n\n* *Ví dụ:*\n\n* Với 2 ≤ k ≤ 6: các giá trị M(k) tối thiểu là M(2)=4, M(3)=6, M(4)=8, M(5)=8, M(6)=12. Các giá trị phân biệt là {4, 6, 8, 12}, tổng bằng 4 + 6 + 8 + 12 = 30.\n\n* *Kết quả chuẩn với 2 ≤ k ≤ 12000:* 7587457.",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: Problem 88: Product\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 61,
+        "title": "Câu 61: The Descent - CodinGame - Dễ",
+        "difficulty": "easy",
+        "platform": "CodinGame",
+        "description": "Đề bài:\n\nCon tàu vũ trụ của bạn đang hạ cánh xuống một khu vực có địa hình hiểm trở gồm 8 dãy núi. Ở mỗi lượt bay ngang qua dãy núi, con tàu quét và nhận được độ cao hiện tại của 8 ngọn núi (được đánh chỉ số từ 0 đến 7 theo thứ tự từ trái sang phải). Con tàu sẽ tự động giảm dần độ cao sau mỗi vòng bay. Để tránh xảy ra va chạm thảm khốc, hệ thống pháo laser của tàu phải bắn hạ ngọn núi có độ cao lớn nhất tại lượt đó.\n\nYêu cầu/Điều kiện cho bài:\n\n* Số lượng ngọn núi luôn cố định là 8.\n\n* Độ cao ngọn núi H là số nguyên thỏa mãn 0 ≤ H ≤ 9.\n\n* Mỗi lượt chỉ được bắn duy nhất 1 ngọn núi; ngọn núi bị bắn sẽ giảm độ cao về 0.\n\n* Thời gian phản hồi tối đa cho mỗi lượt là 100 ms.\n\nInput:\n\nTrong mỗi vòng lặp trò chơi (game loop), đọc vào 8 dòng: dòng thứ i (0 ≤ i < 8) chứa một số nguyên duy nhất đại diện cho độ cao mountain_h của ngọn núi tại chỉ số i.\n\nOutput:\n\nIn ra trên một dòng duy nhất một số nguyên từ 0 đến 7 là chỉ số của ngọn núi cao nhất cần bắn hạ trong lượt này.\n\n* *Ví dụ:*\n\n* Input: Các độ cao lần lượt qua 8 dòng là: 9, 8, 5, 2, 7, 3, 1, 4\n\n* Output: 0 (vì ngọn núi tại chỉ số 0 có độ cao lớn nhất là 9).",
+        "language": "javascript",
+        "starter_code": "// Lời giải cho: The Descent\nfunction solve(input) {\n    // Viết mã nguồn tại đây\n    return input;\n}\n\nconsole.log(solve());",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-python-m1": {
+    "exam_id": "exam-python-m1",
+    "track_id": "prog-lang",
+    "sub_track_id": "python",
+    "milestone_id": "python-m1",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Nền tảng (Foundation)",
+    "level": "Foundation",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-python-m1_1",
+        "question": "[Kiến thức Python cốt lõi] Đặc điểm cơ chế và triết lý quan trọng nhất của \"Nền tảng\" là gì?",
+        "options": [
+          "Mọi thực thể trong Python đều là đối tượng (Everything is an object); tuân thủ tính tường minh và nguyên tắc PEP 8.",
+          "Bắt buộc khai báo kiểu dữ liệu thủ công trước khi gán biến như C/Java.",
+          "Mã nguồn được biên dịch trực tiếp sang mã máy nhị phân không qua Bytecode hay PVM.",
+          "Tất cả các hàm trong Python đều tự động được ghi đè bộ nhớ đệm toàn cục."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-python-m1_2",
+        "question": "[Cơ chế bộ nhớ & Hiệu năng] Khi nào nên sử dụng Generator và từ khóa 'yield' thay vì tạo danh sách (List comprehension) trong \"Nền tảng\"?",
+        "options": [
+          "Khi xử lý tập dữ liệu cực lớn hoặc dòng dữ liệu vô hạn để tiết kiệm bộ nhớ RAM (Lazy Evaluation).",
+          "Khi cần truy cập ngẫu nhiên đến phần tử thứ k với độ phức tạp thời gian O(1).",
+          "Khi cần tính toán chiều dài len() của tập dữ liệu ngay khi vừa khởi tạo.",
+          "Chỉ dùng khi viết giao diện đồ họa GUI và không hỗ trợ xử lý số học."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-python-m1_3",
+        "question": "[Lập trình an toàn & Xử lý biên] Bẫy sai lầm chết người nào xảy ra khi sử dụng tham số mặc định là kiểu dữ liệu khả biến (Mutable Default Argument như list/dict)?",
+        "options": [
+          "Giá trị mặc định chỉ được khởi tạo MỘT LẦN khi định nghĩa hàm và sẽ bị tích lũy biến đổi qua các lần gọi tiếp theo.",
+          "Hàm sẽ báo lỗi cú pháp SyntaxError ngay khi tệp mã nguồn được nạp vào bộ nhớ.",
+          "Python sẽ tự động nhân bản danh sách mới cho mỗi lần gọi hàm mà không cảnh báo.",
+          "Tất cả các biến toàn cục trong cùng module sẽ bị xóa sạch nếu tham số mặc định bị thay đổi."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 68,
+        "title": "Câu 68: Super Computer - CodinGame - Khó",
+        "difficulty": "hard",
+        "platform": "CodinGame",
+        "description": "Đề bài:\n\nTrung tâm nghiên cứu sở hữu một siêu máy tính dùng để xử lý các phép tính khoa học phức tạp. Có N nhà khoa học gửi yêu cầu sử dụng máy tính. Yêu cầu thứ i bắt đầu vào ngày J_i và kéo dài liên tục trong D_i ngày (tức là chiếm dụng máy từ ngày J_i đến hết ngày J_i + D_i - 1). Do tính chất tác vụ, siêu máy tính chỉ có thể thực hiện duy nhất một phép tính tại một thời điểm và không thể bị gián đoạn. Hãy tìm số lượng phép tính tối đa có thể hoàn thành mà không bị trùng lặp thời gian sử dụng máy.\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ N ≤ 100000.\n\n* 1 ≤ J_i ≤ 1000000; 1 ≤ D_i ≤ 1000.\n\n* Thuật toán tối ưu: Thuật toán tham lam (Greedy / Interval Scheduling) với độ phức tạp O(N log N) bằng cách sắp xếp theo thời điểm kết thúc (J_i + D_i - 1).\n\nInput:\n\n* Dòng 1: Một số nguyên N biểu thị số lượng yêu cầu tính toán.\n\n* N dòng tiếp theo: Mỗi dòng gồm hai số nguyên J_i và D_i cách nhau bởi khoảng trắng.\n\nOutput:\n\nIn ra một số nguyên duy nhất là số lượng phép tính tối đa có thể được siêu máy tính thực hiện.\n\n* *Ví dụ:*\n\n* Input:\n\n4\n\n2 5\n\n9 7\n\n15 6\n\n9 3\n\n* Output: 3 (chọn các khoảng [2, 6], [9, 11], và [15, 20]).",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Super Computer\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 69,
+        "title": "Câu 69: The Bridge - Episode 2 - CodinGame - Khó",
+        "difficulty": "hard",
+        "platform": "Episode 2",
+        "description": "Đề bài:\n\nBạn điều khiển đồng thời một đoàn xe mô tô (gồm từ 1 đến 4 xe) di chuyển trên một cây cầu có 4 làn đường cao tốc song song. Cây cầu xuất hiện nhiều hố sâu nguy hiểm. Tại mỗi lượt, bạn phải gửi một lệnh hành động duy nhất áp dụng cho tất cả các xe còn sống: SPEED (tăng tốc độ lên 1), SLOW (giảm tốc độ đi 1), JUMP (nhảy qua chướng ngại vật theo khoảng cách bằng tốc độ hiện tại), WAIT (giữ nguyên tốc độ), UP (chuyển đồng thời tất cả các xe lên làn đường liền trên), hoặc DOWN (chuyển đồng thời tất cả các xe xuống làn liền dưới). Hãy tính toán chuỗi lệnh tối ưu sao cho khi kết thúc cầu có ít nhất V xe còn sống sót về đích.\n\nYêu cầu/Điều kiện cho bài:\n\n* Số xe ban đầu M (1 ≤ M ≤ 4); số xe tối thiểu cần sống sót V (1 ≤ V ≤ M).\n\n* Chiều dài cây cầu lên tới 500 ô; mỗi làn biểu diễn bằng chuỗi ký tự (. là mặt đường lành lặn, 0 là hố sâu).\n\n* Tốc độ S ≥ 0 (nếu S=0 chỉ được dùng lệnh SPEED). Khi nhảy (JUMP), xe chỉ chạm đất ở vị trí cuối bước nhảy nên có thể vượt qua hố nằm ở giữa.\n\nInput:\n\n* Dòng 1: Số nguyên M (số xe ban đầu).\n\n* Dòng 2: Số nguyên V (số xe tối thiểu phải sống sót).\n\n* 4 dòng tiếp theo: Mỗi dòng là một chuỗi ký tự mô tả 4 làn đường từ làn 0 đến làn 3.\n\n* Trong mỗi lượt chơi: Dòng 1 chứa tốc độ hiện tại S; M dòng tiếp theo mỗi dòng gồm ba số nguyên X, Y, A (tọa độ X, Y và cờ trạng thái A=1 nếu xe còn sống, A=0 nếu đã rơi xuống hố).\n\nOutput:\n\nMỗi lượt in ra một lệnh điều khiển duy nhất: SPEED, SLOW, JUMP, WAIT, UP, hoặc DOWN.\n\n* *Ví dụ:*\n\n* Input lượt: Đoàn xe chuẩn bị tiếp cận hố sâu phía trước ở bước kế tiếp.\n\n* Output: JUMP",
+        "language": "python",
+        "starter_code": "# Lời giải cho: The Bridge\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 70,
+        "title": "Câu 70: The Labyrinth - CodinGame - Khó",
+        "difficulty": "hard",
+        "platform": "CodinGame",
+        "description": "Đề bài:\n\nNhân vật Kirk bị rơi vào một mê cung hình chữ nhật kích thước R × C bị bao phủ bởi sương mù (fog of war). Tầm nhìn quét của Kirk chỉ trong phạm vi bán kính hình chữ nhật 5 × 5 quanh vị trí hiện tại. Nhiệm vụ gồm 3 giai đoạn:\n\n1. Thám hiểm mê cung chưa biết bản đồ để tìm ra vị trí phòng điều khiển 'C'.\n\n2. Bước vào ô 'C' để kích hoạt chuông báo động đếm ngược đúng A lượt.\n\n3. Tìm đường quay trở lại vị trí xuất phát ban đầu 'T' trước khi bộ đếm thời gian về 0.\n\nYêu cầu/Điều kiện cho bài:\n\n* R, C ≤ 100; số lượt đếm ngược A được cấu hình vừa đủ cho đường đi ngắn nhất từ 'C' về 'T'.\n\n* Bản đồ gồm các ký tự: '#' (tường), '.' (đường đi rỗng), 'T' (điểm bắt đầu), 'C' (phòng điều khiển), '?' (ô chưa được khám phá).\n\n* Phải kết hợp thuật toán khám phá sương mù (BFS tới ô '?' gần nhất) và thuật toán tìm đường ngắn nhất (A* / BFS trên bản đồ đã khám phá).\n\nInput:\n\n* Dòng khởi tạo: Ba số nguyên R, C, A (số hàng, số cột, số lượt đếm ngược).\n\n* Trong mỗi lượt:\n\n* Dòng 1: Hai số nguyên KR, KC (tọa độ hàng và cột hiện tại của Kirk).\n\n* R dòng tiếp theo: Mỗi dòng là một chuỗi C ký tự mô tả tình trạng bản đồ hiện thời.\n\nOutput:\n\nMỗi lượt in ra một trong 4 hướng di chuyển: UP, DOWN, LEFT, hoặc RIGHT.\n\n* *Ví dụ:*\n\n* Input lượt: Kirk đang ở cạnh phòng điều khiển đã kích hoạt báo động.\n\n* Output: LEFT (bước đi đầu tiên trên đường ngắn nhất quay về 'T').",
+        "language": "python",
+        "starter_code": "# Lời giải cho: The Labyrinth\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-python-m2": {
+    "exam_id": "exam-python-m2",
+    "track_id": "prog-lang",
+    "sub_track_id": "python",
+    "milestone_id": "python-m2",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Cấu trúc dữ liệu (Foundation)",
+    "level": "Foundation",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-python-m2_1",
+        "question": "[Kiến thức Python cốt lõi] Đặc điểm cơ chế và triết lý quan trọng nhất của \"Cấu trúc dữ liệu\" là gì?",
+        "options": [
+          "Mọi thực thể trong Python đều là đối tượng (Everything is an object); tuân thủ tính tường minh và nguyên tắc PEP 8.",
+          "Bắt buộc khai báo kiểu dữ liệu thủ công trước khi gán biến như C/Java.",
+          "Mã nguồn được biên dịch trực tiếp sang mã máy nhị phân không qua Bytecode hay PVM.",
+          "Tất cả các hàm trong Python đều tự động được ghi đè bộ nhớ đệm toàn cục."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-python-m2_2",
+        "question": "[Cơ chế bộ nhớ & Hiệu năng] Khi nào nên sử dụng Generator và từ khóa 'yield' thay vì tạo danh sách (List comprehension) trong \"Cấu trúc dữ liệu\"?",
+        "options": [
+          "Khi xử lý tập dữ liệu cực lớn hoặc dòng dữ liệu vô hạn để tiết kiệm bộ nhớ RAM (Lazy Evaluation).",
+          "Khi cần truy cập ngẫu nhiên đến phần tử thứ k với độ phức tạp thời gian O(1).",
+          "Khi cần tính toán chiều dài len() của tập dữ liệu ngay khi vừa khởi tạo.",
+          "Chỉ dùng khi viết giao diện đồ họa GUI và không hỗ trợ xử lý số học."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-python-m2_3",
+        "question": "[Lập trình an toàn & Xử lý biên] Bẫy sai lầm chết người nào xảy ra khi sử dụng tham số mặc định là kiểu dữ liệu khả biến (Mutable Default Argument như list/dict)?",
+        "options": [
+          "Giá trị mặc định chỉ được khởi tạo MỘT LẦN khi định nghĩa hàm và sẽ bị tích lũy biến đổi qua các lần gọi tiếp theo.",
+          "Hàm sẽ báo lỗi cú pháp SyntaxError ngay khi tệp mã nguồn được nạp vào bộ nhớ.",
+          "Python sẽ tự động nhân bản danh sách mới cho mỗi lần gọi hàm mà không cảnh báo.",
+          "Tất cả các biến toàn cục trong cùng module sẽ bị xóa sạch nếu tham số mặc định bị thay đổi."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 72,
+        "title": "Câu 72: Cash - CS50 Problem Sets - Dễ",
+        "difficulty": "easy",
+        "platform": "CS50 Problem Sets",
+        "description": "Đề bài:\n\nKhi thực hiện thối tiền cho khách hàng, nhân viên thu ngân luôn mong muốn trả lại số lượng đồng xu là ít nhất có thể. Giả sử hệ thống tiền xu Mỹ có 4 mệnh giá khả dụng: 25¢ (quarters), 10¢ (dimes), 5¢ (nickels), và 1¢ (pennies). Hãy viết chương trình áp dụng thuật toán tham lam (greedy algorithm) để tính số lượng đồng xu tối thiểu cần trả cho một khoản tiền thừa cho trước. Nếu người dùng nhập số tiền âm, chương trình phải yêu cầu nhập lại.\n\nYêu cầu/Điều kiện cho bài:\n\n* Số tiền thối được quy đổi thành số nguyên cent C ≥ 0.\n\n* Luôn ưu tiên dùng đồng xu có mệnh giá lớn nhất có thể trước (25¢ → 10¢ → 5¢ → 1¢).\n\nInput:\n\nMột số nguyên không âm đại diện cho số cent cần thối (hoặc số thực dollar không âm được chuyển sang cent).\n\nOutput:\n\nIn ra một số nguyên duy nhất là tổng số lượng đồng xu tối thiểu cần sử dụng.\n\n* *Ví dụ:*\n\n* Input: 41 (cents)\n\n* Output: 4 (gồm 1 đồng 25¢, 1 đồng 10¢, 1 đồng 5¢, 1 đồng 1¢: tổng cộng 25 + 10 + 5 + 1 = 41).",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Cash\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 73,
+        "title": "Câu 73: Mario (More comfortable) - CS50 Problem Sets - Dễ",
+        "difficulty": "easy",
+        "platform": "CS50 Problem Sets",
+        "description": "Đề bài:\n\nMở rộng từ bài toán kim tự tháp Mario cơ bản, hãy viết chương trình in ra một kim tự tháp đôi đối xứng hoàn chỉnh tương tự cấu trúc vượt chướng ngại vật trong Super Mario Bros. Kim tự tháp đôi gồm hai nửa bậc thang bằng ký tự '#': nửa bên trái được căn lề phải, tiếp theo là một khoảng trống ở giữa có độ rộng cố định đúng bằng 2 dấu cách (\" \"), và nửa bên phải được căn lề trái. Chiều cao h được người dùng nhập vào trong khoảng từ 1 đến 8.\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ h ≤ 8. Chương trình phải từ chối các giá trị không hợp lệ và yêu cầu nhập lại.\n\n* Không in khoảng trắng thừa sau nửa kim tự tháp bên phải.\n\nInput:\n\nMột số nguyên h nhập từ standard input.\n\nOutput:\n\nIn ra h dòng thể hiện cấu trúc kim tự tháp đôi đối xứng.\n\n* *Ví dụ:*\n\n* Input: 4\n\n* Output:\n\n`text\n\n# #\n\n## ##\n\n### ###\n\n#### ####\n\n`",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Mario (More comfortable)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 74,
+        "title": "Câu 74: Readability - CS50 Problem Sets - Trung bình",
+        "difficulty": "medium",
+        "platform": "CS50 Problem Sets",
+        "description": "Đề bài:\n\nHãy viết chương trình tính toán cấp độ đọc hiểu của một đoạn văn bản tiếng Anh dựa trên chỉ số Coleman-Liau:\n\nIndex = 0.0588 × L - 0.296 × S - 15.8\n\nTrong đó:\n\n* L là số chữ cái trung bình trên 100 từ trong đoạn văn: L = (letters / words) × 100.\n\n* S là số câu trung bình trên 100 từ trong đoạn văn: S = (sentences / words) × 100.\n\n* *Chữ cái (letter):* Ký tự từ 'a' đến 'z' hoặc 'A' đến 'Z'.\n\n* *Từ (word):* Chuỗi ký tự liên tục được ngăn cách bởi dấu cách.\n\n* *Câu (sentence):* Kết thúc bằng một trong các dấu chấm câu: dấu chấm (.), dấu chấm than (!), hoặc dấu chấm hỏi (?).\n\nYêu cầu/Điều kiện cho bài:\n\n* Chỉ số sau khi tính toán được làm tròn đến số nguyên gần nhất.\n\n* Nếu điểm làm tròn ≥ 16, xuất ra \"Grade 16+\".\n\n* Nếu điểm làm tròn < 1, xuất ra \"Before Grade 1\".\n\n* Các trường hợp còn lại xuất ra \"Grade X\" với X là số nguyên điểm đã làm tròn.\n\nInput:\n\nMột chuỗi văn bản (string) nhập từ người dùng.\n\nOutput:\n\nChuỗi thông báo cấp độ đọc tương ứng.\n\n* *Ví dụ:*\n\n* Input: Congratulations! Today is your day. You're off to Great Places! You're off and away!\n\n* Output: Grade 3",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Readability\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-python-m3": {
+    "exam_id": "exam-python-m3",
+    "track_id": "prog-lang",
+    "sub_track_id": "python",
+    "milestone_id": "python-m3",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Lập trình hướng đối tượng (Intermediate)",
+    "level": "Intermediate",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-python-m3_1",
+        "question": "[Kiến thức Python cốt lõi] Đặc điểm cơ chế và triết lý quan trọng nhất của \"Lập trình hướng đối tượng\" là gì?",
+        "options": [
+          "Mọi thực thể trong Python đều là đối tượng (Everything is an object); tuân thủ tính tường minh và nguyên tắc PEP 8.",
+          "Bắt buộc khai báo kiểu dữ liệu thủ công trước khi gán biến như C/Java.",
+          "Mã nguồn được biên dịch trực tiếp sang mã máy nhị phân không qua Bytecode hay PVM.",
+          "Tất cả các hàm trong Python đều tự động được ghi đè bộ nhớ đệm toàn cục."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-python-m3_2",
+        "question": "[Cơ chế bộ nhớ & Hiệu năng] Khi nào nên sử dụng Generator và từ khóa 'yield' thay vì tạo danh sách (List comprehension) trong \"Lập trình hướng đối tượng\"?",
+        "options": [
+          "Khi xử lý tập dữ liệu cực lớn hoặc dòng dữ liệu vô hạn để tiết kiệm bộ nhớ RAM (Lazy Evaluation).",
+          "Khi cần truy cập ngẫu nhiên đến phần tử thứ k với độ phức tạp thời gian O(1).",
+          "Khi cần tính toán chiều dài len() của tập dữ liệu ngay khi vừa khởi tạo.",
+          "Chỉ dùng khi viết giao diện đồ họa GUI và không hỗ trợ xử lý số học."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-python-m3_3",
+        "question": "[Lập trình an toàn & Xử lý biên] Bẫy sai lầm chết người nào xảy ra khi sử dụng tham số mặc định là kiểu dữ liệu khả biến (Mutable Default Argument như list/dict)?",
+        "options": [
+          "Giá trị mặc định chỉ được khởi tạo MỘT LẦN khi định nghĩa hàm và sẽ bị tích lũy biến đổi qua các lần gọi tiếp theo.",
+          "Hàm sẽ báo lỗi cú pháp SyntaxError ngay khi tệp mã nguồn được nạp vào bộ nhớ.",
+          "Python sẽ tự động nhân bản danh sách mới cho mỗi lần gọi hàm mà không cảnh báo.",
+          "Tất cả các biến toàn cục trong cùng module sẽ bị xóa sạch nếu tham số mặc định bị thay đổi."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 76,
+        "title": "Câu 76: Runoff - CS50 Problem Sets - Trung bình",
+        "difficulty": "medium",
+        "platform": "CS50 Problem Sets",
+        "description": "Đề bài:\n\nBầu cử vòng loại trực tiếp (Instant-runoff voting) cho phép cử tri xếp hạng các ứng viên theo thứ tự ưu tiên (1, 2, 3,...). Hãy cài đặt thuật toán mô phỏng hệ thống bầu cử này:\n\n1. Trong mỗi vòng, đếm số phiếu cho lựa chọn hàng đầu (vẫn còn hoạt động) của mỗi cử tri.\n\n2. Nếu có ứng viên đạt tỷ lệ phiếu bầu tuyệt đối (> 50% tổng số phiếu), tuyên bố ứng viên đó thắng cử ngay lập tức.\n\n3. Nếu chưa ai thắng, xác định số phiếu bầu thấp nhất trong số các ứng viên chưa bị loại.\n\n4. Nếu tất cả các ứng viên còn lại đều có cùng số phiếu thấp nhất đó, tuyên bố cuộc bầu cử hòa điểm giữa họ.\n\n5. Nếu không hòa, loại bỏ (eliminate = true) tất cả các ứng viên có số phiếu thấp nhất đó khỏi cuộc đua và quay lại bước 1.\n\nYêu cầu/Điều kiện cho bài:\n\n* Số lượng ứng viên tối đa: 9 (MAX_CANDIDATES).\n\n* Số lượng cử tri tối đa: 100 (MAX_VOTERS).\n\n* Cần hoàn thiện các hàm: vote(), tabulate(), print_winner(), find_min(), is_tie(), và eliminate().\n\nInput:\n\nDanh sách tên ứng viên truyền qua dòng lệnh; số lượng cử tri N và N bảng xếp hạng ưu tiên nhập từ bàn phím.\n\nOutput:\n\nTên ứng viên thắng cuộc (hoặc tên các ứng viên hòa nhau, mỗi người trên 1 dòng).\n\n* *Ví dụ:*\n\n* Dòng lệnh: ./runoff Alice Bob Charlie\n\n* 3 cử tri bầu:\n\n* Cử tri 1: Alice, Bob, Charlie\n\n* Cử tri 2: Alice, Charlie, Bob\n\n* Cử tri 3: Bob, Charlie, Alice\n\n* Output: Alice (Alice đạt 2/3 phiếu > 50%).",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Runoff\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 77,
+        "title": "Câu 77: Recover - CS50 Problem Sets - Trung bình",
+        "difficulty": "medium",
+        "platform": "CS50 Problem Sets",
+        "description": "Đề bài:\n\nKhi xóa tệp ảnh trên thẻ nhớ kỹ thuật số, hệ điều hành thường chỉ đánh dấu vùng nhớ đó là khả dụng mà không xóa ngay dữ liệu thực tế. Các thẻ nhớ máy ảnh thường định dạng khối lưu trữ theo kích thước 512 bytes. Một tệp ảnh định dạng JPEG luôn bắt đầu bằng chữ ký số 4 bytes đầu tiên:\n\n* Byte 0: 0xff\n\n* Byte 1: 0xd8\n\n* Byte 2: 0xff\n\n* Byte 3: Có 4 bit đầu là 1110 (tức giá trị từ 0xe0 đến 0xef, kiểm tra bằng (byte & 0xf0) == 0xe0).\n\nHãy viết chương trình đọc qua tệp ảnh thẻ nhớ thô (card.raw) theo từng khối 512 bytes, phát hiện tiêu đề JPEG và khôi phục lần lượt toàn bộ các tệp ảnh bị xóa.\n\nYêu cầu/Điều kiện cho bài:\n\n* Tham số dòng lệnh chỉ nhận đúng 1 tên tệp đĩa ảnh thô.\n\n* Các ảnh khôi phục được đặt tên theo định dạng số thứ tự gồm 3 chữ số: 000.jpg, 001.jpg, 002.jpg,...\n\n* Bộ nhớ đệm đọc ghi cố định 512 bytes. Phải đóng file (fclose) chuẩn xác, không rò rỉ tài nguyên.\n\nInput:\n\nTên tệp ảnh đĩa (ví dụ: card.raw) truyền qua dòng lệnh ./recover card.raw.\n\nOutput:\n\nGhi ra thư mục hiện hành các tệp tin hình ảnh JPEG hợp lệ tương ứng với dữ liệu khôi phục được.\n\n* *Ví dụ:* Chạy ./recover card.raw thành công sẽ tạo ra các tệp 000.jpg đến 049.jpg trong thư mục.",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Recover\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 78,
+        "title": "Câu 78: Tideman - CS50 Problem Sets - Khó",
+        "difficulty": "hard",
+        "platform": "CS50 Problem Sets",
+        "description": "Đề bài:\n\nPhương pháp bầu cử Tideman (hay Ranked Pairs) là phương pháp tìm người chiến thắng Condorcet theo cặp thỏa mãn tính chất chọn lựa công bằng xã hội tối ưu. Thuật toán gồm các giai đoạn:\n\n1. *Preferences:* Ghi nhận ma trận preferences[i][j] (số lượng cử tri thích ứng viên i hơn ứng viên j).\n\n2. *Pairs:* Tạo mảng các cặp pair gồm winner và loser cho mọi cặp ứng viên có sự chênh lệch phiếu (preferences[i][j] > preferences[j][i]).\n\n3. *Sort:* Sắp xếp các cặp giảm dần theo độ mạnh chiến thắng (preferences[winner][loser] - preferences[loser][winner]).\n\n4. *Lock:* Lần lượt duyệt qua từng cặp đã sắp xếp và thiết lập cạnh có hướng locked[winner][loser] = true, NGOẠI TRỪ trường hợp việc thêm cạnh này tạo ra một chu trình khép kín (cycle) trong đồ thị.\n\n5. *Print Winner:* Tìm và in ra nguồn của đồ thị (source node - đỉnh không có bất kỳ cạnh nào trỏ vào nó).\n\nYêu cầu/Điều kiện cho bài:\n\n* Số lượng ứng viên tối đa 9.\n\n* Hàm kiểm tra chu trình đồ thị (has_cycle bằng DFS) phải được cài đặt đệ quy chuẩn xác để không khóa các cạnh tạo vòng lặp.\n\nInput:\n\nDanh sách ứng viên qua argv, số lượng cử tri và phiếu bầu ưu tiên từ console.\n\nOutput:\n\nIn ra tên duy nhất của ứng viên chiến thắng Tideman.\n\n* *Ví dụ:*\n\n* Dòng lệnh: ./tideman Alice Bob Charlie\n\n* Sau khi khóa đồ thị: Alice → Bob, Bob → Charlie, Alice → Charlie (Alice là source).\n\n* Output: Alice",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Tideman\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-python-m4": {
+    "exam_id": "exam-python-m4",
+    "track_id": "prog-lang",
+    "sub_track_id": "python",
+    "milestone_id": "python-m4",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Xử lý lỗi & File (Intermediate)",
+    "level": "Intermediate",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-python-m4_1",
+        "question": "[Kiến thức Python cốt lõi] Đặc điểm cơ chế và triết lý quan trọng nhất của \"Xử lý lỗi & File\" là gì?",
+        "options": [
+          "Mọi thực thể trong Python đều là đối tượng (Everything is an object); tuân thủ tính tường minh và nguyên tắc PEP 8.",
+          "Bắt buộc khai báo kiểu dữ liệu thủ công trước khi gán biến như C/Java.",
+          "Mã nguồn được biên dịch trực tiếp sang mã máy nhị phân không qua Bytecode hay PVM.",
+          "Tất cả các hàm trong Python đều tự động được ghi đè bộ nhớ đệm toàn cục."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-python-m4_2",
+        "question": "[Cơ chế bộ nhớ & Hiệu năng] Khi nào nên sử dụng Generator và từ khóa 'yield' thay vì tạo danh sách (List comprehension) trong \"Xử lý lỗi & File\"?",
+        "options": [
+          "Khi xử lý tập dữ liệu cực lớn hoặc dòng dữ liệu vô hạn để tiết kiệm bộ nhớ RAM (Lazy Evaluation).",
+          "Khi cần truy cập ngẫu nhiên đến phần tử thứ k với độ phức tạp thời gian O(1).",
+          "Khi cần tính toán chiều dài len() của tập dữ liệu ngay khi vừa khởi tạo.",
+          "Chỉ dùng khi viết giao diện đồ họa GUI và không hỗ trợ xử lý số học."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-python-m4_3",
+        "question": "[Lập trình an toàn & Xử lý biên] Bẫy sai lầm chết người nào xảy ra khi sử dụng tham số mặc định là kiểu dữ liệu khả biến (Mutable Default Argument như list/dict)?",
+        "options": [
+          "Giá trị mặc định chỉ được khởi tạo MỘT LẦN khi định nghĩa hàm và sẽ bị tích lũy biến đổi qua các lần gọi tiếp theo.",
+          "Hàm sẽ báo lỗi cú pháp SyntaxError ngay khi tệp mã nguồn được nạp vào bộ nhớ.",
+          "Python sẽ tự động nhân bản danh sách mới cho mỗi lần gọi hàm mà không cảnh báo.",
+          "Tất cả các biến toàn cục trong cùng module sẽ bị xóa sạch nếu tham số mặc định bị thay đổi."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 80,
+        "title": "Câu 80: Speller - CS50 Problem Sets - Khó",
+        "difficulty": "hard",
+        "platform": "CS50 Problem Sets",
+        "description": "Đề bài:\n\nXây dựng một công cụ kiểm tra lỗi chính tả (spell checker) văn bản với hiệu năng tối ưu nhất bằng C thông qua việc cài đặt cấu trúc dữ liệu Bảng băm (Hash Table) hoặc Cây tiền tố (Trie). Chương trình nạp một cuốn từ điển lớn vào bộ nhớ, sau đó duyệt qua toàn bộ cuốn sách/văn bản cần kiểm tra, so khớp từng từ và in ra tất cả các từ viết sai chính tả, kèm theo bảng thống kê chi tiết thời gian đo bằng micro-giây cho từng phân đoạn xử lý.\n\nYêu cầu/Điều kiện cho bài:\n\n* Hiện thực chuẩn xác 5 hàm cốt lõi:\n\n1. bool load(const char *dictionary): Nạp toàn bộ từ điển vào cấu trúc dữ liệu.\n\n2. unsigned int hash(const char *word): Hàm băm phân bổ đều các từ, giảm thiểu xung đột.\n\n3. bool check(const char *word): Kiểm tra từ có tồn tại trong từ điển hay không (không phân biệt chữ hoa/thường; hỗ trợ ký tự nháy đơn ').\n\n4. unsigned int size(void): Trả về tổng số từ đã nạp từ từ điển.\n\n5. bool unload(void): Giải phóng toàn bộ bộ nhớ động đã cấp phát bằng malloc/calloc, đảm bảo không bị rò rỉ bộ nhớ (kiểm tra qua valgrind).\n\n* Từ điển có thể chứa hơn 143,000 từ; độ dài từ tối đa 45 ký tự (LENGTH = 45).\n\nInput:\n\nĐường dẫn từ điển (tùy chọn, mặc định dictionaries/large) và đường dẫn tệp văn bản kiểm tra (ví dụ: texts/dracula.txt) qua dòng lệnh: ./speller dictionaries/large texts/dracula.txt.\n\nOutput:\n\nDanh sách các từ sai chính tả, theo sau bởi bảng báo cáo số liệu:\n\n* *Ví dụ đầu ra:*\n\n`text\n\nMISSPELLED WORDS\n\n...\n\nWORDS MISSPELLED: 125\n\nWORDS IN DICTIONARY: 143091\n\nWORDS IN TEXT: 19180\n\nTIME IN load: 0.03 s\n\nTIME IN check: 0.02 s\n\nTIME IN size: 0.00 s\n\nTIME IN unload: 0.01 s\n\nTIME IN TOTAL: 0.06 s\n\n`",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Speller\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 81,
+        "title": "Câu 81: Add Two Numbers (FLOW001) - CodeChef - Mức độ: Dễ",
+        "difficulty": "easy",
+        "platform": "CodeChef",
+        "description": "Đề bài:\n\nNhiệm vụ của bạn trong bài toán này vô cùng đơn giản: Cho trước hai số nguyên dương A và B, hãy viết chương trình tính và trả về tổng A + B cho từng bộ dữ liệu thử nghiệm.\n\nYêu cầu/Điều kiện cho bài:\n\n* Số lượng test cases: 1 ≤ T ≤ 1000.\n\n* Phạm vi giá trị: 1 ≤ A, B ≤ 10000.\n\n* Giới hạn thời gian (Time Limit): 1.0 giây.\n\n* Giới hạn bộ nhớ (Memory Limit): 256 MB.\n\nInput:\n\n* Dòng đầu tiên chứa một số nguyên T biểu thị số lượng bộ dữ liệu kiểm tra.\n\n* T dòng tiếp theo, mỗi dòng chứa đúng hai số nguyên A và B cách nhau bởi một khoảng trắng.\n\nOutput:\n\n* Với mỗi bộ dữ liệu, in ra trên một dòng riêng biệt một số nguyên duy nhất là kết quả của phép tính A + B.\n\n* *Ví dụ minh họa:*\n\n* Input:\n\n`text\n\n3\n\n1 2\n\n100 200\n\n10 40\n\n`\n\n* Output:\n\n`text\n\n3\n\n300\n\n50\n\n`",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Add Two Numbers (FLOW001)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 82,
+        "title": "Câu 82: ATM (HS08TEST) - CodeChef - Mức độ: Dễ",
+        "difficulty": "easy",
+        "platform": "CodeChef",
+        "description": "Đề bài:\n\nPooja muốn rút X đô la Mỹ từ cây ATM. Giao dịch rút tiền tại máy ATM chỉ được coi là hợp lệ nếu thỏa mãn hai điều kiện: số tiền cần rút X phải là bội số của 5, và tài khoản của Pooja phải có đủ số dư để chi trả cả số tiền rút lẫn khoản phí dịch vụ ngân hàng cố định là 0.50 đô la Mỹ. Nếu giao dịch không hợp lệ, không có số tiền nào bị trừ khỏi tài khoản. Hãy tính số dư tài khoản của Pooja sau khi thực hiện thao tác rút tiền (dù thành công hay thất bại).\n\nYêu cầu/Điều kiện cho bài:\n\n* Số tiền rút: 0 < X ≤ 2000 (X là số nguyên).\n\n* Số dư ban đầu: 0 ≤ Y ≤ 2000 (Y là số thực có đúng 2 chữ số thập phân).\n\n* Giới hạn thời gian: 1.0 giây.\n\n* Giới hạn bộ nhớ: 256 MB.\n\nInput:\n\n* Một dòng duy nhất chứa hai giá trị cách nhau bởi dấu cách: số nguyên dương X (số tiền muốn rút) và số thực không âm Y (số dư tài khoản hiện tại).\n\nOutput:\n\n* In ra số dư tài khoản còn lại sau giao dịch dưới dạng số thực được định dạng chính xác 2 chữ số sau dấu phẩy thập phân.\n\n* *Ví dụ minh họa:*\n\n* Ví dụ 1:\n\n* Input: 30 120.00\n\n* Output: 89.50 *(Giải thích: Rút 30 + 0.50 phí = 30.50, số dư còn lại: 120 - 30.50 = 89.50)*\n\n* Ví dụ 2:\n\n* Input: 42 120.00\n\n* Output: 120.00 *(Giải thích: 42 không chia hết cho 5, giao dịch bị hủy)*\n\n* Ví dụ 3:\n\n* Input: 300 120.00\n\n* Output: 120.00 *(Giải thích: Tài khoản không đủ số dư để rút)*",
+        "language": "python",
+        "starter_code": "# Lời giải cho: ATM (HS08TEST)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-python-m5": {
+    "exam_id": "exam-python-m5",
+    "track_id": "prog-lang",
+    "sub_track_id": "python",
+    "milestone_id": "python-m5",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Python nâng cao (Advanced)",
+    "level": "Advanced",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-python-m5_1",
+        "question": "[Kiến thức Python cốt lõi] Đặc điểm cơ chế và triết lý quan trọng nhất của \"Python nâng cao\" là gì?",
+        "options": [
+          "Mọi thực thể trong Python đều là đối tượng (Everything is an object); tuân thủ tính tường minh và nguyên tắc PEP 8.",
+          "Bắt buộc khai báo kiểu dữ liệu thủ công trước khi gán biến như C/Java.",
+          "Mã nguồn được biên dịch trực tiếp sang mã máy nhị phân không qua Bytecode hay PVM.",
+          "Tất cả các hàm trong Python đều tự động được ghi đè bộ nhớ đệm toàn cục."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-python-m5_2",
+        "question": "[Cơ chế bộ nhớ & Hiệu năng] Khi nào nên sử dụng Generator và từ khóa 'yield' thay vì tạo danh sách (List comprehension) trong \"Python nâng cao\"?",
+        "options": [
+          "Khi xử lý tập dữ liệu cực lớn hoặc dòng dữ liệu vô hạn để tiết kiệm bộ nhớ RAM (Lazy Evaluation).",
+          "Khi cần truy cập ngẫu nhiên đến phần tử thứ k với độ phức tạp thời gian O(1).",
+          "Khi cần tính toán chiều dài len() của tập dữ liệu ngay khi vừa khởi tạo.",
+          "Chỉ dùng khi viết giao diện đồ họa GUI và không hỗ trợ xử lý số học."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-python-m5_3",
+        "question": "[Lập trình an toàn & Xử lý biên] Bẫy sai lầm chết người nào xảy ra khi sử dụng tham số mặc định là kiểu dữ liệu khả biến (Mutable Default Argument như list/dict)?",
+        "options": [
+          "Giá trị mặc định chỉ được khởi tạo MỘT LẦN khi định nghĩa hàm và sẽ bị tích lũy biến đổi qua các lần gọi tiếp theo.",
+          "Hàm sẽ báo lỗi cú pháp SyntaxError ngay khi tệp mã nguồn được nạp vào bộ nhớ.",
+          "Python sẽ tự động nhân bản danh sách mới cho mỗi lần gọi hàm mà không cảnh báo.",
+          "Tất cả các biến toàn cục trong cùng module sẽ bị xóa sạch nếu tham số mặc định bị thay đổi."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 84,
+        "title": "Câu 84: Carvans (CARVANS) - CodeChef - Mức độ: Trung bình",
+        "difficulty": "medium",
+        "platform": "CodeChef",
+        "description": "Đề bài:\n\nMột cuộc đua xe diễn ra trên một đoạn đường thẳng chỉ có 1 làn đường duy nhất (tuyệt đối không được phép vượt xe phía trước). Có N chiếc xe xuất phát lần lượt theo thứ tự từ xe 1 đến xe N. Mỗi chiếc xe có một vận tốc tối đa lý thuyết nhất định. Tuy nhiên, một chiếc xe không thể di chuyển nhanh hơn chiếc xe ngay trước nó để tránh va chạm. Do đó, vận tốc thực tế của một xe sẽ bằng giá trị nhỏ nhất giữa vận tốc tối đa của chính nó và vận tốc thực tế của xe đi ngay phía trước. Hãy đếm xem có bao nhiêu chiếc xe trong đoàn có thể di chuyển với vận tốc tối đa lý thuyết của chính nó.\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ T ≤ 100.\n\n* 1 ≤ N ≤ 10⁵, tổng N qua mọi test case không vượt quá 10⁵.\n\n* Vận tốc tối đa của mỗi xe: 1 ≤ V_i ≤ 2³¹ - 1.\n\n* Giới hạn thời gian: 1.0 giây.\n\n* Giới hạn bộ nhớ: 256 MB.\n\nInput:\n\n* Dòng đầu tiên chứa số nguyên T biểu thị số lượng test cases.\n\n* Mỗi test case gồm 2 dòng:\n\n* Dòng thứ nhất chứa số nguyên N (số lượng xe).\n\n* Dòng thứ hai chứa N số nguyên dương cách nhau bởi dấu cách biểu thị vận tốc tối đa của các xe theo thứ tự xuất phát.\n\nOutput:\n\n* Với mỗi test case, in ra một số nguyên duy nhất là số lượng xe chạy được với vận tốc tối đa trên một dòng.\n\n* *Ví dụ minh họa:*\n\n* Input:\n\n`text\n\n1\n\n5\n\n4 5 1 2 3\n\n`\n\n* Output:\n\n`text\n\n2\n\n`\n\n* *(Giải thích: Xe 1 chạy tốc độ 4; xe 2 có tốc độ tối đa 5 nhưng bị kẹt sau xe 1 nên chỉ chạy được 4; xe 3 chạy tốc độ 1; xe 4 và xe 5 bị kẹt sau xe 3 nên chỉ chạy được 1. Chỉ có xe 1 và xe 3 đạt tốc độ tối đa).*",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Carvans (CARVANS)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 85,
+        "title": "Câu 85: Lapindromes (LAPIN) - CodeChef - Mức độ: Trung bình",
+        "difficulty": "medium",
+        "platform": "CodeChef",
+        "description": "Đề bài:\n\nMột chuỗi ký tự được gọi là *Lapindrome* nếu tần suất xuất hiện của từng ký tự ở nửa bên trái bằng đúng tần suất xuất hiện của các ký tự tương ứng ở nửa bên phải chuỗi. Nếu độ dài của chuỗi là một số lẻ, ký tự chính giữa sẽ bị bỏ qua và không được tính vào cả hai nửa. Hãy kiểm tra xem chuỗi đầu vào có phải là Lapindrome hay không.\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ T ≤ 100.\n\n* Độ dài chuỗi S: 2 ≤ |S| ≤ 1000.\n\n* Chuỗi S chỉ bao gồm các chữ cái tiếng Anh in thường từ 'a' đến 'z'.\n\n* Giới hạn thời gian: 1.0 giây.\n\n* Giới hạn bộ nhớ: 256 MB.\n\nInput:\n\n* Dòng đầu tiên chứa số nguyên T (số lượng test cases).\n\n* T dòng tiếp theo, mỗi dòng chứa một chuỗi S.\n\nOutput:\n\n* Với mỗi test case, in ra chuỗi YES nếu S là Lapindrome, ngược lại in ra NO.\n\n* *Ví dụ minh họa:*\n\n* Input:\n\n`text\n\n3\n\ngaga\n\nabcde\n\nrotor\n\n`\n\n* Output:\n\n`text\n\nYES\n\nNO\n\nYES\n\n`\n\n* *(Giải thích: Với \"gaga\", nửa trái \"ga\" có 1 'g' và 1 'a', nửa phải \"ga\" cũng có 1 'g' và 1 'a' → YES; Với \"rotor\", bỏ qua 't', nửa trái \"ro\" và nửa phải \"or\" đều có 1 'r' và 1 'o' → YES).*",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Lapindromes (LAPIN)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 86,
+        "title": "Câu 86: Coin Flip (CONFLIP) - CodeChef - Mức độ: Trung bình",
+        "difficulty": "medium",
+        "platform": "CodeChef",
+        "description": "Đề bài:\n\nChú voi Elephant chơi một trò chơi với N đồng xu được đánh số từ 1 đến N. Ban đầu, toàn bộ N đồng xu đều hiển thị cùng một mặt I (I = 1: mặt Ngửa - Head, I = 2: mặt Sấp - Tail). Trò chơi diễn ra qua N vòng lật. Ở vòng thứ i (1 ≤ i ≤ N), Elephant sẽ lật ngược toàn bộ các đồng xu từ vị trí 1 đến vị trí i (Ngửa thành Sấp và Sấp thành Ngửa). Hãy xác định sau N vòng lật, có tất cả bao nhiêu đồng xu đang hiển thị mặt Q (Q = 1: Head, Q = 2: Tail).\n\nYêu cầu/Điều kiện cho bài:\n\n* Số lượng test cases: 1 ≤ T ≤ 10.\n\n* Số lượt chơi trong mỗi test case: 1 ≤ G ≤ 20000.\n\n* Số lượng đồng xu: 1 ≤ N ≤ 10⁹.\n\n* I ∈ {1, 2}, Q ∈ {1, 2}.\n\n* Giới hạn thời gian: 1.0 giây.\n\n* Giới hạn bộ nhớ: 256 MB.\n\nInput:\n\n* Dòng đầu tiên chứa số nguyên T.\n\n* Mỗi test case bắt đầu bằng một dòng chứa số nguyên G.\n\n* G dòng tiếp theo, mỗi dòng mô tả một ván chơi gồm 3 số nguyên I, N, Q cách nhau bởi dấu cách.\n\nOutput:\n\n* Với mỗi ván chơi, in ra trên một dòng riêng biệt số lượng đồng xu hiển thị mặt Q.\n\n* *Ví dụ minh họa:*\n\n* Input:\n\n`text\n\n1\n\n2\n\n1 5 1\n\n1 5 2\n\n`\n\n* Output:\n\n`text\n\n2\n\n3\n\n`",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Coin Flip (CONFLIP)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-python-m6": {
+    "exam_id": "exam-python-m6",
+    "track_id": "prog-lang",
+    "sub_track_id": "python",
+    "milestone_id": "python-m6",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Thư viện & ứng dụng thực tế (Intensive)",
+    "level": "Intensive",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-python-m6_1",
+        "question": "[Kiến thức Python cốt lõi] Đặc điểm cơ chế và triết lý quan trọng nhất của \"Thư viện & ứng dụng thực tế\" là gì?",
+        "options": [
+          "Mọi thực thể trong Python đều là đối tượng (Everything is an object); tuân thủ tính tường minh và nguyên tắc PEP 8.",
+          "Bắt buộc khai báo kiểu dữ liệu thủ công trước khi gán biến như C/Java.",
+          "Mã nguồn được biên dịch trực tiếp sang mã máy nhị phân không qua Bytecode hay PVM.",
+          "Tất cả các hàm trong Python đều tự động được ghi đè bộ nhớ đệm toàn cục."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-python-m6_2",
+        "question": "[Cơ chế bộ nhớ & Hiệu năng] Khi nào nên sử dụng Generator và từ khóa 'yield' thay vì tạo danh sách (List comprehension) trong \"Thư viện & ứng dụng thực tế\"?",
+        "options": [
+          "Khi xử lý tập dữ liệu cực lớn hoặc dòng dữ liệu vô hạn để tiết kiệm bộ nhớ RAM (Lazy Evaluation).",
+          "Khi cần truy cập ngẫu nhiên đến phần tử thứ k với độ phức tạp thời gian O(1).",
+          "Khi cần tính toán chiều dài len() của tập dữ liệu ngay khi vừa khởi tạo.",
+          "Chỉ dùng khi viết giao diện đồ họa GUI và không hỗ trợ xử lý số học."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-python-m6_3",
+        "question": "[Lập trình an toàn & Xử lý biên] Bẫy sai lầm chết người nào xảy ra khi sử dụng tham số mặc định là kiểu dữ liệu khả biến (Mutable Default Argument như list/dict)?",
+        "options": [
+          "Giá trị mặc định chỉ được khởi tạo MỘT LẦN khi định nghĩa hàm và sẽ bị tích lũy biến đổi qua các lần gọi tiếp theo.",
+          "Hàm sẽ báo lỗi cú pháp SyntaxError ngay khi tệp mã nguồn được nạp vào bộ nhớ.",
+          "Python sẽ tự động nhân bản danh sách mới cho mỗi lần gọi hàm mà không cảnh báo.",
+          "Tất cả các biến toàn cục trong cùng module sẽ bị xóa sạch nếu tham số mặc định bị thay đổi."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 88,
+        "title": "Câu 88: Marbles (MARBLES) - CodeChef - Mức độ: Khó",
+        "difficulty": "hard",
+        "platform": "CodeChef",
+        "description": "Đề bài:\n\nRohit muốn mua N viên bi từ một cửa hàng. Cửa hàng này cung cấp bi với K màu sắc khác nhau, và số lượng bi của mỗi màu trong kho là vô hạn. Rohit muốn mua sao cho trong bộ sưu tập N viên bi mang về, mỗi màu trong số K màu sắc đều có ít nhất một viên bi. Hãy tính xem có bao nhiêu cách chọn mua bi khác nhau. Hai cách chọn được coi là khác nhau nếu số lượng bi của ít nhất một màu nào đó khác nhau giữa hai cách.\n\nYêu cầu/Điều kiện cho bài:\n\n* Số lượng test cases: 1 ≤ T ≤ 100.\n\n* Ràng buộc kích thước: 1 ≤ K ≤ N ≤ 10⁶.\n\n* Kết quả đảm bảo vừa vặn trong phạm vi số nguyên có dấu 64-bit (long long trong C++).\n\n* Giới hạn thời gian: 0.5 giây.\n\n* Giới hạn bộ nhớ: 256 MB.\n\nInput:\n\n* Dòng đầu tiên chứa số nguyên T (số test cases).\n\n* T dòng tiếp theo, mỗi dòng chứa hai số nguyên dương N và K cách nhau bởi dấu cách.\n\nOutput:\n\n* Với mỗi test case, in ra một số nguyên duy nhất là số cách chọn thỏa mãn yêu cầu.\n\n* *Ví dụ minh họa:*\n\n* Input:\n\n`text\n\n2\n\n10 10\n\n30 7\n\n`\n\n* Output:\n\n`text\n\n1\n\n475020\n\n`\n\n* *(Giải thích: Đây là bài toán chia kẹo Euler / Stars and Bars: Số cách chọn chính là tổ hợp chập K - 1 của N - 1, tức C(N - 1, K - 1)).*",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Marbles (MARBLES)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 89,
+        "title": "Câu 89: Fire Escape Routes (FIRESC) - CodeChef - Mức độ: Khó",
+        "difficulty": "hard",
+        "platform": "CodeChef",
+        "description": "Đề bài:\n\nTòa nhà của Chef có N nhân viên (được đánh số từ 1 đến N). Chef muốn thiết kế hệ thống thoát hiểm khi xảy ra hỏa hoạn. Nếu hai nhân viên là bạn của nhau, họ có thể dùng chung một lối thoát hiểm. Mối quan hệ bạn bè có tính chất bắc cầu: nếu A là bạn của B và B là bạn của C, thì cả ba người A, B, C đều có thể dùng chung một lối thoát hiểm. Nhiệm vụ của bạn là:\n\n1. Tính số lượng lối thoát hiểm tối thiểu cần mở sao cho mọi nhân viên đều có lối thoát.\n\n2. Trong mỗi nhóm nhân viên dùng chung một lối thoát hiểm, cần chọn ra đúng 1 người làm đội trưởng hướng dẫn nhóm. Hãy tính tổng số cách phân công đội trưởng cho toàn bộ các nhóm, lấy kết quả theo modulo 10⁹ + 7.\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ T ≤ 5.\n\n* 1 ≤ N ≤ 10⁵, 0 ≤ M ≤ 10⁵ (M là số cặp bạn bè).\n\n* Tổng N và tổng M qua các test case không vượt quá 10⁵.\n\n* Giới hạn thời gian: 1.0 giây.\n\n* Giới hạn bộ nhớ: 256 MB.\n\nInput:\n\n* Dòng đầu tiên chứa số nguyên T.\n\n* Mỗi test case bắt đầu bằng 2 số nguyên N và M.\n\n* M dòng tiếp theo, mỗi dòng chứa 2 số nguyên u và v (1 ≤ u, v ≤ N, u ≠ v) đại diện cho mối quan hệ bạn bè giữa nhân viên u và nhân viên v.\n\nOutput:\n\n* Với mỗi test case, in ra trên cùng một dòng hai số nguyên cách nhau bởi dấu cách: số lối thoát hiểm tối thiểu và số cách chọn đội trưởng modulo 10⁹ + 7.\n\n* *Ví dụ minh họa:*\n\n* Input:\n\n`text\n\n1\n\n5 2\n\n1 2\n\n3 4\n\n`\n\n* Output:\n\n`text\n\n3 4\n\n`\n\n* *(Giải thích: Đồ thị gồm 3 thành phần liên thông: {1, 2}, {3, 4}, và {5}. Số lối thoát hiểm là 3. Số cách chọn đội trưởng là 2 × 2 × 1 = 4).*",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Fire Escape Routes (FIRESC)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 90,
+        "title": "Câu 90: Chef and Reversing (REVERSE) - CodeChef - Mức độ: Khó",
+        "difficulty": "hard",
+        "platform": "CodeChef",
+        "description": "Đề bài:\n\nCho một đồ thị có hướng gồm N đỉnh (đánh số từ 1 đến N) và M cạnh. Chef đang ở đỉnh 1 và muốn đi đến đỉnh N. Do đồ thị có hướng, có thể không tồn tại đường đi trực tiếp từ 1 đến N. Tuy nhiên, Chef có một quyền năng đặc biệt: Chef có thể chọn một số cạnh bất kỳ trên đồ thị và đảo ngược hướng mũi tên của chúng. Hãy tìm số lượng cạnh tối thiểu cần đảo chiều để xuất hiện ít nhất một đường đi từ đỉnh 1 đến đỉnh N. Nếu không thể đến được đỉnh N trong mọi trường hợp, hãy in ra -1.\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ N, M ≤ 10⁵.\n\n* Đồ thị có thể chứa cạnh song song và khuyên lặp.\n\n* Giới hạn thời gian: 1.0 giây.\n\n* Giới hạn bộ nhớ: 256 MB.\n\nInput:\n\n* Dòng đầu tiên chứa hai số nguyên N và M.\n\n* M dòng tiếp theo, mỗi dòng chứa hai số nguyên u và v biểu thị một cạnh có hướng từ u sang v.\n\nOutput:\n\n* In ra một số nguyên duy nhất là số cạnh tối thiểu cần đảo chiều, hoặc in ra -1 nếu không có cách nào đi được từ 1 đến N.\n\n* *Ví dụ minh họa:*\n\n* Input:\n\n`text\n\n7 7\n\n1 2\n\n3 2\n\n3 4\n\n7 4\n\n6 2\n\n5 6\n\n7 5\n\n`\n\n* Output:\n\n`text\n\n2\n\n`\n\n* *(Giải thích: Đảo chiều hai cạnh 3 → 2 thành 2 → 3 và 7 → 4 thành 4 → 7. Khi đó ta có đường đi 1 → 2 → 3 → 4 → 7).*",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Chef and Reversing (REVERSE)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-python-m7": {
+    "exam_id": "exam-python-m7",
+    "track_id": "prog-lang",
+    "sub_track_id": "python",
+    "milestone_id": "python-m7",
+    "title": "Kỳ Thi Sát Hạch Cột Mốc: Testing & Best Practices (Proficiency)",
+    "level": "Proficiency",
+    "duration_minutes": 60,
+    "mc_questions": [
+      {
+        "id": "mc_exam-python-m7_1",
+        "question": "[Kiến thức Python cốt lõi] Đặc điểm cơ chế và triết lý quan trọng nhất của \"Testing & Best Practices\" là gì?",
+        "options": [
+          "Mọi thực thể trong Python đều là đối tượng (Everything is an object); tuân thủ tính tường minh và nguyên tắc PEP 8.",
+          "Bắt buộc khai báo kiểu dữ liệu thủ công trước khi gán biến như C/Java.",
+          "Mã nguồn được biên dịch trực tiếp sang mã máy nhị phân không qua Bytecode hay PVM.",
+          "Tất cả các hàm trong Python đều tự động được ghi đè bộ nhớ đệm toàn cục."
+        ],
+        "difficulty": "easy"
+      },
+      {
+        "id": "mc_exam-python-m7_2",
+        "question": "[Cơ chế bộ nhớ & Hiệu năng] Khi nào nên sử dụng Generator và từ khóa 'yield' thay vì tạo danh sách (List comprehension) trong \"Testing & Best Practices\"?",
+        "options": [
+          "Khi xử lý tập dữ liệu cực lớn hoặc dòng dữ liệu vô hạn để tiết kiệm bộ nhớ RAM (Lazy Evaluation).",
+          "Khi cần truy cập ngẫu nhiên đến phần tử thứ k với độ phức tạp thời gian O(1).",
+          "Khi cần tính toán chiều dài len() của tập dữ liệu ngay khi vừa khởi tạo.",
+          "Chỉ dùng khi viết giao diện đồ họa GUI và không hỗ trợ xử lý số học."
+        ],
+        "difficulty": "medium"
+      },
+      {
+        "id": "mc_exam-python-m7_3",
+        "question": "[Lập trình an toàn & Xử lý biên] Bẫy sai lầm chết người nào xảy ra khi sử dụng tham số mặc định là kiểu dữ liệu khả biến (Mutable Default Argument như list/dict)?",
+        "options": [
+          "Giá trị mặc định chỉ được khởi tạo MỘT LẦN khi định nghĩa hàm và sẽ bị tích lũy biến đổi qua các lần gọi tiếp theo.",
+          "Hàm sẽ báo lỗi cú pháp SyntaxError ngay khi tệp mã nguồn được nạp vào bộ nhớ.",
+          "Python sẽ tự động nhân bản danh sách mới cho mỗi lần gọi hàm mà không cảnh báo.",
+          "Tất cả các biến toàn cục trong cùng module sẽ bị xóa sạch nếu tham số mặc định bị thay đổi."
+        ],
+        "difficulty": "hard"
+      }
+    ],
+    "coding_questions": [
+      {
+        "index": 92,
+        "title": "Câu 92: Way Too Long Words (71A) - Codeforces - Mức độ: Dễ",
+        "difficulty": "easy",
+        "platform": "Codeforces",
+        "description": "Đề bài:\n\nTrong xử lý văn bản, những từ quá dài thường được viết tắt để tiết kiệm diện tích. Một từ được xem là \"quá dài\" nếu độ dài của nó lớn hơn nghiêm ngặt 10 ký tự. Tất cả các từ quá dài phải được thay thế bằng một từ viết tắt đặc biệt: giữ nguyên chữ cái đầu tiên, tiếp theo là số lượng các chữ cái nằm giữa chữ cái đầu và chữ cái cuối, và kết thúc bằng chữ cái cuối cùng. Các từ có độ dài từ 10 ký tự trở xuống được giữ nguyên.\n\nYêu cầu/Điều kiện cho bài:\n\n* Số lượng từ: 1 ≤ n ≤ 100.\n\n* Mỗi từ có độ dài từ 1 đến 100 ký tự và chỉ chứa các chữ cái tiếng Anh in thường ('a' – 'z').\n\n* Giới hạn thời gian: 1.0 giây.\n\n* Giới hạn bộ nhớ: 256 MB.\n\nInput:\n\n* Dòng đầu tiên chứa số nguyên n.\n\n* n dòng tiếp theo, mỗi dòng chứa một từ viết bằng chữ cái in thường.\n\nOutput:\n\n* In ra đúng n dòng, mỗi dòng là từ tương ứng sau khi đã xử lý rút gọn (hoặc giữ nguyên nếu không quá dài).\n\n* *Ví dụ minh họa:*\n\n* Input:\n\n`text\n\n4\n\nword\n\nlocalization\n\ninternationalization\n\npneumonoultramicroscopicsilicovolcanoconiosis\n\n`\n\n* Output:\n\n`text\n\nword\n\nl10n\n\ni18n\n\np43s\n\n`",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Way Too Long Words (71A)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 93,
+        "title": "Câu 93: Theatre Square (1A) - Codeforces - Mức độ: Dễ",
+        "difficulty": "easy",
+        "platform": "Codeforces",
+        "description": "Đề bài:\n\nQuảng trường Nhà hát ở thủ đô Berland có hình chữ nhật với kích thước n × m mét. Nhân dịp kỷ niệm thành phố, ban quản lý quyết định lát kín toàn bộ quảng trường bằng các phiến đá hoa cương hình vuông có kích thước a × a mét. Các phiến đá có thể phủ vượt ra ngoài chu vi quảng trường nhưng quảng trường phải được che phủ hoàn toàn, không được phép đập vỡ hay cắt xẻ các phiến đá, và các cạnh của phiến đá phải đặt song song với các cạnh của quảng trường. Hãy tính số lượng phiến đá hoa cương tối thiểu cần dùng.\n\nYêu cầu/Điều kiện cho bài:\n\n* 1 ≤ n, m, a ≤ 10⁹ (n, m, a là các số nguyên dương).\n\n* Chú ý: Kết quả có thể lên tới 10¹⁸, cần sử dụng kiểu dữ liệu số nguyên 64-bit (long long trong C++, BigInt trong JavaScript).\n\n* Giới hạn thời gian: 1.0 giây.\n\n* Giới hạn bộ nhớ: 256 MB.\n\nInput:\n\n* Một dòng duy nhất chứa ba số nguyên dương n, m và a cách nhau bởi dấu cách.\n\nOutput:\n\n* In ra một số nguyên duy nhất là số lượng phiến đá hoa cương tối thiểu cần sử dụng.\n\n* *Ví dụ minh họa:*\n\n* Input: 6 6 4\n\n* Output: 4\n\n* *(Giải thích: Chiều dài cần ⌈ 6 / 4 ⌉ = 2 phiến đá, chiều rộng cần ⌈ 6 / 4 ⌉ = 2 phiến đá → 2 × 2 = 4 phiến).*",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Theatre Square (1A)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      },
+      {
+        "index": 94,
+        "title": "Câu 94: Taxi (158B) - Codeforces - Mức độ: Trung bình",
+        "difficulty": "medium",
+        "platform": "Codeforces",
+        "description": "Đề bài:\n\nSau khi tan trường, có n nhóm học sinh muốn đi taxi về nhà. Nhóm thứ i gồm có s_i thành viên (1 ≤ s_i ≤ 4). Mỗi chiếc xe taxi có thể chở tối đa 4 hành khách. Các thành viên trong cùng một nhóm bắt buộc phải ngồi chung một xe taxi (không được phép tách nhóm), tuy nhiên các nhóm khác nhau có thể ngồi ghép chung một xe nếu tổng số người trên xe không vượt quá 4. Hãy tính số lượng xe taxi tối thiểu cần gọi để đưa toàn bộ học sinh về nhà.\n\nYêu cầu/Điều kiện cho bài:\n\n* Số lượng nhóm: 1 ≤ n ≤ 10⁵.\n\n* Số học sinh mỗi nhóm: 1 ≤ s_i ≤ 4.\n\n* Giới hạn thời gian: 3.0 giây.\n\n* Giới hạn bộ nhớ: 256 MB.\n\nInput:\n\n* Dòng đầu tiên chứa số nguyên dương n.\n\n* Dòng thứ hai chứa dãy n số nguyên s_1, s_2, ..., s_n cách nhau bởi khoảng trắng.\n\nOutput:\n\n* In ra một số nguyên duy nhất là số lượng xe taxi tối thiểu cần thuê.\n\n* *Ví dụ minh họa:*\n\n* Ví dụ 1:\n\n* Input:\n\n`text\n\n5\n\n1 2 4 3 3\n\n`\n\n* Output: 4\n\n* Ví dụ 2:\n\n* Input:\n\n`text\n\n8\n\n2 3 4 4 2 1 3 1\n\n`\n\n* Output: 5",
+        "language": "python",
+        "starter_code": "# Lời giải cho: Taxi (158B)\ndef solve(val):\n    # Viết mã nguồn tại đây\n    return val\n\nprint(solve())",
+        "sample_test_cases": [
+          {
+            "input": "Sample input",
+            "expected_output": "Sample output"
+          }
+        ]
+      }
+    ]
+  },
+  "exam-cybersecurity-m1": {
+    "exam_id": "exam-cybersecurity-m1",
+    "track_id": "cybersecurity",
+    "milestone_id": "cybersecurity-m1",
+    "title": "Phòng Thi Thực Hành Lab: Nền tảng mạng máy tính (Foundation)",
+    "level": "Foundation",
+    "is_external_lab": true,
+    "platform": "TryHackMe",
+    "room_name": "Pickle Rick (TryHackMe)",
+    "external_url": "https://tryhackme.com/room/picklerick",
+    "instructions": [
+      "1. Kỳ thi sát hạch cho Cột mốc 1 (Nền tảng mạng máy tính) là một bài thực hành pentest/lab thực chiến độc lập.",
+      "2. Nhấp vào nút bên dưới để mở trực tiếp phòng máy trên nền tảng TryHackMe.",
+      "3. Phòng thi luôn mở, không giới hạn thời gian làm bài. Bạn có thể tự do thử nghiệm, tra cứu tài liệu và hoàn thành các cờ (Flags) theo tốc độ của riêng mình.",
+      "4. Sau khi hoàn thành xuất sắc các thử thách trong phòng máy, quay lại hệ thống để đánh dấu hoàn tất cột mốc và tiếp tục lộ trình."
+    ],
+    "required_milestone": "cybersecurity-m1"
+  },
+  "exam-cybersecurity-m2": {
+    "exam_id": "exam-cybersecurity-m2",
+    "track_id": "cybersecurity",
+    "milestone_id": "cybersecurity-m2",
+    "title": "Phòng Thi Thực Hành Lab: Linux & Command Line cho Security (Foundation)",
+    "level": "Foundation",
+    "is_external_lab": true,
+    "platform": "TryHackMe",
+    "room_name": "Basic Pentesting (TryHackMe)",
+    "external_url": "https://tryhackme.com/room/basicpentestingjt",
+    "instructions": [
+      "1. Kỳ thi sát hạch cho Cột mốc 2 (Linux & Command Line cho Security) là một bài thực hành pentest/lab thực chiến độc lập.",
+      "2. Nhấp vào nút bên dưới để mở trực tiếp phòng máy trên nền tảng TryHackMe.",
+      "3. Phòng thi luôn mở, không giới hạn thời gian làm bài. Bạn có thể tự do thử nghiệm, tra cứu tài liệu và hoàn thành các cờ (Flags) theo tốc độ của riêng mình.",
+      "4. Sau khi hoàn thành xuất sắc các thử thách trong phòng máy, quay lại hệ thống để đánh dấu hoàn tất cột mốc và tiếp tục lộ trình."
+    ],
+    "required_milestone": "cybersecurity-m2"
+  },
+  "exam-cybersecurity-m3": {
+    "exam_id": "exam-cybersecurity-m3",
+    "track_id": "cybersecurity",
+    "milestone_id": "cybersecurity-m3",
+    "title": "Phòng Thi Thực Hành Lab: Web Security cơ bản (OWASP Top 10) (Intermediate)",
+    "level": "Intermediate",
+    "is_external_lab": true,
+    "platform": "TryHackMe",
+    "room_name": "RootMe (TryHackMe)",
+    "external_url": "https://tryhackme.com/room/rootme",
+    "instructions": [
+      "1. Kỳ thi sát hạch cho Cột mốc 3 (Web Security cơ bản (OWASP Top 10)) là một bài thực hành pentest/lab thực chiến độc lập.",
+      "2. Nhấp vào nút bên dưới để mở trực tiếp phòng máy trên nền tảng TryHackMe.",
+      "3. Phòng thi luôn mở, không giới hạn thời gian làm bài. Bạn có thể tự do thử nghiệm, tra cứu tài liệu và hoàn thành các cờ (Flags) theo tốc độ của riêng mình.",
+      "4. Sau khi hoàn thành xuất sắc các thử thách trong phòng máy, quay lại hệ thống để đánh dấu hoàn tất cột mốc và tiếp tục lộ trình."
+    ],
+    "required_milestone": "cybersecurity-m3"
+  },
+  "exam-cybersecurity-m4": {
+    "exam_id": "exam-cybersecurity-m4",
+    "track_id": "cybersecurity",
+    "milestone_id": "cybersecurity-m4",
+    "title": "Phòng Thi Thực Hành Lab: Network Security (Intermediate)",
+    "level": "Intermediate",
+    "is_external_lab": true,
+    "platform": "TryHackMe",
+    "room_name": "Blue (TryHackMe)",
+    "external_url": "https://tryhackme.com/room/blue",
+    "instructions": [
+      "1. Kỳ thi sát hạch cho Cột mốc 4 (Network Security) là một bài thực hành pentest/lab thực chiến độc lập.",
+      "2. Nhấp vào nút bên dưới để mở trực tiếp phòng máy trên nền tảng TryHackMe.",
+      "3. Phòng thi luôn mở, không giới hạn thời gian làm bài. Bạn có thể tự do thử nghiệm, tra cứu tài liệu và hoàn thành các cờ (Flags) theo tốc độ của riêng mình.",
+      "4. Sau khi hoàn thành xuất sắc các thử thách trong phòng máy, quay lại hệ thống để đánh dấu hoàn tất cột mốc và tiếp tục lộ trình."
+    ],
+    "required_milestone": "cybersecurity-m4"
+  },
+  "exam-cybersecurity-m5": {
+    "exam_id": "exam-cybersecurity-m5",
+    "track_id": "cybersecurity",
+    "milestone_id": "cybersecurity-m5",
+    "title": "Phòng Thi Thực Hành Lab: Cryptography cơ bản (Advanced)",
+    "level": "Advanced",
+    "is_external_lab": true,
+    "platform": "TryHackMe",
+    "room_name": "Kenobi (TryHackMe)",
+    "external_url": "https://tryhackme.com/room/kenobi",
+    "instructions": [
+      "1. Kỳ thi sát hạch cho Cột mốc 5 (Cryptography cơ bản) là một bài thực hành pentest/lab thực chiến độc lập.",
+      "2. Nhấp vào nút bên dưới để mở trực tiếp phòng máy trên nền tảng TryHackMe.",
+      "3. Phòng thi luôn mở, không giới hạn thời gian làm bài. Bạn có thể tự do thử nghiệm, tra cứu tài liệu và hoàn thành các cờ (Flags) theo tốc độ của riêng mình.",
+      "4. Sau khi hoàn thành xuất sắc các thử thách trong phòng máy, quay lại hệ thống để đánh dấu hoàn tất cột mốc và tiếp tục lộ trình."
+    ],
+    "required_milestone": "cybersecurity-m5"
+  },
+  "exam-cybersecurity-m6": {
+    "exam_id": "exam-cybersecurity-m6",
+    "track_id": "cybersecurity",
+    "milestone_id": "cybersecurity-m6",
+    "title": "Phòng Thi Thực Hành Lab: Penetration Testing cơ bản (Advanced)",
+    "level": "Advanced",
+    "is_external_lab": true,
+    "platform": "TryHackMe",
+    "room_name": "Steel Mountain (TryHackMe)",
+    "external_url": "https://tryhackme.com/room/steelmountain",
+    "instructions": [
+      "1. Kỳ thi sát hạch cho Cột mốc 6 (Penetration Testing cơ bản) là một bài thực hành pentest/lab thực chiến độc lập.",
+      "2. Nhấp vào nút bên dưới để mở trực tiếp phòng máy trên nền tảng TryHackMe.",
+      "3. Phòng thi luôn mở, không giới hạn thời gian làm bài. Bạn có thể tự do thử nghiệm, tra cứu tài liệu và hoàn thành các cờ (Flags) theo tốc độ của riêng mình.",
+      "4. Sau khi hoàn thành xuất sắc các thử thách trong phòng máy, quay lại hệ thống để đánh dấu hoàn tất cột mốc và tiếp tục lộ trình."
+    ],
+    "required_milestone": "cybersecurity-m6"
+  },
+  "exam-cybersecurity-m7": {
+    "exam_id": "exam-cybersecurity-m7",
+    "track_id": "cybersecurity",
+    "milestone_id": "cybersecurity-m7",
+    "title": "Phòng Thi Thực Hành Lab: Bảo mật ứng dụng & DevSecOps (Intensive)",
+    "level": "Intensive",
+    "is_external_lab": true,
+    "platform": "TryHackMe",
+    "room_name": "Vulnversity (TryHackMe)",
+    "external_url": "https://tryhackme.com/room/vulnversity",
+    "instructions": [
+      "1. Kỳ thi sát hạch cho Cột mốc 7 (Bảo mật ứng dụng & DevSecOps) là một bài thực hành pentest/lab thực chiến độc lập.",
+      "2. Nhấp vào nút bên dưới để mở trực tiếp phòng máy trên nền tảng TryHackMe.",
+      "3. Phòng thi luôn mở, không giới hạn thời gian làm bài. Bạn có thể tự do thử nghiệm, tra cứu tài liệu và hoàn thành các cờ (Flags) theo tốc độ của riêng mình.",
+      "4. Sau khi hoàn thành xuất sắc các thử thách trong phòng máy, quay lại hệ thống để đánh dấu hoàn tất cột mốc và tiếp tục lộ trình."
+    ],
+    "required_milestone": "cybersecurity-m7"
+  },
+  "exam-cybersecurity-m8": {
+    "exam_id": "exam-cybersecurity-m8",
+    "track_id": "cybersecurity",
+    "milestone_id": "cybersecurity-m8",
+    "title": "Phòng Thi Thực Hành Lab: Digital Forensics & Incident Response cơ bản (Intensive)",
+    "level": "Intensive",
+    "is_external_lab": true,
+    "platform": "TryHackMe",
+    "room_name": "Simple CTF (TryHackMe)",
+    "external_url": "https://tryhackme.com/room/easyctf",
+    "instructions": [
+      "1. Kỳ thi sát hạch cho Cột mốc 8 (Digital Forensics & Incident Response cơ bản) là một bài thực hành pentest/lab thực chiến độc lập.",
+      "2. Nhấp vào nút bên dưới để mở trực tiếp phòng máy trên nền tảng TryHackMe.",
+      "3. Phòng thi luôn mở, không giới hạn thời gian làm bài. Bạn có thể tự do thử nghiệm, tra cứu tài liệu và hoàn thành các cờ (Flags) theo tốc độ của riêng mình.",
+      "4. Sau khi hoàn thành xuất sắc các thử thách trong phòng máy, quay lại hệ thống để đánh dấu hoàn tất cột mốc và tiếp tục lộ trình."
+    ],
+    "required_milestone": "cybersecurity-m8"
+  },
+  "exam-cybersecurity-m9": {
+    "exam_id": "exam-cybersecurity-m9",
+    "track_id": "cybersecurity",
+    "milestone_id": "cybersecurity-m9",
+    "title": "Phòng Thi Thực Hành Lab: Thực hành tổng hợp (Proficiency)",
+    "level": "Proficiency",
+    "is_external_lab": true,
+    "platform": "TryHackMe",
+    "room_name": "Bounty Hacker (TryHackMe)",
+    "external_url": "https://tryhackme.com/room/bountyhacker",
+    "instructions": [
+      "1. Kỳ thi sát hạch cho Cột mốc 9 (Thực hành tổng hợp) là một bài thực hành pentest/lab thực chiến độc lập.",
+      "2. Nhấp vào nút bên dưới để mở trực tiếp phòng máy trên nền tảng TryHackMe.",
+      "3. Phòng thi luôn mở, không giới hạn thời gian làm bài. Bạn có thể tự do thử nghiệm, tra cứu tài liệu và hoàn thành các cờ (Flags) theo tốc độ của riêng mình.",
+      "4. Sau khi hoàn thành xuất sắc các thử thách trong phòng máy, quay lại hệ thống để đánh dấu hoàn tất cột mốc và tiếp tục lộ trình."
+    ],
+    "required_milestone": "cybersecurity-m9"
+  }
+}

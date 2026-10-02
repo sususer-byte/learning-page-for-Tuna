@@ -1,0 +1,46 @@
+{
+  "completed_lessons": [
+    "cpp_l1_1",
+    "cpp_l2_1",
+    "cpp_l3_1",
+    "cpp_l1_2",
+    "cpp_l2_2",
+    "cpp_l3_2",
+    "cpp_l4_2",
+    "web-dev_l1_1",
+    "web-dev_l2_1",
+    "web-dev_l3_1"
+  ],
+  "completed_milestones": [
+    "web-m1"
+  ],
+  "exam_results": {
+    "exam-web-m1": {
+      "submitted_at": "2026-09-26T09:53:43.853Z",
+      "score": 100,
+      "passed": true,
+      "mcCorrect": 3,
+      "mcTotal": 3,
+      "codingPassedCount": 3,
+      "codingTotal": 3
+    },
+    "exam-web-dev-m1": {
+      "submitted_at": "2026-09-26T15:41:47.044Z",
+      "score": 0,
+      "passed": false,
+      "mcCorrect": 0,
+      "mcTotal": 10,
+      "codingPassedCount": 0,
+      "codingTotal": 3
+    },
+    "exam-cpp-m1": {
+      "submitted_at": "2026-09-27T05:32:29.693Z",
+      "score": 0,
+      "passed": false,
+      "mcCorrect": 0,
+      "mcTotal": 10,
+      "codingPassedCount": 0,
+      "codingTotal": 3
+    }
+  }
+}

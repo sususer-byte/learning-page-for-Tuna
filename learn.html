@@ -1,0 +1,799 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dev Learning - Nền Tảng Học Tập Kỹ Sư & Lộ Trình Kiến Thức</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Be+Vietnam+Pro:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CodeMirror Core & Themes -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/material-darker.min.css"
+    />
+
+    <!-- KaTeX for Mathematical Typography -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="theme-electric-conduit">
+    <!-- Sidebar (Left) -->
+    <aside class="sidebar" id="app-sidebar">
+      <div class="sidebar-header">
+        <div
+          class="brand-logo"
+          style="display: flex; align-items: center; gap: 10px"
+        >
+          <span
+            style="
+              font-weight: 900;
+              font-size: 1.8rem;
+              color: #f8fafc;
+              letter-spacing: -1px;
+            "
+            >DEV</span
+          >
+        </div>
+        <div class="brand-text">
+          <div
+            class="brand-title"
+            style="font-size: 1.1rem; color: var(--text-secondary)"
+          >
+            ACADEMY
+          </div>
+          <div class="brand-sub">Platform v4.0</div>
+        </div>
+        <button
+          class="sidebar-collapse-btn"
+          id="btn-collapse-sidebar"
+          title="Thu gọn thanh điều hướng (Ctrl+B)"
+        >
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+      </div>
+
+      <a href="index.html" class="sidebar-home-link" id="btn-go-home">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Trang Chủ</span>
+      </a>
+
+      <!-- 4 FIRST-CLASS TRACKS -->
+      <div class="sidebar-menu">
+        <div class="menu-heading">CHƯƠNG TRÌNH HỌC</div>
+
+        <button class="nav-tab-btn active" data-target="web-dev">
+          <span class="tab-icon"><i class="fa-solid fa-code"></i></span>
+          <span class="tab-text">Web Development</span>
+          <span class="tab-counter" id="badge-web-dev">43 Bài</span>
+        </button>
+
+        <button class="nav-tab-btn" data-target="game2d">
+          <span class="tab-icon"><i class="fa-solid fa-gamepad"></i></span>
+          <span class="tab-text">Game 2D Pixel</span>
+          <span class="tab-counter" id="badge-game2d">27 Bài</span>
+        </button>
+
+        <button class="nav-tab-btn" data-target="cybersecurity">
+          <span class="tab-icon"
+            ><i class="fa-solid fa-shield-halved"></i
+          ></span>
+          <span class="tab-text">Cybersecurity</span>
+          <span class="tab-counter" id="badge-cybersecurity">32 Bài</span>
+        </button>
+
+        <!-- Track 4: Ngôn ngữ lập trình (Equal Footing) -->
+        <button class="nav-tab-btn" data-target="prog-lang">
+          <span class="tab-icon"><i class="fa-solid fa-terminal"></i></span>
+          <span class="tab-text">Ngôn Ngữ Lập Trình</span>
+          <span class="tab-counter" id="badge-prog-lang">3 Nhánh (73 Bài)</span>
+        </button>
+
+        <!-- Sub-track switcher for Programming Languages (Appears when prog-lang is active) -->
+        <div
+          class="sub-track-container"
+          id="sub-track-selector"
+          style="display: none"
+        >
+          <div class="sub-track-title">
+            <i class="fa-solid fa-code-fork"></i> CHỌN PHÂN NHÁNH:
+          </div>
+          <div class="sub-track-pill-group">
+            <button class="sub-track-pill active" data-subtrack="js">
+              <i class="fa-brands fa-js"></i> JavaScript
+            </button>
+            <button class="sub-track-pill" data-subtrack="cpp">
+              <i class="fa-solid fa-c"></i> C++ (ISO 20)
+            </button>
+            <button class="sub-track-pill" data-subtrack="python">
+              <i class="fa-brands fa-python"></i> Python 3
+            </button>
+          </div>
+        </div>
+        <button class="nav-tab-btn" id="btn-reset-progress">
+          <span class="tab-icon"><i class="fa-solid fa-trash-can"></i></span>
+          <span class="tab-text">Đặt Lại Tiến Độ</span>
+        </button>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-status">
+          <span class="status-indicator online"></span>
+          <span class="status-label" id="backend-status-label"
+            >Sandbox Engine: Kết Nối Cục Bộ</span
+          >
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Application Area -->
+    <main class="main-wrapper" id="app-main">
+      <!-- Top Navigation Bar -->
+      <header class="top-navbar">
+        <div class="navbar-left">
+          <button
+            class="nav-toggle-btn"
+            id="btn-toggle-sidebar"
+            title="Đóng/Mở thanh bên (Ctrl+B)"
+            aria-label="Toggle Sidebar"
+          >
+            <i class="fa-solid fa-bars-staggered"></i>
+          </button>
+          <div class="course-meta">
+            <h1 class="active-course-name" id="display-course-name">
+              Phát Triển Web Toàn Diện (Web Development)
+            </h1>
+            <span class="course-badge" id="display-course-badge"
+              >Hệ Thống Chuẩn Kỹ Sư</span
+            >
+          </div>
+        </div>
+
+        <nav class="sub-nav-tabs">
+          <button class="sub-tab-btn active" data-sub="pipeline">
+            <i class="fa-solid fa-timeline"></i> Lộ Trình
+          </button>
+          <button class="sub-tab-btn" data-sub="lesson">
+            <i class="fa-solid fa-book-open"></i> Bài Học
+          </button>
+          <button class="sub-tab-btn" data-sub="exam">
+            <i class="fa-solid fa-award"></i> Phòng Thi Cột Mốc
+          </button>
+          <button class="sub-tab-btn" data-sub="practice">
+            <i class="fa-solid fa-laptop-code"></i> Thực Hành IDE (Sandbox)
+          </button>
+        </nav>
+      </header>
+
+      <!-- Content Stage -->
+      <div class="stage-container">
+        <!-- ===================================================================
+           1. PIPELINE TAB: Dynamic SVG Flow & Milestone Inspection
+           =================================================================== -->
+        <section id="tab-pipeline" class="tab-view active">
+          <div class="scroll-container">
+            <div class="pipeline-dashboard-grid">
+              <!-- Main Conduit Canvas Card -->
+              <div class="conduit-hero-card">
+                <div class="conduit-header">
+                  <div>
+                    <span class="conduit-tag"
+                      ><i class="fa-solid fa-wave-square"></i> LỘ TRÌNH KỸ
+                      SƯ</span
+                    >
+                    <h2 class="conduit-title" id="pipeline-title">
+                      Lộ Trình Tiến Độ
+                    </h2>
+                  </div>
+                  <div class="conduit-progress-stats">
+                    <div class="stat-number" id="pipeline-progress-percent">
+                      35%
+                    </div>
+                    <div class="stat-desc">Độ thông suốt đường ống</div>
+                  </div>
+                </div>
+
+                <!-- Roadmap Scroll Toolbar (Scrollbar & Navigation Controls) -->
+                <div class="pipeline-scroll-toolbar">
+                  <span class="pipeline-scroll-hint">
+                    <i class="fa-solid fa-arrows-left-right"></i> Kéo chuột hoặc
+                    cuộn ngang để xem tất cả các cột mốc
+                  </span>
+                  <div class="pipeline-scroll-controls">
+                    <button
+                      class="btn-scroll-arrow"
+                      id="btn-scroll-pipeline-left"
+                      title="Cuộn sang trái"
+                    >
+                      <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button
+                      class="btn-scroll-arrow"
+                      id="btn-scroll-pipeline-right"
+                      title="Cuộn sang phải"
+                    >
+                      <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- SVG Dynamic Pipeline Conduit -->
+                <div
+                  class="pipeline-canvas-wrapper"
+                  id="pipeline-canvas-container"
+                  style="overflow-x: auto; overflow-y: hidden; width: 100%"
+                >
+                  <svg
+                    id="pipeline-svg"
+                    class="pipeline-svg"
+                    viewBox="0 0 800 240"
+                    preserveAspectRatio="xMidYMid meet"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="activeStreamGrad"
+                        x1="0%"
+                        y1="0%"
+                        x2="100%"
+                        y2="0%"
+                      >
+                        <stop
+                          offset="0%"
+                          stop-color="#0284C7"
+                          stop-opacity="0.4"
+                        />
+                        <stop
+                          offset="50%"
+                          stop-color="#0284C7"
+                          stop-opacity="0.8"
+                        />
+                        <stop
+                          offset="100%"
+                          stop-color="#38BDF8"
+                          stop-opacity="0.8"
+                        />
+                      </linearGradient>
+                      <filter
+                        id="conduitGlow"
+                        x="-20%"
+                        y="-20%"
+                        width="140%"
+                        height="140%"
+                      >
+                        <feGaussianBlur stdDeviation="4" result="blur" />
+                        <feComposite
+                          in="SourceGraphic"
+                          in2="blur"
+                          operator="over"
+                        />
+                      </filter>
+                    </defs>
+
+                    <!-- Background Inactive Track -->
+                    <!-- 3D Conduit Outer Casing -->
+                    <path
+                      id="pipeline-bg-casing"
+                      class="conduit-path-casing"
+                      d="M 50 120 C 140 120, 180 180, 270 180 C 360 180, 420 100, 520 100 C 600 100, 650 170, 740 170"
+                    />
+                    <path
+                      id="pipeline-bg-path"
+                      class="conduit-path-bg"
+                      d="M 50 120 C 140 120, 180 180, 270 180 C 360 180, 420 100, 520 100 C 600 100, 650 170, 740 170"
+                    />
+
+                    <!-- Dynamic Flowing Path (Hardware-accelerated animated stroke) -->
+                    <path
+                      id="pipeline-flow-path"
+                      class="conduit-path-flow"
+                      d="M 50 120 C 140 120, 180 180, 270 180 C 360 180, 420 100, 520 100"
+                    />
+
+                    <!-- Dynamic Milestone Nodes (rendered via JS) -->
+                    <g id="pipeline-nodes-group"></g>
+                  </svg>
+                </div>
+
+                <!-- Interactive Milestone Drawer -->
+                <div
+                  class="milestone-details-panel"
+                  id="milestone-details-panel"
+                >
+                  <div class="milestone-badge-pill" id="selected-ms-badge">
+                    CỘT MỐC ĐANG CHỌN
+                  </div>
+                  <h3 class="milestone-name" id="selected-ms-name">
+                    Đang tải dữ liệu cột mốc...
+                  </h3>
+                  <div class="milestone-reqs" id="selected-ms-reqs"></div>
+                  <div class="milestone-actions">
+                    <button
+                      class="btn btn-action"
+                      id="btn-enter-milestone-exam"
+                    >
+                      <i class="fa-solid fa-play"></i> Vào Kỳ Thi Sát Hạch Cột
+                      Mốc Này
+                    </button>
+                    <button
+                      class="btn btn-back-sm"
+                      id="btn-view-milestone-lessons"
+                    >
+                      <i class="fa-solid fa-book-open"></i> Xem Các Bài Học Bắt
+                      Buộc
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Asymmetric Side Telemetry Card -->
+              <div class="pipeline-side-card">
+                <div class="side-card-header">
+                  <div class="side-card-title">
+                    <i class="fa-solid fa-gauge-high"></i> TRẠM QUAN SÁT TIẾN ĐỘ
+                  </div>
+                </div>
+
+                <div class="telemetry-item">
+                  <div class="telemetry-label">Bài học đã hoàn thành</div>
+                  <div class="telemetry-value" id="telem-lessons-completed">
+                    0 / 0
+                  </div>
+                  <div class="telemetry-bar-wrap">
+                    <div
+                      class="telemetry-bar-fill"
+                      id="telem-lessons-bar"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="telemetry-item">
+                  <div class="telemetry-label">Cột mốc đã chinh phục</div>
+                  <div class="telemetry-value" id="telem-milestones-completed">
+                    0 / 3
+                  </div>
+                  <div class="telemetry-bar-wrap">
+                    <div
+                      class="telemetry-bar-fill"
+                      id="telem-milestones-bar"
+                      style="width: 0%"
+                    ></div>
+                  </div>
+                </div>
+
+                <div class="conduit-notice-box">
+                  <div class="notice-title">
+                    <i class="fa-solid fa-shield-halved"></i> QUY TẮC MỞ KHÓA KỲ
+                    THI
+                  </div>
+                  <p>
+                    Hoàn thành 100% các bài học lý thuyết bắt buộc của một cột
+                    mốc để kích hoạt hoạt cảnh <b>Unlock Cutscene</b> và giải
+                    phóng quyền truy cập vào phòng thi sát hạch.
+                  </p>
+                </div>
+
+                <button
+                  class="btn btn-action-full"
+                  id="btn-resume-latest-lesson"
+                >
+                  <i class="fa-solid fa-bolt"></i> Tiếp Tục Bài Học Dở Dang
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+           2. LESSON TAB: 7-Section Academic Standard
+           =================================================================== -->
+        <section id="tab-lesson" class="tab-view">
+          <!-- Lesson List -->
+          <div id="lesson-list-view" class="view-panel scroll-container">
+            <div class="section-intro-header">
+              <h2>Danh Sách Bài Học Chuẩn Kỹ Sư</h2>
+              <p>
+                Mỗi bài học được đối chiếu tối thiểu 2 nguồn kỹ thuật chính
+                thống, có code đã chạy thử nghiệm thật, phân tích bẫy sai lầm và
+                liên kết ứng dụng thực tế.
+              </p>
+            </div>
+            <div id="lesson-cards-container"></div>
+          </div>
+
+          <!-- Lesson Reader Detail -->
+          <div
+            id="lesson-detail-view"
+            class="view-panel detail-mode"
+            style="display: none"
+          >
+            <div class="reader-toolbar">
+              <div class="toolbar-left">
+                <button class="btn btn-back" id="btn-back-to-lessons">
+                  <i class="fa-solid fa-arrow-left"></i> Danh sách bài học
+                </button>
+              </div>
+              <div class="reader-progress-wrap">
+                <span class="progress-label" id="reader-progress-text"
+                  >Tiến độ bài học: 0%</span
+                >
+                <div class="progress-track">
+                  <div class="progress-fill" id="reader-progress-bar"></div>
+                </div>
+              </div>
+              <button class="btn btn-action-sm" id="btn-mark-lesson-complete">
+                <i class="fa-solid fa-circle-check"></i> Đánh Dấu Hoàn Thành Bài
+              </button>
+            </div>
+
+            <div class="reader-layout-container">
+              <div
+                class="reader-body scroll-container"
+                id="lesson-content-body"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Module Exercises Detail View -->
+          <div
+            id="module-exercises-view"
+            class="view-panel detail-mode"
+            style="display: none"
+          >
+            <div class="reader-toolbar">
+              <div class="toolbar-left">
+                <button class="btn btn-back" id="btn-back-from-exercises">
+                  <i class="fa-solid fa-arrow-left"></i> Quay lại giáo trình
+                </button>
+              </div>
+              <div class="reader-progress-wrap">
+                <span class="progress-label" id="exercise-header-badge"
+                  >Bài Tập Tự Kiểm Tra</span
+                >
+              </div>
+            </div>
+
+            <div class="reader-layout-container">
+              <div
+                class="reader-body scroll-container"
+                id="module-exercises-content-body"
+              ></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+           3. EXAM TAB: Single Question Route & Isolated Code Workspace
+           =================================================================== -->
+        <section id="tab-exam" class="tab-view">
+          <!-- Exam Dashboard (Selection) -->
+          <div id="exam-dashboard-view" class="view-panel scroll-container">
+            <div class="section-intro-header">
+              <h2>Hệ Thống Phòng Thi Sát Hạch Cột Mốc</h2>
+              <p>
+                Kỳ thi bao gồm các câu hỏi trắc nghiệm kiểm tra mục tiêu học tập
+                và ĐÚNG 3 câu tự luận (Dễ, Trung bình, Khó) chấm điểm tự động
+                qua Sandbox bí mật.
+              </p>
+            </div>
+            <div class="cards-grid" id="exam-cards-container"></div>
+          </div>
+
+          <!-- Exam Workspace (Question-by-Question Isolated Screen) -->
+          <div
+            id="exam-workspace-view"
+            class="view-panel workspace-mode"
+            style="display: none"
+          >
+            <!-- Exam Sticky Top Bar -->
+            <div class="exam-top-sticky-bar">
+              <div class="exam-header-left">
+                <button
+                  class="btn btn-back-sm"
+                  id="btn-exit-exam-room"
+                  title="Rời phòng thi"
+                >
+                  <i class="fa-solid fa-arrow-left"></i> Rời
+                </button>
+                <div class="exam-title-group">
+                  <h3 class="exam-workspace-title" id="active-exam-title">
+                    Kỳ Thi Sát Hạch Cột Mốc
+                  </h3>
+                  <span class="exam-badge" id="active-question-badge"
+                    >Câu 1/3</span
+                  >
+                </div>
+              </div>
+
+              <!-- Sticky Countdown Timer -->
+              <div class="exam-timer-box" id="exam-timer-box">
+                <i class="fa-regular fa-clock"></i>
+                <span id="exam-countdown-display">60:00</span>
+              </div>
+
+              <!-- Persistent Submit Button (Fixed Top-Right) -->
+              <div class="exam-header-right">
+                <button class="btn btn-danger-action" id="btn-submit-exam-full">
+                  <i class="fa-solid fa-paper-plane"></i> Nộp Bài Thi Chính Thức
+                </button>
+              </div>
+            </div>
+
+            <!-- Question Content & Code Editor Split Pane -->
+            <div class="exam-split-stage">
+              <!-- Left Pane: Problem Description / Specs OR Multiple-Choice Grid -->
+              <div class="exam-pane-left scroll-container" id="exam-pane-specs">
+                <!-- Rendered dynamically (MC Quiz OR Coding Spec) -->
+              </div>
+
+              <!-- Right Pane: CodeMirror Workspace & Interactive Console (For Coding Questions) -->
+              <div class="exam-pane-right" id="exam-pane-coding">
+                <div class="pane-header editor-header-bar">
+                  <div class="pane-title">
+                    <i class="fa-solid fa-terminal"></i> Khung Viết Mã
+                    (CodeMirror)
+                  </div>
+                  <div class="editor-header-actions">
+                    <button class="btn btn-action-sm" id="btn-run-exam-test">
+                      <i class="fa-solid fa-play"></i> Chạy Thử (Sample Test)
+                    </button>
+                  </div>
+                </div>
+
+                <div class="custom-editor-wrapper" id="exam-editor-wrapper">
+                  <textarea id="exam-textarea" spellcheck="false"></textarea>
+                </div>
+
+                <!-- Real-time Sandbox Console Output -->
+                <div class="exam-console-wrapper">
+                  <div class="console-header">
+                    <span
+                      ><i class="fa-solid fa-square-poll-vertical"></i> Kết Quả
+                      Thực Thi (Sandbox)</span
+                    >
+                    <span id="exam-exec-time-pill" class="exec-pill">0ms</span>
+                  </div>
+                  <div
+                    class="console-box scroll-container"
+                    id="exam-console-output"
+                  >
+                    Nhấn "Chạy Thử" để kiểm tra mã nguồn với test case mẫu...
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Navigation Bar (Fixed Bottom Prev / Next Arrows) -->
+            <div class="exam-bottom-navbar">
+              <button class="btn btn-nav-arrow" id="btn-exam-prev-q">
+                <i class="fa-solid fa-arrow-left"></i> Câu Trước
+              </button>
+              <div class="exam-step-dots" id="exam-step-dots"></div>
+              <button class="btn btn-nav-arrow" id="btn-exam-next-q">
+                Câu Tiếp Theo <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===================================================================
+           4. PRACTICE TAB: Multi-Language Sandbox IDE
+           =================================================================== -->
+        <section id="tab-practice" class="tab-view">
+          <div class="ide-layout-container">
+            <!-- Workspace Split (Editor & Terminal) -->
+            <div class="workspace-split ide-layout">
+              <!-- Left: Editor Pane -->
+              <div class="workspace-pane ide-editor-pane">
+                <div class="pane-header ide-header">
+                  <div class="ide-tab-bar" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <div class="ide-file-tab active" id="ide-active-tab">
+                        <i class="fa-brands fa-python" id="ide-file-icon"></i>
+                        <span id="ide-filename">main.py</span>
+                      </div>
+                      <div class="ide-file-tab" id="ide-lesson-tab" style="display:none; background:rgba(197, 168, 128, 0.15); border-color:var(--accent-bronze); color:#F4F1EA;">
+                        <i class="fa-solid fa-code" style="color:var(--accent-bronze);"></i>
+                        <span id="ide-lesson-tab-name">Code Demo Bài Học</span>
+                      </div>
+                    </div>
+                    <button class="btn btn-back-sm" id="btn-return-to-lesson" style="display:none; align-items:center; gap:6px; font-size:0.75rem; padding:4px 12px; margin-right:8px; border-color:var(--accent-bronze); color:var(--accent-bronze);" onclick="returnToActiveLesson()">
+                      <i class="fa-solid fa-arrow-left"></i> <span id="btn-return-lesson-label">Quay Lại Bài Học</span>
+                    </button>
+                  </div>
+
+                  <div class="ide-controls">
+                    <div class="lang-selector-group">
+                      <span class="selector-label">Ngôn ngữ:</span>
+                      <select id="ide-lang-select" class="custom-select">
+                        <option value="python">Python 3 (Local 3.10)</option>
+                        <option value="javascript">JavaScript (ES6+ VM)</option>
+                        <option value="cpp">C++ (MinGW ISO C++17)</option>
+                      </select>
+                    </div>
+
+                    <button
+                      class="btn btn-secondary"
+                      id="btn-reset-ide"
+                      title="Khôi phục code mẫu"
+                    >
+                      <i class="fa-solid fa-rotate-left"></i> Khôi phục
+                    </button>
+
+                    <button class="btn btn-primary" id="btn-run-ide">
+                      <i class="fa-solid fa-play"></i> Thực thi (Run Sandbox)
+                    </button>
+                  </div>
+                </div>
+
+                <div class="custom-editor-wrapper" id="ide-editor-wrapper">
+                  <textarea id="ide-textarea" spellcheck="false"></textarea>
+                </div>
+              </div>
+
+              <!-- Right: Terminal Output Pane -->
+              <div class="workspace-pane ide-terminal-pane">
+                <div class="pane-header terminal-header-bar">
+                  <div class="pane-title">
+                    <i class="fa-solid fa-terminal"></i> Terminal Output
+                    <span class="term-status-pill ready" id="term-status-pill">
+                      <span class="status-dot"></span> Sẵn sàng
+                    </span>
+                  </div>
+                  <div class="terminal-actions">
+                    <span class="term-timer" id="term-exec-time"
+                      ><i class="fa-regular fa-clock"></i> 0.00s</span
+                    >
+                    <button
+                      class="btn btn-secondary"
+                      id="btn-clear-terminal"
+                      title="Xóa màn hình Terminal"
+                    >
+                      <i class="fa-solid fa-trash-can"></i> Xóa
+                    </button>
+                  </div>
+                </div>
+
+                <div class="console-box scroll-container ide-full-terminal" id="ide-terminal-output"><div class="term-line term-prompt">dev-conduit-sandbox&gt; Sẵn sàng thực thi mã nguồn...</div></div>
+              </div>
+            </div>
+
+            <!-- Unified Single-Row Bottom Status Bar (Clean 28px, 11px font) -->
+            <footer class="ide-unified-statusbar">
+              <div class="statusbar-left">
+                <span id="ide-cursor-info"
+                  ><i class="fa-solid fa-crosshairs"></i> Dòng 1, Cột 1</span
+                >
+                <span class="status-sep">•</span>
+                <span>Tab: 4</span>
+                <span class="status-sep">•</span>
+                <span>UTF-8</span>
+              </div>
+              <div class="statusbar-right">
+                <span id="ide-engine-badge"
+                  ><i class="fa-solid fa-terminal"></i> Sandbox Runner:
+                  Ready</span
+                >
+                <span class="status-sep">•</span>
+                <span id="term-exit-status"
+                  ><span class="status-dot-inline idle"></span> Trạng thái:
+                  Idle</span
+                >
+              </div>
+            </footer>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- ===================================================================
+       UNLOCK CUTSCENE OVERLAY (2-4 Seconds Electrical Surge)
+       =================================================================== -->
+    <div
+      class="unlock-overlay"
+      id="unlock-cutscene-overlay"
+      style="display: none"
+    >
+      <div class="unlock-cutscene-card">
+        <div class="conduit-sparkle-ring">
+          <i class="fa-solid fa-bolt"></i>
+        </div>
+        <span class="unlock-kicker">ĐỘT PHÁ KIẾN THỨC KỸ SƯ</span>
+        <h2 class="unlock-title" id="unlock-milestone-title">
+          MỞ KHÓA CỘT MỐC MỚI!
+        </h2>
+        <p class="unlock-desc" id="unlock-milestone-desc">
+          Đường ống dòng chảy đã bừng sáng và tràn sang phân đoạn tiếp theo. Kỳ
+          thi sát hạch cột mốc đã sẵn sàng.
+        </p>
+
+        <div class="unlock-actions">
+          <button class="btn btn-action-lg" id="btn-cutscene-enter-exam">
+            <i class="fa-solid fa-award"></i> Vào Kỳ Thi Cột Mốc Ngay
+          </button>
+          <button class="btn btn-back" id="btn-cutscene-dismiss">
+            Đóng & Xem Lộ Trình
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================
+       EXAM RESULTS MODAL (Grading Breakdown & Model Solutions)
+       =================================================================== -->
+    <div
+      class="exam-result-overlay"
+      id="exam-result-overlay"
+      style="display: none"
+    >
+      <div class="exam-result-modal scroll-container">
+        <div class="result-header">
+          <div class="result-badge" id="modal-result-badge">
+            KẾT QUẢ SÁT HẠCH
+          </div>
+          <h2 class="result-score-title" id="modal-result-score">
+            Điểm số: 85/100
+          </h2>
+          <p class="result-summary-text" id="modal-result-summary">
+            Chúc mừng bạn đã xuất sắc vượt qua kỳ thi sát hạch!
+          </p>
+        </div>
+
+        <div class="result-breakdown" id="modal-result-breakdown">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Official Reference Solutions Panel (Unlocked post-submission) -->
+        <div
+          class="solutions-panel"
+          id="modal-solutions-panel"
+          style="display: none"
+        >
+          <h3 class="solutions-title">
+            <i class="fa-solid fa-key"></i> Lời Giải Mẫu Chuẩn Kỹ Sư & Phân Tích
+          </h3>
+          <div id="modal-solutions-container"></div>
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-action" id="btn-view-official-solutions">
+            <i class="fa-solid fa-unlock-keyhole"></i> Xem Đáp Án & Lời Giải Mẫu
+          </button>
+          <button class="btn btn-back" id="btn-close-result-modal">
+            Đóng & Trở Về Lộ Trình
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CodeMirror Library & Modes -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+
+    <!-- Load Curriculum & Pipeline Data -->
+    <script src="data.js"></script>
+    <!-- Main Application Logic Engine -->
+    <script src="app.js"></script>
+  </body>
+</html>

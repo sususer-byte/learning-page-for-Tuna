@@ -1,0 +1,845 @@
+{
+  "web-dev": {
+    "track_id": "web-dev",
+    "track_title": "Phát Triển Web Toàn Diện",
+    "description": "Lĩnh vực Phát Triển Web Toàn Diện chuyên sâu.",
+    "milestones": [
+      {
+        "id": "web-dev-m1",
+        "name": "Nền tảng Internet & Web",
+        "position": 0.1,
+        "required_lesson_ids": [
+          "web-dev_l1_1",
+          "web-dev_l2_1",
+          "web-dev_l3_1"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 120 C 130 120, 170 180, 250 180",
+        "level": "Foundation"
+      },
+      {
+        "id": "web-dev-m2",
+        "name": "HTML5",
+        "position": 0.2,
+        "required_lesson_ids": [
+          "web-dev_l1_2",
+          "web-dev_l2_2",
+          "web-dev_l3_2",
+          "web-dev_l4_2"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 130 C 130 120, 170 180, 250 180",
+        "level": "Foundation"
+      },
+      {
+        "id": "web-dev-m3",
+        "name": "CSS3",
+        "position": 0.3,
+        "required_lesson_ids": [
+          "web-dev_l1_3",
+          "web-dev_l2_3",
+          "web-dev_l3_3",
+          "web-dev_l4_3",
+          "web-dev_l5_3",
+          "web-dev_l6_3"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 140 C 130 120, 170 180, 250 180",
+        "level": "Intermediate"
+      },
+      {
+        "id": "web-dev-m4",
+        "name": "JavaScript cho Web (DOM)",
+        "position": 0.4,
+        "required_lesson_ids": [
+          "web-dev_l1_4",
+          "web-dev_l2_4",
+          "web-dev_l3_4",
+          "web-dev_l4_4"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 150 C 130 120, 170 180, 250 180",
+        "level": "Intermediate"
+      },
+      {
+        "id": "web-dev-m5",
+        "name": "JavaScript hiện đại & công cụ",
+        "position": 0.5,
+        "required_lesson_ids": [
+          "web-dev_l1_5",
+          "web-dev_l2_5",
+          "web-dev_l3_5",
+          "web-dev_l4_5"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 160 C 130 120, 170 180, 250 180",
+        "level": "Advanced"
+      },
+      {
+        "id": "web-dev-m6",
+        "name": "Frontend Framework (React)",
+        "position": 0.6,
+        "required_lesson_ids": [
+          "web-dev_l1_6",
+          "web-dev_l2_6",
+          "web-dev_l3_6",
+          "web-dev_l4_6",
+          "web-dev_l5_6",
+          "web-dev_l6_6",
+          "web-dev_l7_6"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 170 C 130 120, 170 180, 250 180",
+        "level": "Advanced"
+      },
+      {
+        "id": "web-dev-m7",
+        "name": "Backend cơ bản",
+        "position": 0.7,
+        "required_lesson_ids": [
+          "web-dev_l1_7",
+          "web-dev_l2_7",
+          "web-dev_l3_7",
+          "web-dev_l4_7",
+          "web-dev_l5_7",
+          "web-dev_l6_7"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 180 C 130 120, 170 180, 250 180",
+        "level": "Advanced"
+      },
+      {
+        "id": "web-dev-m8",
+        "name": "Database & Mô hình dữ liệu",
+        "position": 0.8,
+        "required_lesson_ids": [
+          "web-dev_l1_8",
+          "web-dev_l2_8",
+          "web-dev_l3_8"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 190 C 130 120, 170 180, 250 180",
+        "level": "Intensive"
+      },
+      {
+        "id": "web-dev-m9",
+        "name": "Triển khai & DevOps cơ bản",
+        "position": 0.9,
+        "required_lesson_ids": [
+          "web-dev_l1_9",
+          "web-dev_l2_9",
+          "web-dev_l3_9",
+          "web-dev_l4_9",
+          "web-dev_l5_9"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 200 C 130 120, 170 180, 250 180",
+        "level": "Intensive"
+      },
+      {
+        "id": "web-dev-m10",
+        "name": "Dự án tổng hợp (Capstone)",
+        "position": 1,
+        "required_lesson_ids": [
+          "web-dev_l1_10"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 210 C 130 120, 170 180, 250 180",
+        "level": "Proficiency"
+      }
+    ]
+  },
+  "game2d": {
+    "track_id": "game2d",
+    "track_title": "Phát Triển Game 2D Pixel",
+    "description": "Lĩnh vực Phát Triển Game 2D Pixel chuyên sâu.",
+    "milestones": [
+      {
+        "id": "game2d-m1",
+        "name": "Nền tảng Game Dev & Công cụ",
+        "position": 0.11,
+        "required_lesson_ids": [
+          "game2d_l1_1",
+          "game2d_l2_1",
+          "game2d_l3_1"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 120 C 130 120, 170 180, 250 180",
+        "level": "Foundation"
+      },
+      {
+        "id": "game2d-m2",
+        "name": "Pixel Art cơ bản",
+        "position": 0.22,
+        "required_lesson_ids": [
+          "game2d_l1_2",
+          "game2d_l2_2",
+          "game2d_l3_2"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 130 C 130 120, 170 180, 250 180",
+        "level": "Foundation"
+      },
+      {
+        "id": "game2d-m3",
+        "name": "Chuyển động & Vật lý 2D",
+        "position": 0.33,
+        "required_lesson_ids": [
+          "game2d_l1_3",
+          "game2d_l2_3",
+          "game2d_l3_3",
+          "game2d_l4_3"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 140 C 130 120, 170 180, 250 180",
+        "level": "Intermediate"
+      },
+      {
+        "id": "game2d-m4",
+        "name": "Animation trong Game",
+        "position": 0.44,
+        "required_lesson_ids": [
+          "game2d_l1_4",
+          "game2d_l2_4",
+          "game2d_l3_4"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 150 C 130 120, 170 180, 250 180",
+        "level": "Intermediate"
+      },
+      {
+        "id": "game2d-m5",
+        "name": "Thiết kế Level & Tilemap",
+        "position": 0.56,
+        "required_lesson_ids": [
+          "game2d_l1_5",
+          "game2d_l2_5",
+          "game2d_l3_5"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 160 C 130 120, 170 180, 250 180",
+        "level": "Advanced"
+      },
+      {
+        "id": "game2d-m6",
+        "name": "Hệ thống Gameplay",
+        "position": 0.67,
+        "required_lesson_ids": [
+          "game2d_l1_6",
+          "game2d_l2_6",
+          "game2d_l3_6",
+          "game2d_l4_6"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 170 C 130 120, 170 180, 250 180",
+        "level": "Advanced"
+      },
+      {
+        "id": "game2d-m7",
+        "name": "UI/UX trong Game",
+        "position": 0.78,
+        "required_lesson_ids": [
+          "game2d_l1_7",
+          "game2d_l2_7",
+          "game2d_l3_7"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 180 C 130 120, 170 180, 250 180",
+        "level": "Intensive"
+      },
+      {
+        "id": "game2d-m8",
+        "name": "Tối ưu & Hoàn thiện (Polish)",
+        "position": 0.89,
+        "required_lesson_ids": [
+          "game2d_l1_8",
+          "game2d_l2_8",
+          "game2d_l3_8"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 190 C 130 120, 170 180, 250 180",
+        "level": "Intensive"
+      },
+      {
+        "id": "game2d-m9",
+        "name": "Dự án tổng hợp (Capstone)",
+        "position": 1,
+        "required_lesson_ids": [
+          "game2d_l1_9"
+        ],
+        "status": "locked",
+        "exam_id": null,
+        "stream_path": "M 50 200 C 130 120, 170 180, 250 180",
+        "level": "Proficiency"
+      }
+    ]
+  },
+  "cybersecurity": {
+    "track_id": "cybersecurity",
+    "track_title": "An Ninh Mạng (Cybersecurity)",
+    "description": "Lĩnh vực An Ninh Mạng (Cybersecurity) chuyên sâu.",
+    "milestones": [
+      {
+        "id": "cybersecurity-m1",
+        "name": "Nền tảng mạng máy tính",
+        "position": 0.11,
+        "required_lesson_ids": [
+          "cybersecurity_l1_1",
+          "cybersecurity_l2_1",
+          "cybersecurity_l3_1"
+        ],
+        "status": "locked",
+        "exam_id": "exam-cybersecurity-m1",
+        "stream_path": "M 50 120 C 130 120, 170 180, 250 180",
+        "level": "Foundation",
+        "external_exam": {
+          "room_name": "Pickle Rick (TryHackMe)",
+          "url": "https://tryhackme.com/room/picklerick",
+          "platform": "TryHackMe",
+          "description": "Phòng thực hành lab an ninh mạng cột mốc 1 (Nền tảng mạng máy tính). Đề bài và mục tiêu cắm cờ (Flag Capture) được thực hiện trực tiếp trên hạ tầng phòng lab.",
+          "always_open": true,
+          "requires_milestone_completion": true
+        }
+      },
+      {
+        "id": "cybersecurity-m2",
+        "name": "Linux & Command Line cho Security",
+        "position": 0.22,
+        "required_lesson_ids": [
+          "cybersecurity_l1_2",
+          "cybersecurity_l2_2",
+          "cybersecurity_l3_2"
+        ],
+        "status": "locked",
+        "exam_id": "exam-cybersecurity-m2",
+        "stream_path": "M 50 130 C 130 120, 170 180, 250 180",
+        "level": "Foundation",
+        "external_exam": {
+          "room_name": "Basic Pentesting (TryHackMe)",
+          "url": "https://tryhackme.com/room/basicpentestingjt",
+          "platform": "TryHackMe",
+          "description": "Phòng thực hành lab an ninh mạng cột mốc 2 (Linux & Command Line cho Security). Đề bài và mục tiêu cắm cờ (Flag Capture) được thực hiện trực tiếp trên hạ tầng phòng lab.",
+          "always_open": true,
+          "requires_milestone_completion": true
+        }
+      },
+      {
+        "id": "cybersecurity-m3",
+        "name": "Web Security cơ bản (OWASP Top 10)",
+        "position": 0.33,
+        "required_lesson_ids": [
+          "cybersecurity_l1_3",
+          "cybersecurity_l2_3",
+          "cybersecurity_l3_3",
+          "cybersecurity_l4_3",
+          "cybersecurity_l5_3"
+        ],
+        "status": "locked",
+        "exam_id": "exam-cybersecurity-m3",
+        "stream_path": "M 50 140 C 130 120, 170 180, 250 180",
+        "level": "Intermediate",
+        "external_exam": {
+          "room_name": "RootMe (TryHackMe)",
+          "url": "https://tryhackme.com/room/rootme",
+          "platform": "TryHackMe",
+          "description": "Phòng thực hành lab an ninh mạng cột mốc 3 (Web Security cơ bản (OWASP Top 10)). Đề bài và mục tiêu cắm cờ (Flag Capture) được thực hiện trực tiếp trên hạ tầng phòng lab.",
+          "always_open": true,
+          "requires_milestone_completion": true
+        }
+      },
+      {
+        "id": "cybersecurity-m4",
+        "name": "Network Security",
+        "position": 0.44,
+        "required_lesson_ids": [
+          "cybersecurity_l1_4",
+          "cybersecurity_l2_4",
+          "cybersecurity_l3_4",
+          "cybersecurity_l4_4"
+        ],
+        "status": "locked",
+        "exam_id": "exam-cybersecurity-m4",
+        "stream_path": "M 50 150 C 130 120, 170 180, 250 180",
+        "level": "Intermediate",
+        "external_exam": {
+          "room_name": "Blue (TryHackMe)",
+          "url": "https://tryhackme.com/room/blue",
+          "platform": "TryHackMe",
+          "description": "Phòng thực hành lab an ninh mạng cột mốc 4 (Network Security). Đề bài và mục tiêu cắm cờ (Flag Capture) được thực hiện trực tiếp trên hạ tầng phòng lab.",
+          "always_open": true,
+          "requires_milestone_completion": true
+        }
+      },
+      {
+        "id": "cybersecurity-m5",
+        "name": "Cryptography cơ bản",
+        "position": 0.56,
+        "required_lesson_ids": [
+          "cybersecurity_l1_5",
+          "cybersecurity_l2_5",
+          "cybersecurity_l3_5",
+          "cybersecurity_l4_5"
+        ],
+        "status": "locked",
+        "exam_id": "exam-cybersecurity-m5",
+        "stream_path": "M 50 160 C 130 120, 170 180, 250 180",
+        "level": "Advanced",
+        "external_exam": {
+          "room_name": "Kenobi (TryHackMe)",
+          "url": "https://tryhackme.com/room/kenobi",
+          "platform": "TryHackMe",
+          "description": "Phòng thực hành lab an ninh mạng cột mốc 5 (Cryptography cơ bản). Đề bài và mục tiêu cắm cờ (Flag Capture) được thực hiện trực tiếp trên hạ tầng phòng lab.",
+          "always_open": true,
+          "requires_milestone_completion": true
+        }
+      },
+      {
+        "id": "cybersecurity-m6",
+        "name": "Penetration Testing cơ bản",
+        "position": 0.67,
+        "required_lesson_ids": [
+          "cybersecurity_l1_6",
+          "cybersecurity_l2_6",
+          "cybersecurity_l3_6",
+          "cybersecurity_l4_6",
+          "cybersecurity_l5_6"
+        ],
+        "status": "locked",
+        "exam_id": "exam-cybersecurity-m6",
+        "stream_path": "M 50 170 C 130 120, 170 180, 250 180",
+        "level": "Advanced",
+        "external_exam": {
+          "room_name": "Steel Mountain (TryHackMe)",
+          "url": "https://tryhackme.com/room/steelmountain",
+          "platform": "TryHackMe",
+          "description": "Phòng thực hành lab an ninh mạng cột mốc 6 (Penetration Testing cơ bản). Đề bài và mục tiêu cắm cờ (Flag Capture) được thực hiện trực tiếp trên hạ tầng phòng lab.",
+          "always_open": true,
+          "requires_milestone_completion": true
+        }
+      },
+      {
+        "id": "cybersecurity-m7",
+        "name": "Bảo mật ứng dụng & DevSecOps",
+        "position": 0.78,
+        "required_lesson_ids": [
+          "cybersecurity_l1_7",
+          "cybersecurity_l2_7",
+          "cybersecurity_l3_7",
+          "cybersecurity_l4_7"
+        ],
+        "status": "locked",
+        "exam_id": "exam-cybersecurity-m7",
+        "stream_path": "M 50 180 C 130 120, 170 180, 250 180",
+        "level": "Intensive",
+        "external_exam": {
+          "room_name": "Vulnversity (TryHackMe)",
+          "url": "https://tryhackme.com/room/vulnversity",
+          "platform": "TryHackMe",
+          "description": "Phòng thực hành lab an ninh mạng cột mốc 7 (Bảo mật ứng dụng & DevSecOps). Đề bài và mục tiêu cắm cờ (Flag Capture) được thực hiện trực tiếp trên hạ tầng phòng lab.",
+          "always_open": true,
+          "requires_milestone_completion": true
+        }
+      },
+      {
+        "id": "cybersecurity-m8",
+        "name": "Digital Forensics & Incident Response cơ bản",
+        "position": 0.89,
+        "required_lesson_ids": [
+          "cybersecurity_l1_8",
+          "cybersecurity_l2_8",
+          "cybersecurity_l3_8"
+        ],
+        "status": "locked",
+        "exam_id": "exam-cybersecurity-m8",
+        "stream_path": "M 50 190 C 130 120, 170 180, 250 180",
+        "level": "Intensive",
+        "external_exam": {
+          "room_name": "Simple CTF (TryHackMe)",
+          "url": "https://tryhackme.com/room/easyctf",
+          "platform": "TryHackMe",
+          "description": "Phòng thực hành lab an ninh mạng cột mốc 8 (Digital Forensics & Incident Response cơ bản). Đề bài và mục tiêu cắm cờ (Flag Capture) được thực hiện trực tiếp trên hạ tầng phòng lab.",
+          "always_open": true,
+          "requires_milestone_completion": true
+        }
+      },
+      {
+        "id": "cybersecurity-m9",
+        "name": "Thực hành tổng hợp",
+        "position": 1,
+        "required_lesson_ids": [
+          "cybersecurity_l1_9"
+        ],
+        "status": "locked",
+        "exam_id": "exam-cybersecurity-m9",
+        "stream_path": "M 50 200 C 130 120, 170 180, 250 180",
+        "level": "Proficiency",
+        "external_exam": {
+          "room_name": "Bounty Hacker (TryHackMe)",
+          "url": "https://tryhackme.com/room/bountyhacker",
+          "platform": "TryHackMe",
+          "description": "Phòng thực hành lab an ninh mạng cột mốc 9 (Thực hành tổng hợp). Đề bài và mục tiêu cắm cờ (Flag Capture) được thực hiện trực tiếp trên hạ tầng phòng lab.",
+          "always_open": true,
+          "requires_milestone_completion": true
+        }
+      }
+    ]
+  },
+  "prog-lang": {
+    "track_id": "prog-lang",
+    "track_title": "Ngôn Ngữ Lập Trình Chuyên Sâu",
+    "description": "3 Nhánh Ngôn Ngữ: JS, C++, Python",
+    "sub_tracks": {
+      "js": {
+        "id": "js",
+        "name": "JavaScript Chuyên Sâu",
+        "milestones": [
+          {
+            "id": "js-m1",
+            "name": "Nền tảng",
+            "position": 0.14,
+            "required_lesson_ids": [
+              "js_l1_1",
+              "js_l2_1",
+              "js_l3_1"
+            ],
+            "status": "locked",
+            "exam_id": "exam-js-m1",
+            "stream_path": "M 50 120 C 130 120, 170 180, 250 180",
+            "level": "Foundation"
+          },
+          {
+            "id": "js-m2",
+            "name": "Cấu trúc điều khiển & Hàm",
+            "position": 0.29,
+            "required_lesson_ids": [
+              "js_l1_2",
+              "js_l2_2",
+              "js_l3_2"
+            ],
+            "status": "locked",
+            "exam_id": "exam-js-m2",
+            "stream_path": "M 50 130 C 130 120, 170 180, 250 180",
+            "level": "Foundation"
+          },
+          {
+            "id": "js-m3",
+            "name": "Cấu trúc dữ liệu trong JS",
+            "position": 0.43,
+            "required_lesson_ids": [
+              "js_l1_3",
+              "js_l2_3",
+              "js_l3_3"
+            ],
+            "status": "locked",
+            "exam_id": "exam-js-m3",
+            "stream_path": "M 50 140 C 130 120, 170 180, 250 180",
+            "level": "Intermediate"
+          },
+          {
+            "id": "js-m4",
+            "name": "Bất đồng bộ (Asynchronous JS)",
+            "position": 0.57,
+            "required_lesson_ids": [
+              "js_l1_4",
+              "js_l2_4",
+              "js_l3_4",
+              "js_l4_4"
+            ],
+            "status": "locked",
+            "exam_id": "exam-js-m4",
+            "stream_path": "M 50 150 C 130 120, 170 180, 250 180",
+            "level": "Intermediate"
+          },
+          {
+            "id": "js-m5",
+            "name": "OOP trong JavaScript",
+            "position": 0.71,
+            "required_lesson_ids": [
+              "js_l1_5",
+              "js_l2_5",
+              "js_l3_5"
+            ],
+            "status": "locked",
+            "exam_id": "exam-js-m5",
+            "stream_path": "M 50 160 C 130 120, 170 180, 250 180",
+            "level": "Advanced"
+          },
+          {
+            "id": "js-m6",
+            "name": "JS nâng cao",
+            "position": 0.86,
+            "required_lesson_ids": [
+              "js_l1_6",
+              "js_l2_6",
+              "js_l3_6"
+            ],
+            "status": "locked",
+            "exam_id": "exam-js-m6",
+            "stream_path": "M 50 170 C 130 120, 170 180, 250 180",
+            "level": "Intensive"
+          },
+          {
+            "id": "js-m7",
+            "name": "Testing & Tooling",
+            "position": 1,
+            "required_lesson_ids": [
+              "js_l1_7",
+              "js_l2_7",
+              "js_l3_7"
+            ],
+            "status": "locked",
+            "exam_id": "exam-js-m7",
+            "stream_path": "M 50 180 C 130 120, 170 180, 250 180",
+            "level": "Proficiency"
+          }
+        ]
+      },
+      "cpp": {
+        "id": "cpp",
+        "name": "C++ Hiện Đại",
+        "milestones": [
+          {
+            "id": "cpp-m1",
+            "name": "Nền tảng",
+            "position": 0.12,
+            "required_lesson_ids": [
+              "cpp_l1_1",
+              "cpp_l2_1",
+              "cpp_l3_1"
+            ],
+            "status": "locked",
+            "exam_id": "exam-cpp-m1",
+            "stream_path": "M 50 120 C 130 120, 170 180, 250 180",
+            "level": "Foundation"
+          },
+          {
+            "id": "cpp-m2",
+            "name": "Hàm & Phạm vi",
+            "position": 0.25,
+            "required_lesson_ids": [
+              "cpp_l1_2",
+              "cpp_l2_2",
+              "cpp_l3_2",
+              "cpp_l4_2"
+            ],
+            "status": "locked",
+            "exam_id": "exam-cpp-m2",
+            "stream_path": "M 50 130 C 130 120, 170 180, 250 180",
+            "level": "Foundation"
+          },
+          {
+            "id": "cpp-m3",
+            "name": "Con trỏ & Quản lý bộ nhớ",
+            "position": 0.38,
+            "required_lesson_ids": [
+              "cpp_l1_3",
+              "cpp_l2_3",
+              "cpp_l3_3",
+              "cpp_l4_3"
+            ],
+            "status": "locked",
+            "exam_id": "exam-cpp-m3",
+            "stream_path": "M 50 140 C 130 120, 170 180, 250 180",
+            "level": "Intermediate"
+          },
+          {
+            "id": "cpp-m4",
+            "name": "Lập trình hướng đối tượng",
+            "position": 0.5,
+            "required_lesson_ids": [
+              "cpp_l1_4",
+              "cpp_l2_4",
+              "cpp_l3_4",
+              "cpp_l4_4",
+              "cpp_l5_4"
+            ],
+            "status": "locked",
+            "exam_id": "exam-cpp-m4",
+            "stream_path": "M 50 150 C 130 120, 170 180, 250 180",
+            "level": "Intermediate"
+          },
+          {
+            "id": "cpp-m5",
+            "name": "Template & Generic Programming",
+            "position": 0.62,
+            "required_lesson_ids": [
+              "cpp_l1_5",
+              "cpp_l2_5",
+              "cpp_l3_5"
+            ],
+            "status": "locked",
+            "exam_id": "exam-cpp-m5",
+            "stream_path": "M 50 160 C 130 120, 170 180, 250 180",
+            "level": "Advanced"
+          },
+          {
+            "id": "cpp-m6",
+            "name": "STL chuyên sâu",
+            "position": 0.75,
+            "required_lesson_ids": [
+              "cpp_l1_6",
+              "cpp_l2_6",
+              "cpp_l3_6"
+            ],
+            "status": "locked",
+            "exam_id": "exam-cpp-m6",
+            "stream_path": "M 50 170 C 130 120, 170 180, 250 180",
+            "level": "Advanced"
+          },
+          {
+            "id": "cpp-m7",
+            "name": "Quản lý lỗi & Chuẩn hiện đại",
+            "position": 0.88,
+            "required_lesson_ids": [
+              "cpp_l1_7",
+              "cpp_l2_7",
+              "cpp_l3_7"
+            ],
+            "status": "locked",
+            "exam_id": "exam-cpp-m7",
+            "stream_path": "M 50 180 C 130 120, 170 180, 250 180",
+            "level": "Intensive"
+          },
+          {
+            "id": "cpp-m8",
+            "name": "Quản lý dự án C++",
+            "position": 1,
+            "required_lesson_ids": [
+              "cpp_l1_8",
+              "cpp_l2_8"
+            ],
+            "status": "locked",
+            "exam_id": "exam-cpp-m8",
+            "stream_path": "M 50 190 C 130 120, 170 180, 250 180",
+            "level": "Proficiency"
+          }
+        ]
+      },
+      "python": {
+        "id": "python",
+        "name": "Python Chuyên Sâu",
+        "milestones": [
+          {
+            "id": "python-m1",
+            "name": "Nền tảng",
+            "position": 0.14,
+            "required_lesson_ids": [
+              "python_l1_1",
+              "python_l2_1",
+              "python_l3_1"
+            ],
+            "status": "locked",
+            "exam_id": "exam-python-m1",
+            "stream_path": "M 50 120 C 130 120, 170 180, 250 180",
+            "level": "Foundation"
+          },
+          {
+            "id": "python-m2",
+            "name": "Cấu trúc dữ liệu",
+            "position": 0.29,
+            "required_lesson_ids": [
+              "python_l1_2",
+              "python_l2_2",
+              "python_l3_2"
+            ],
+            "status": "locked",
+            "exam_id": "exam-python-m2",
+            "stream_path": "M 50 130 C 130 120, 170 180, 250 180",
+            "level": "Foundation"
+          },
+          {
+            "id": "python-m3",
+            "name": "Lập trình hướng đối tượng",
+            "position": 0.43,
+            "required_lesson_ids": [
+              "python_l1_3",
+              "python_l2_3",
+              "python_l3_3"
+            ],
+            "status": "locked",
+            "exam_id": "exam-python-m3",
+            "stream_path": "M 50 140 C 130 120, 170 180, 250 180",
+            "level": "Intermediate"
+          },
+          {
+            "id": "python-m4",
+            "name": "Xử lý lỗi & File",
+            "position": 0.57,
+            "required_lesson_ids": [
+              "python_l1_4",
+              "python_l2_4",
+              "python_l3_4"
+            ],
+            "status": "locked",
+            "exam_id": "exam-python-m4",
+            "stream_path": "M 50 150 C 130 120, 170 180, 250 180",
+            "level": "Intermediate"
+          },
+          {
+            "id": "python-m5",
+            "name": "Python nâng cao",
+            "position": 0.71,
+            "required_lesson_ids": [
+              "python_l1_5",
+              "python_l2_5",
+              "python_l3_5",
+              "python_l4_5"
+            ],
+            "status": "locked",
+            "exam_id": "exam-python-m5",
+            "stream_path": "M 50 160 C 130 120, 170 180, 250 180",
+            "level": "Advanced"
+          },
+          {
+            "id": "python-m6",
+            "name": "Thư viện & ứng dụng thực tế",
+            "position": 0.86,
+            "required_lesson_ids": [
+              "python_l1_6",
+              "python_l2_6"
+            ],
+            "status": "locked",
+            "exam_id": "exam-python-m6",
+            "stream_path": "M 50 170 C 130 120, 170 180, 250 180",
+            "level": "Intensive"
+          },
+          {
+            "id": "python-m7",
+            "name": "Testing & Best Practices",
+            "position": 1,
+            "required_lesson_ids": [
+              "python_l1_7",
+              "python_l2_7",
+              "python_l3_7",
+              "python_l4_7",
+              "python_l5_7",
+              "python_l6_7"
+            ],
+            "status": "locked",
+            "exam_id": "exam-python-m7",
+            "stream_path": "M 50 180 C 130 120, 170 180, 250 180",
+            "level": "Proficiency"
+          }
+        ]
+      }
+    }
+  }
+}
