@@ -851,14 +851,24 @@ h1, h2, h3, h4 {
 }
 /* Note: Pulsating orb and surging animations removed completely per v4.0 standards */
 
-/* 3D Tactile Milestone Nodes */
+/* 3D Tactile Milestone Nodes with Gentle Spring Bounce on the Circle Orb */
 .milestone-node {
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), filter 0.18s ease;
-  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.7));
+  cursor: pointer;
+  transition: opacity 0.2s ease;
 }
-.milestone-node:hover {
-  transform: translateY(-2px);
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.85));
+.milestone-node .milestone-orb {
+  transform-box: fill-box;
+  transform-origin: center center;
+  transition: transform 0.38s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.7));
+}
+.milestone-node:hover .milestone-orb {
+  transform: scale(1.32);
+  filter: drop-shadow(0 6px 14px rgba(212, 180, 138, 0.45)) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.85));
+}
+.milestone-node:active .milestone-orb {
+  transform: scale(0.92);
+  transition: transform 0.12s cubic-bezier(0.25, 1, 0.5, 1);
 }
 .milestone-node.current {
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
@@ -1673,55 +1683,40 @@ h1, h2, h3, h4 {
   border-color: var(--accent-primary);
 }
 
-/* Interactive Keyboard Typing Effect (Keystroke Sparkles & Active Caret Glow) */
-.typing-spark-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 99999;
-  overflow: hidden;
+/* Word-like Smooth Typing & Caret Gliding (Microsoft Word Style) */
+.CodeMirror-cursor {
+  border-left: 2px solid var(--accent, #d4b48a) !important;
+  transition: left 0.075s cubic-bezier(0.1, 0.9, 0.2, 1), top 0.08s ease-out !important;
+  will-change: left, top;
 }
 
-.typing-spark {
-  position: absolute;
-  border-radius: 50%;
-  pointer-events: none;
-  background: var(--accent);
-  box-shadow: 0 0 8px var(--accent), 0 0 3px #ffffff;
-  transform: translate(-50%, -50%);
-  animation: sparkFly 350ms cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+.CodeMirror-focused .CodeMirror-cursor {
+  animation: wordSmoothBlink 1.1s cubic-bezier(0.4, 0, 0.2, 1) infinite !important;
 }
 
-@keyframes sparkFly {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, -16px))) scale(0.2);
-  }
+@keyframes wordSmoothBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.15; }
 }
 
 .typing-cursor-active {
-  box-shadow: 0 0 10px rgba(212, 180, 138, 0.95), 0 0 4px #ffffff !important;
-  transition: transform 60ms ease, box-shadow 150ms ease !important;
-  transform: scaleY(1.15) !important;
+  box-shadow: 0 0 8px rgba(212, 180, 138, 0.8), 0 0 2px #ffffff !important;
+  transition: box-shadow 120ms ease !important;
 }
 
-.cm-line-type-flash {
-  animation: lineTypeFlash 250ms ease-out forwards;
+.cm-word-smooth-char {
+  animation: wordCharSmoothFade 140ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  display: inline;
 }
 
-@keyframes lineTypeFlash {
+@keyframes wordCharSmoothFade {
   0% {
-    background-color: rgba(212, 180, 138, 0.16) !important;
+    opacity: 0.25;
+    filter: blur(0.3px);
   }
   100% {
-    background-color: var(--panel-2) !important;
+    opacity: 1;
+    filter: blur(0);
   }
 }
 

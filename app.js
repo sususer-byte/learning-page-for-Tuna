@@ -207,20 +207,11 @@ function toggleChapterAccordion(chapterId) {
 // ==========================================================================
 // KEYBOARD TYPING EFFECT ENGINE (Tactile Keystroke Sparkles & Caret Glow)
 // ==========================================================================
-let typingSparkContainer = null;
-function getSparkContainer() {
-  if (!typingSparkContainer) {
-    typingSparkContainer = document.createElement('div');
-    typingSparkContainer.className = 'typing-spark-container';
-    document.body.appendChild(typingSparkContainer);
-  }
-  return typingSparkContainer;
-}
-
+// Word-like smooth character reveal & active typing cursor
 function triggerTypingEffects(cm, changeObj) {
   if (!cm) return;
 
-  // 1. Caret Glow Pulse on typing
+  // 1. Smooth Active Caret Glow while typing
   const wrapper = cm.getWrapperElement();
   if (wrapper) {
     const cursors = wrapper.querySelectorAll('.CodeMirror-cursor');
@@ -228,34 +219,22 @@ function triggerTypingEffects(cm, changeObj) {
     if (cm._typingPulseTimer) clearTimeout(cm._typingPulseTimer);
     cm._typingPulseTimer = setTimeout(() => {
       cursors.forEach(c => c.classList.remove('typing-cursor-active'));
-    }, 140);
+    }, 120);
   }
 
-  // 2. Keystroke Sparkles (only for actual user text input from keyboard)
+  // 2. Word-like smooth character materialization (reveal effect like Microsoft Word)
   if (changeObj && changeObj.origin === '+input') {
-    const coords = cm.cursorCoords(true, 'window');
-    if (coords && typeof coords.left === 'number' && typeof coords.top === 'number') {
-      const container = getSparkContainer();
-      const sparkCount = (changeObj.text && changeObj.text.length > 1) ? 3 : 2;
-      for (let i = 0; i < sparkCount; i++) {
-        const spark = document.createElement('div');
-        spark.className = 'typing-spark';
-        const size = Math.floor(Math.random() * 3) + 3; // 3-5px
-        spark.style.width = `${size}px`;
-        spark.style.height = `${size}px`;
-        spark.style.left = `${coords.left}px`;
-        spark.style.top = `${coords.top + 8}px`;
-
-        const dx = (Math.random() - 0.5) * 26; // -13px to +13px
-        const dy = -(Math.random() * 18 + 8);  // -8px to -26px float up
-        spark.style.setProperty('--dx', `${dx}px`);
-        spark.style.setProperty('--dy', `${dy}px`);
-
-        container.appendChild(spark);
+    try {
+      const from = changeObj.from;
+      const to = cm.getCursor();
+      if (from && to && (from.line !== to.line || from.ch !== to.ch)) {
+        const marker = cm.markText(from, to, { className: 'cm-word-smooth-char' });
         setTimeout(() => {
-          if (spark.parentNode) spark.parentNode.removeChild(spark);
-        }, 360);
+          try { marker.clear(); } catch (e) {}
+        }, 160);
       }
+    } catch (e) {
+      // Safe fallback
     }
   }
 }
@@ -1125,6 +1104,7 @@ function renderPipelineConduit() {
     g.setAttribute('class', 'milestone-node' + (isCurrent ? ' current' : '') + (isCompleted ? ' completed' : '') + (isLocked ? ' locked' : ''));
     g.style.cursor = 'pointer';
     g.style.transformOrigin = `${node.x}px ${node.y}px`;
+    g.style.transformBox = 'fill-box';
     g.onclick = (e) => { if (roadmapHasDragged) return; selectMilestone(node.ms.id); };
 
     // Native SVG Tooltip (hover displays full title & level & status)
@@ -1133,69 +1113,77 @@ function renderPipelineConduit() {
     titleTip.textContent = `M${idx + 1}: ${node.ms.name}\nCấp độ: Cấp ${levelInfo.levelNumber} - ${levelInfo.vi || levelInfo.name}\nTrạng thái: ${statusText}`;
     g.appendChild(titleTip);
 
+    // Dedicated orb group for the round milestone node so scaling & bouncing never shifts the text
+    const orb = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    orb.setAttribute('class', 'milestone-orb');
+    orb.style.transformOrigin = `${node.x}px ${node.y}px`;
+    orb.style.transformBox = 'fill-box';
+
     // 1. Current state: Architectural static bronze ring
     if (isCurrent) {
       const halo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       halo.setAttribute('cx', node.x);
       halo.setAttribute('cy', node.y);
-      halo.setAttribute('r', '26');
+      halo.setAttribute('r', '15');
       halo.setAttribute('fill', 'transparent');
       halo.setAttribute('stroke', '#d4b48a');
       halo.setAttribute('stroke-width', '1.5');
       halo.setAttribute('opacity', '0.6');
-      g.appendChild(halo);
+      orb.appendChild(halo);
     }
 
-    // 2. Core circle node (E1: 40px diameter, 3px stroke)
+    // 2. Core circle node (compact size to prevent text overlap: r=10.5px / diameter 21px)
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', node.x);
     circle.setAttribute('cy', node.y);
 
     if (isCompleted) {
-      circle.setAttribute('r', '20');
+      circle.setAttribute('r', '10.5');
       circle.setAttribute('fill', '#1a1816');
       circle.setAttribute('stroke', '#d4b48a');
-      circle.setAttribute('stroke-width', '3');
+      circle.setAttribute('stroke-width', '2.5');
     } else if (isCurrent) {
-      circle.setAttribute('r', '20');
+      circle.setAttribute('r', '10.5');
       circle.setAttribute('fill', '#221f1c');
       circle.setAttribute('stroke', '#d4b48a');
-      circle.setAttribute('stroke-width', '3');
+      circle.setAttribute('stroke-width', '2.5');
     } else {
-      circle.setAttribute('r', '18');
+      circle.setAttribute('r', '8.5');
       circle.setAttribute('fill', '#141312');
       circle.setAttribute('stroke', '#3a3530');
-      circle.setAttribute('stroke-width', '2.5');
+      circle.setAttribute('stroke-width', '2');
     }
-    g.appendChild(circle);
+    orb.appendChild(circle);
 
     // 3. Inner icon
     if (isCompleted) {
       const check = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       check.setAttribute('x', node.x);
-      check.setAttribute('y', node.y + 5);
+      check.setAttribute('y', node.y + 3.5);
       check.setAttribute('text-anchor', 'middle');
       check.setAttribute('font-family', 'sans-serif');
-      check.setAttribute('font-size', '13px');
+      check.setAttribute('font-size', '9px');
       check.setAttribute('font-weight', 'bold');
       check.setAttribute('fill', '#d4b48a');
       check.textContent = '✓';
-      g.appendChild(check);
+      orb.appendChild(check);
     } else if (isCurrent) {
       const innerDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       innerDot.setAttribute('cx', node.x);
       innerDot.setAttribute('cy', node.y);
-      innerDot.setAttribute('r', '6');
+      innerDot.setAttribute('r', '3.5');
       innerDot.setAttribute('fill', '#d4b48a');
-      g.appendChild(innerDot);
+      orb.appendChild(innerDot);
     } else {
       const innerDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       innerDot.setAttribute('cx', node.x);
       innerDot.setAttribute('cy', node.y);
-      innerDot.setAttribute('r', '3');
+      innerDot.setAttribute('r', '2');
       innerDot.setAttribute('fill', '#403c37');
-      g.appendChild(innerDot);
+      orb.appendChild(innerDot);
     }
+
+    g.appendChild(orb);
 
     // 4. Milestone Title (Wrapped into 1 or 2 lines STRICTLY BELOW the circle)
     const titleLines = splitMilestoneText(node.ms.name, idx, 20);
@@ -1210,32 +1198,32 @@ function renderPipelineConduit() {
     if (titleLines.length === 1) {
       const tspan1 = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
       tspan1.setAttribute('x', node.x);
-      tspan1.setAttribute('y', node.y + 38);
+      tspan1.setAttribute('y', node.y + 26);
       tspan1.textContent = titleLines[0];
       textGroup.appendChild(tspan1);
     } else {
       const tspan1 = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
       tspan1.setAttribute('x', node.x);
-      tspan1.setAttribute('y', node.y + 35);
+      tspan1.setAttribute('y', node.y + 24);
       tspan1.textContent = titleLines[0];
       textGroup.appendChild(tspan1);
 
       const tspan2 = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
       tspan2.setAttribute('x', node.x);
-      tspan2.setAttribute('y', node.y + 51);
+      tspan2.setAttribute('y', node.y + 37);
       tspan2.textContent = titleLines[1];
       textGroup.appendChild(tspan2);
     }
     g.appendChild(textGroup);
 
     // 5. Level Badge Pill (E6: accent palette, strictly below title)
-    const badgeY = titleLines.length === 2 ? (node.y + 76) : (node.y + 64);
-    const pillW = 104;
-    const pillH = 18;
+    const badgeY = titleLines.length === 2 ? (node.y + 54) : (node.y + 42);
+    const pillW = 96;
+    const pillH = 16;
 
     const badgeRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     badgeRect.setAttribute('x', node.x - (pillW / 2));
-    badgeRect.setAttribute('y', badgeY - 11);
+    badgeRect.setAttribute('y', badgeY - 10);
     badgeRect.setAttribute('width', pillW);
     badgeRect.setAttribute('height', pillH);
     badgeRect.setAttribute('rx', '4');
@@ -1255,10 +1243,10 @@ function renderPipelineConduit() {
 
     const badgeText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     badgeText.setAttribute('x', node.x);
-    badgeText.setAttribute('y', badgeY + 2);
+    badgeText.setAttribute('y', badgeY + 1.5);
     badgeText.setAttribute('text-anchor', 'middle');
     badgeText.setAttribute('font-family', 'var(--font-sans)');
-    badgeText.setAttribute('font-size', '9.5px');
+    badgeText.setAttribute('font-size', '9px');
     badgeText.setAttribute('font-weight', '600');
     badgeText.setAttribute('letter-spacing', '0.04em');
 
@@ -3677,82 +3665,144 @@ async function runPracticeIDE() {
 
     let executed = false;
 
-    // 1. Try local server first (if running locally with node server)
+    // Fast Cache Lookup: Instant execution for previously compiled code
+    if (window._cppExecutionCache && window._cppExecutionCache[code]) {
+      const cached = window._cppExecutionCache[code];
+      const elapsedMs = 15;
+      if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
+      if (exitStatus) exitStatus.innerHTML = `<span class="status-dot-inline ${cached.exitCode === 0 ? 'online' : 'error'}"></span> Exit Code ${cached.exitCode}`;
+      if (terminal) {
+        if (cached.stdout && cached.stdout.trim()) outputTerminalDirect(terminal, cached.stdout, false);
+        if (cached.stderr && cached.stderr.trim()) outputTerminalDirect(terminal, cached.stderr, true);
+        if (!cached.stdout && !cached.stderr) {
+          terminal.innerHTML += `<div class="term-line" style="color:var(--text-dim); font-size:11px;">[Chương trình kết thúc bình thường (Exit code: ${cached.exitCode})]</div>`;
+        }
+      }
+      if (statusPill) {
+        statusPill.className = 'term-status-pill ready';
+        statusPill.innerHTML = '<span class="status-dot"></span> Sẵn sàng';
+      }
+      if (terminal) terminal.scrollTop = terminal.scrollHeight;
+      return;
+    }
+
+    if (!window._cppExecutionCache) window._cppExecutionCache = {};
+
+    // 1. Fast Local Probe: 600ms timeout for local MinGW server
     try {
-      const res = await fetch('/api/run', {
+      const localRes = await fetch('/api/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ lang: 'cpp', code }),
-        signal: (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) ? AbortSignal.timeout(2000) : undefined
+        signal: (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) ? AbortSignal.timeout(600) : undefined
       });
-
-      if (res.ok) {
-        const data = await res.json();
+      if (localRes.ok) {
+        const localData = await localRes.json();
+        const exitCode = typeof localData.exitCode === 'number' ? localData.exitCode : (localData.success ? 0 : 1);
+        const result = {
+          stdout: localData.stdout || '',
+          stderr: localData.stderr || '',
+          exitCode
+        };
+        window._cppExecutionCache[code] = result;
         const elapsedMs = Math.round(performance.now() - t0);
         if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
-
-        const exitCode = typeof data.exitCode === 'number' ? data.exitCode : (data.success ? 0 : 1);
-        if (exitStatus) {
-          exitStatus.innerHTML = `<span class="status-dot-inline ${exitCode === 0 ? 'online' : 'error'}"></span> Exit Code ${exitCode}`;
-        }
+        if (exitStatus) exitStatus.innerHTML = `<span class="status-dot-inline ${exitCode === 0 ? 'online' : 'error'}"></span> Exit Code ${exitCode}`;
         if (terminal) {
-          if (data.stdout && data.stdout.trim()) {
-            outputTerminalDirect(terminal, data.stdout, false);
-          }
-          if (data.stderr && data.stderr.trim()) {
-            outputTerminalDirect(terminal, data.stderr, true);
-          }
-          if (!data.stdout && !data.stderr) {
-            terminal.innerHTML += `<div class="term-line" style="color:var(--text-dim); font-size:11px;">[Chương trình kết thúc bình thường (Exit code: ${exitCode})]</div>`;
-          }
+          if (result.stdout && result.stdout.trim()) outputTerminalDirect(terminal, result.stdout, false);
+          if (result.stderr && result.stderr.trim()) outputTerminalDirect(terminal, result.stderr, true);
         }
         executed = true;
       }
-    } catch (err) {
-      // Local backend not reachable (e.g. running on Vercel)
+    } catch (e) {
+      // Local backend not reachable (e.g. deployed on Vercel)
     }
 
-    // 2. If local backend is not available (e.g. on Vercel), execute via Wandbox GCC API (Full CORS open API)
+    // 2. High-Speed Cloud Race: Ultra-fast Clang 17.0.1 (sub-second ~400ms) parallel with GCC 13.2 & Wandbox
     if (!executed) {
       try {
-        const wbRes = await fetch('https://wandbox.org/api/compile.json', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            compiler: 'gcc-head',
-            code: code,
-            options: 'warning,c++17'
-          })
-        });
+        const fetchClang = async () => {
+          const cRes = await fetch('https://godbolt.org/api/compiler/clang1701/compile', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              source: code,
+              options: {
+                userArguments: "-O0",
+                compilerOptions: { executorRequest: true },
+                filters: { execute: true }
+              }
+            })
+          });
+          if (!cRes.ok) throw new Error('Clang HTTP ' + cRes.status);
+          const cData = await cRes.json();
+          const stdout = (cData.stdout || []).map(s => s.text).join('\n');
+          const stderr = (cData.buildResult?.stderr || []).map(s => s.text).join('\n') || (cData.stderr || []).map(s => s.text).join('\n');
+          const exitCode = (cData.buildResult && cData.buildResult.code !== 0) ? (cData.buildResult.code || 1) : (cData.code || 0);
+          return { stdout, stderr, exitCode };
+        };
 
-        if (wbRes.ok) {
+        const fetchGodbolt = async () => {
+          const gRes = await fetch('https://godbolt.org/api/compiler/g132/compile', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+              source: code,
+              options: {
+                userArguments: "-O0 -pipe",
+                compilerOptions: { executorRequest: true },
+                filters: { execute: true }
+              }
+            })
+          });
+          if (!gRes.ok) throw new Error('Godbolt HTTP ' + gRes.status);
+          const gData = await gRes.json();
+          const stdout = (gData.stdout || []).map(s => s.text).join('\n');
+          const stderr = (gData.buildResult?.stderr || []).map(s => s.text).join('\n') || (gData.stderr || []).map(s => s.text).join('\n');
+          const exitCode = (gData.buildResult && gData.buildResult.code !== 0) ? (gData.buildResult.code || 1) : (gData.code || 0);
+          return { stdout, stderr, exitCode };
+        };
+
+        const fetchWandbox = async () => {
+          const wbRes = await fetch('https://wandbox.org/api/compile.json', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              compiler: 'gcc-head',
+              code: code,
+              options: 'c++17'
+            })
+          });
+          if (!wbRes.ok) throw new Error('Wandbox HTTP ' + wbRes.status);
           const wbData = await wbRes.json();
-          const elapsedMs = Math.round(performance.now() - t0);
-          if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
-
+          const stdout = wbData.program_output || '';
+          const stderr = (wbData.compiler_error || '') + (wbData.program_error || '');
           const exitCode = wbData.status === 0 ? 0 : (wbData.status || (wbData.compiler_error ? 1 : 0));
-          if (exitStatus) {
-            exitStatus.innerHTML = `<span class="status-dot-inline ${exitCode === 0 ? 'online' : 'error'}"></span> Exit Code ${exitCode}`;
-          }
+          return { stdout, stderr, exitCode };
+        };
 
-          if (terminal) {
-            if (wbData.program_output && wbData.program_output.trim()) {
-              outputTerminalDirect(terminal, wbData.program_output, false);
-            }
-            if (wbData.program_error && wbData.program_error.trim()) {
-              outputTerminalDirect(terminal, wbData.program_error, true);
-            }
-            if (wbData.compiler_error && wbData.compiler_error.trim()) {
-              outputTerminalDirect(terminal, `[Lỗi Biên Dịch GCC]:\n${wbData.compiler_error}`, true);
-            }
-            if (!wbData.program_output && !wbData.program_error && !wbData.compiler_error) {
-              terminal.innerHTML += `<div class="term-line" style="color:var(--text-dim); font-size:11px;">[Chương trình kết thúc bình thường (Exit code: ${exitCode})]</div>`;
-            }
-          }
-          executed = true;
+        const winner = await Promise.any([fetchClang(), fetchGodbolt(), fetchWandbox()]);
+        window._cppExecutionCache[code] = winner;
+
+        const elapsedMs = Math.round(performance.now() - t0);
+        if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
+        if (exitStatus) {
+          exitStatus.innerHTML = `<span class="status-dot-inline ${winner.exitCode === 0 ? 'online' : 'error'}"></span> Exit Code ${winner.exitCode}`;
         }
-      } catch (wbErr) {
-        // Network/offline
+        if (terminal) {
+          if (winner.stdout && winner.stdout.trim()) {
+            outputTerminalDirect(terminal, winner.stdout, false);
+          }
+          if (winner.stderr && winner.stderr.trim()) {
+            outputTerminalDirect(terminal, winner.stderr, true);
+          }
+          if (!winner.stdout && !winner.stderr) {
+            terminal.innerHTML += `<div class="term-line" style="color:var(--text-dim); font-size:11px;">[Chương trình kết thúc bình thường (Exit code: ${winner.exitCode})]</div>`;
+          }
+        }
+        executed = true;
+      } catch (raceErr) {
+        // Both cloud compilers failed
       }
     }
 
