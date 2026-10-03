@@ -35,12 +35,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   bindGlobalEvents();
   initRouting();
   initPipelineControls();
+  initSettingsModal();
   
   // Test backend connection
   await checkBackendStatus();
   
   // Render initial track and enforce track-specific tab states
   switchTrack(appState.activeTrackId);
+  if (window.location.hash) {
+    handleHashRoute();
+  }
 });
 
 function loadLocalProgress() {
@@ -141,6 +145,14 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
+function cleanLessonTitle(title) {
+  if (!title) return '';
+  return String(title)
+    .replace(/^\s*(Bài\s+)?\d+(\.\d+)*[:.]?\s*/i, '')
+    .replace(/^\s*(Bài\s+)?\d+(\.\d+)*[:.]?\s*/i, '')
+    .trim();
+}
+
 function getMilestoneLevelInfo(milestoneIndex, totalMilestones) {
   const levels = [
     { key: 'foundation', name: 'Foundation', vi: 'Nền Tảng' },
@@ -228,37 +240,27 @@ function initCodeEditors() {
       indentWithTabs: false,
       autoCloseBrackets: true,
       matchBrackets: true,
+      styleActiveLine: true,
+      scrollBeyondLastLine: false,
       extraKeys: {
         "Ctrl-Enter": () => runPracticeIDE(),
+        "Cmd-Enter": () => runPracticeIDE(),
+        "Esc": () => stopPracticeIDE(),
         "Tab": (cm) => cm.replaceSelection("    ", "end")
       }
     });
 
-    // Update cursor position dynamically in status bar
+    // Update cursor position dynamically in status bar (C7)
     appState.cmPracticeEditor.on('cursorActivity', (cm) => {
       const cur = cm.getCursor();
       const cursorInfoEl = document.getElementById('ide-cursor-info');
       if (cursorInfoEl) {
-        cursorInfoEl.innerHTML = `<i class="fa-solid fa-location-crosshairs"></i> Dòng ${cur.line + 1}, Cột ${cur.ch + 1}`;
+        cursorInfoEl.innerHTML = `<i class="fa-solid fa-crosshairs"></i> Dòng ${cur.line + 1}, Cột ${cur.ch + 1}`;
       }
     });
 
     // Default code for Python
-    appState.cmPracticeEditor.setValue(
-`# Python 3 Masterclass Sandbox
-import math
-
-def compute_primes(limit):
-    primes = []
-    for num in range(2, limit + 1):
-        if all(num % p != 0 for p in primes if p * p <= num):
-            primes.append(num)
-    return primes
-
-print("[+] Danh sách số nguyên tố <= 50:")
-print(compute_primes(50))
-`
-    );
+    appState.cmPracticeEditor.setValue(SUPPORTED_LANGUAGES.python.starterCode);
   }
 }
 
@@ -612,12 +614,22 @@ function bindGlobalEvents() {
   const resetIdeBtn = document.getElementById('btn-reset-ide');
   if (resetIdeBtn) {
     resetIdeBtn.addEventListener('click', () => {
-       if (appState.cmPracticeEditor) {
-          appState.cmPracticeEditor.setValue('// Khởi tạo mã nguồn...');
-       }
-       const out = document.getElementById('ide-terminal-output');
-       if (out) out.innerHTML = '<div class="term-line term-prompt">dev-conduit-sandbox&gt; Editor reset.</div>';
-       showToast('Đã khôi phục mã nguồn ban đầu', 'info');
+      const langConf = (typeof SUPPORTED_LANGUAGES !== 'undefined' && SUPPORTED_LANGUAGES[currentPracticeLang]) ? SUPPORTED_LANGUAGES[currentPracticeLang] : (typeof SUPPORTED_LANGUAGES !== 'undefined' ? SUPPORTED_LANGUAGES.python : null);
+      const starter = langConf ? langConf.starterCode : '// Khởi tạo mã nguồn...';
+      if (appState.cmPracticeEditor) {
+        if (typeof CodeSampleTypewriter !== 'undefined') {
+          CodeSampleTypewriter.typewrite(appState.cmPracticeEditor, starter);
+        } else {
+          appState.cmPracticeEditor.setValue(starter);
+        }
+      }
+      const out = document.getElementById('ide-terminal-output');
+      if (out) out.innerHTML = '<div class="term-line term-prompt">dev-conduit-sandbox&gt; Đã khôi phục mã nguồn ban đầu.</div>';
+      const exitStatus = document.getElementById('term-exit-status');
+      if (exitStatus) exitStatus.innerHTML = '<span class="status-dot-inline idle"></span> Trạng thái: Idle';
+      const exitCodeEl = document.getElementById('status-exit-code');
+      if (exitCodeEl) exitCodeEl.textContent = 'Exit Code: -';
+      showToast('Đã khôi phục mã nguồn ban đầu', 'info');
     });
   }
 
@@ -660,11 +672,26 @@ function bindGlobalEvents() {
   const clearTermBtn = document.getElementById('btn-clear-terminal');
   if (clearTermBtn) {
     clearTermBtn.addEventListener('click', () => {
-      document.getElementById('ide-terminal-output').innerHTML = '<div class="term-line term-prompt">dev-conduit-sandbox&gt; Terminal cleared.</div>';
+      const out = document.getElementById('ide-terminal-output');
+      if (out) out.innerHTML = '<div class="term-line term-prompt">dev-conduit-sandbox&gt; Sẵn sàng thực thi.</div>';
       const exitStatus = document.getElementById('term-exit-status');
       if (exitStatus) exitStatus.innerHTML = '<span class="status-dot-inline idle"></span> Trạng thái: Idle';
+      const exitCodeEl = document.getElementById('status-exit-code');
+      if (exitCodeEl) exitCodeEl.textContent = 'Exit Code: -';
     });
   }
+
+  // Global keyboard shortcuts for Practice IDE (Ctrl+Enter / Cmd+Enter to run, Esc to stop)
+  document.addEventListener('keydown', (e) => {
+    if (appState.activeTab === 'practice') {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        e.preventDefault();
+        runPracticeIDE();
+      } else if (e.key === 'Escape') {
+        stopPracticeIDE();
+      }
+    }
+  });
 }
 
 // ==========================================================================
@@ -706,6 +733,14 @@ function handleHashRoute() {
     const parts = hash.split('/');
     const lessonId = parts[1];
     openLesson(lessonId);
+  }
+  // Pattern: practice or tab/:tabKey
+  else if (hash === 'practice' || hash === 'tab/practice') {
+    switchTab('practice');
+  }
+  else if (hash.startsWith('tab/')) {
+    const tabKey = hash.split('/')[1];
+    switchTab(tabKey);
   }
 }
 
@@ -798,6 +833,18 @@ function switchTab(tabKey) {
   }
   if (tabKey === 'exam' && appState.cmExamEditor) {
     setTimeout(() => appState.cmExamEditor.refresh(), 50);
+  }
+
+  // C6. Update navbar breadcrumb title dynamically to reflect real context
+  const mainDcn = document.getElementById('display-course-name');
+  if (mainDcn) {
+    if (tabKey === 'practice') {
+      const langConf = (typeof SUPPORTED_LANGUAGES !== 'undefined' && SUPPORTED_LANGUAGES[currentPracticeLang]) ? SUPPORTED_LANGUAGES[currentPracticeLang] : { label: 'Python 3' };
+      mainDcn.textContent = `Thực hành IDE › ${langConf.label}`;
+    } else {
+      const info = getActiveTrackInfo();
+      if (info) mainDcn.textContent = info.title;
+    }
   }
 
   // Refresh tab content
@@ -919,7 +966,7 @@ function renderPipelineConduit() {
 
   // Generous spacing between milestones (280px per milestone) so labels never crowd
   const svgWidth = Math.max(1600, milestones.length * 280);
-  const svgHeight = 220;
+  const svgHeight = 260;
   const svgEl = document.getElementById('pipeline-svg');
   if (svgEl) {
     svgEl.setAttribute('width', svgWidth);
@@ -931,8 +978,8 @@ function renderPipelineConduit() {
   const nodes = [];
   milestones.forEach((ms, idx) => {
     const x = 160 + (idx / Math.max(1, milestones.length - 1)) * (svgWidth - 320);
-    // Consistent horizontal wave: y = 75 for even, y = 85 for odd (subtle 10px organic wave)
-    const y = (idx % 2 === 0) ? 75 : 85;
+    // Consistent horizontal wave centered in 260px height (leaving ~150px below for titles & badges)
+    const y = (idx % 2 === 0) ? 80 : 92;
     nodes.push({ x, y, ms, idx });
   });
 
@@ -1009,7 +1056,7 @@ function renderPipelineConduit() {
     return [l1, l2];
   }
 
-  // Render SVG nodes with 100% NON-OVERLAPPING labels & 3 DISTINCT STATES
+  // Render SVG nodes with 100% NON-OVERLAPPING labels & 3 DISTINCT STATES (E1: 40px diameter, 3px stroke)
   nodes.forEach((node, idx) => {
     const isCompleted = completedMs.includes(node.ms.id);
     const isCurrent = currentMs && currentMs.id === node.ms.id;
@@ -1025,7 +1072,7 @@ function renderPipelineConduit() {
     // Native SVG Tooltip (hover displays full title & level & status)
     const titleTip = document.createElementNS('http://www.w3.org/2000/svg', 'title');
     const statusText = isCompleted ? 'Đã hoàn thành' : (isCurrent ? 'Đang học' : 'Chưa mở khóa');
-    titleTip.textContent = `M${idx + 1}: ${node.ms.name}\nCấp độ: Lv${levelInfo.levelNumber} - ${levelInfo.name}\nTrạng thái: ${statusText}`;
+    titleTip.textContent = `M${idx + 1}: ${node.ms.name}\nCấp độ: Cấp ${levelInfo.levelNumber} - ${levelInfo.vi || levelInfo.name}\nTrạng thái: ${statusText}`;
     g.appendChild(titleTip);
 
     // 1. Current state: Architectural static bronze ring
@@ -1033,34 +1080,34 @@ function renderPipelineConduit() {
       const halo = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       halo.setAttribute('cx', node.x);
       halo.setAttribute('cy', node.y);
-      halo.setAttribute('r', '20');
+      halo.setAttribute('r', '26');
       halo.setAttribute('fill', 'transparent');
-      halo.setAttribute('stroke', '#C5A880');
+      halo.setAttribute('stroke', '#d4b48a');
       halo.setAttribute('stroke-width', '1.5');
       halo.setAttribute('opacity', '0.6');
       g.appendChild(halo);
     }
 
-    // 2. Core circle node
+    // 2. Core circle node (E1: 40px diameter, 3px stroke)
     const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     circle.setAttribute('cx', node.x);
     circle.setAttribute('cy', node.y);
 
     if (isCompleted) {
-      circle.setAttribute('r', '13');
-      circle.setAttribute('fill', '#1A1816');
-      circle.setAttribute('stroke', '#C5A880');
-      circle.setAttribute('stroke-width', '2.5');
+      circle.setAttribute('r', '20');
+      circle.setAttribute('fill', '#1a1816');
+      circle.setAttribute('stroke', '#d4b48a');
+      circle.setAttribute('stroke-width', '3');
     } else if (isCurrent) {
-      circle.setAttribute('r', '14');
-      circle.setAttribute('fill', '#24211E');
-      circle.setAttribute('stroke', '#DFC4A1');
-      circle.setAttribute('stroke-width', '3.5');
+      circle.setAttribute('r', '20');
+      circle.setAttribute('fill', '#221f1c');
+      circle.setAttribute('stroke', '#d4b48a');
+      circle.setAttribute('stroke-width', '3');
     } else {
-      circle.setAttribute('r', '11');
-      circle.setAttribute('fill', '#141414');
-      circle.setAttribute('stroke', '#404040');
-      circle.setAttribute('stroke-width', '2');
+      circle.setAttribute('r', '18');
+      circle.setAttribute('fill', '#141312');
+      circle.setAttribute('stroke', '#3a3530');
+      circle.setAttribute('stroke-width', '2.5');
     }
     g.appendChild(circle);
 
@@ -1068,27 +1115,27 @@ function renderPipelineConduit() {
     if (isCompleted) {
       const check = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       check.setAttribute('x', node.x);
-      check.setAttribute('y', node.y + 4.5);
+      check.setAttribute('y', node.y + 5);
       check.setAttribute('text-anchor', 'middle');
       check.setAttribute('font-family', 'sans-serif');
-      check.setAttribute('font-size', '11px');
+      check.setAttribute('font-size', '13px');
       check.setAttribute('font-weight', 'bold');
-      check.setAttribute('fill', '#C5A880');
+      check.setAttribute('fill', '#d4b48a');
       check.textContent = '✓';
       g.appendChild(check);
     } else if (isCurrent) {
       const innerDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       innerDot.setAttribute('cx', node.x);
       innerDot.setAttribute('cy', node.y);
-      innerDot.setAttribute('r', '5');
-      innerDot.setAttribute('fill', '#C5A880');
+      innerDot.setAttribute('r', '6');
+      innerDot.setAttribute('fill', '#d4b48a');
       g.appendChild(innerDot);
     } else {
       const innerDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
       innerDot.setAttribute('cx', node.x);
       innerDot.setAttribute('cy', node.y);
-      innerDot.setAttribute('r', '2.5');
-      innerDot.setAttribute('fill', '#2E2E2E');
+      innerDot.setAttribute('r', '3');
+      innerDot.setAttribute('fill', '#403c37');
       g.appendChild(innerDot);
     }
 
@@ -1100,57 +1147,57 @@ function renderPipelineConduit() {
     textGroup.setAttribute('font-family', 'var(--font-sans)');
     textGroup.setAttribute('font-size', '11.5px');
     textGroup.setAttribute('font-weight', isCurrent ? '700' : (isCompleted ? '600' : '500'));
-    textGroup.setAttribute('fill', isCurrent ? '#FFFFFF' : (isCompleted ? '#E2E8F0' : '#737373'));
+    textGroup.setAttribute('fill', isCurrent ? '#FFFFFF' : (isCompleted ? '#E2E8F0' : '#8c857b'));
 
     if (titleLines.length === 1) {
       const tspan1 = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
       tspan1.setAttribute('x', node.x);
-      tspan1.setAttribute('y', node.y + 34);
+      tspan1.setAttribute('y', node.y + 38);
       tspan1.textContent = titleLines[0];
       textGroup.appendChild(tspan1);
     } else {
       const tspan1 = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
       tspan1.setAttribute('x', node.x);
-      tspan1.setAttribute('y', node.y + 30);
+      tspan1.setAttribute('y', node.y + 35);
       tspan1.textContent = titleLines[0];
       textGroup.appendChild(tspan1);
 
       const tspan2 = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
       tspan2.setAttribute('x', node.x);
-      tspan2.setAttribute('y', node.y + 46);
+      tspan2.setAttribute('y', node.y + 51);
       tspan2.textContent = titleLines[1];
       textGroup.appendChild(tspan2);
     }
     g.appendChild(textGroup);
 
-    // 5. Level Badge Pill (STRICTLY BELOW the title for ALL milestones!)
-    const badgeY = titleLines.length === 2 ? (node.y + 68) : (node.y + 56);
-    const pillW = 92;
-    const pillH = 17;
+    // 5. Level Badge Pill (E6: accent palette, strictly below title)
+    const badgeY = titleLines.length === 2 ? (node.y + 76) : (node.y + 64);
+    const pillW = 104;
+    const pillH = 18;
 
     const badgeRect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
     badgeRect.setAttribute('x', node.x - (pillW / 2));
     badgeRect.setAttribute('y', badgeY - 11);
     badgeRect.setAttribute('width', pillW);
     badgeRect.setAttribute('height', pillH);
-    badgeRect.setAttribute('rx', '3');
+    badgeRect.setAttribute('rx', '4');
 
     if (isCompleted) {
-      badgeRect.setAttribute('fill', 'rgba(16, 185, 129, 0.12)');
-      badgeRect.setAttribute('stroke', 'rgba(16, 185, 129, 0.35)');
+      badgeRect.setAttribute('fill', 'rgba(212, 180, 138, 0.12)');
+      badgeRect.setAttribute('stroke', 'rgba(212, 180, 138, 0.35)');
     } else if (isCurrent) {
-      badgeRect.setAttribute('fill', 'rgba(2, 132, 199, 0.16)');
-      badgeRect.setAttribute('stroke', 'rgba(2, 132, 199, 0.5)');
+      badgeRect.setAttribute('fill', 'rgba(212, 180, 138, 0.22)');
+      badgeRect.setAttribute('stroke', '#d4b48a');
     } else {
-      badgeRect.setAttribute('fill', '#181818');
-      badgeRect.setAttribute('stroke', '#2A2A2A');
+      badgeRect.setAttribute('fill', '#181615');
+      badgeRect.setAttribute('stroke', '#2e2a26');
     }
     badgeRect.setAttribute('stroke-width', '1');
     g.appendChild(badgeRect);
 
     const badgeText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     badgeText.setAttribute('x', node.x);
-    badgeText.setAttribute('y', badgeY + 1.5);
+    badgeText.setAttribute('y', badgeY + 2);
     badgeText.setAttribute('text-anchor', 'middle');
     badgeText.setAttribute('font-family', 'var(--font-sans)');
     badgeText.setAttribute('font-size', '9.5px');
@@ -1158,13 +1205,13 @@ function renderPipelineConduit() {
     badgeText.setAttribute('letter-spacing', '0.04em');
 
     if (isCompleted) {
-      badgeText.setAttribute('fill', '#34D399');
+      badgeText.setAttribute('fill', '#d4b48a');
     } else if (isCurrent) {
-      badgeText.setAttribute('fill', '#38BDF8');
+      badgeText.setAttribute('fill', '#ece7e1');
     } else {
-      badgeText.setAttribute('fill', '#666666');
+      badgeText.setAttribute('fill', '#736c64');
     }
-    badgeText.textContent = `LV${levelInfo.levelNumber}: ${levelInfo.name}`.toUpperCase();
+    badgeText.textContent = `CẤP ${levelInfo.levelNumber}: ${(levelInfo.vi || levelInfo.name).toUpperCase()}`;
     g.appendChild(badgeText);
 
     nodesGroup.appendChild(g);
@@ -1210,6 +1257,16 @@ function updateTelemetry() {
 
   const overallPercent = milestones.length > 0 ? Math.round((doneMsInTrack / milestones.length) * 100) : 0;
   if (pipePercent) pipePercent.textContent = `${overallPercent}%`;
+
+  // E2: Smart Action Button ("Bắt đầu bài học" if 0%, else "Tiếp tục bài học")
+  const resumeBtn = document.getElementById('btn-resume-latest-lesson');
+  if (resumeBtn) {
+    if (doneLessonsInTrack === 0) {
+      resumeBtn.innerHTML = '<i class="fa-solid fa-play"></i> Bắt đầu bài học';
+    } else {
+      resumeBtn.innerHTML = '<i class="fa-solid fa-bolt"></i> Tiếp tục bài học';
+    }
+  }
 
   // Dynamically update sidebar track counters from actual data
   const bWeb = document.getElementById('badge-web-dev');
@@ -1308,7 +1365,7 @@ function renderLessonList() {
               <i class="fa-solid ${statusIcon}"></i>
             </span>
             <span class="tree-lesson-num">${escapeHtml(l.number || `Bài ${idx + 1}.${lIdx + 1}`)}:</span>
-            <span class="tree-lesson-title">${escapeHtml(l.title)}</span>
+            <span class="tree-lesson-title">${escapeHtml(cleanLessonTitle(l.title))}</span>
           </div>
           <button class="tree-lesson-action-btn" ${isUnlocked ? `onclick="event.stopPropagation(); openLesson('${l.id}')"` : 'disabled'}>
             ${btnText}
@@ -2367,14 +2424,14 @@ function selectMilestone(msId) {
         return `
           <div class="req-item ${done ? 'done' : 'pending'}" style="cursor: pointer;" onclick="openLesson('${l.id}')">
             <i class="fa-solid ${done ? 'fa-circle-check' : 'fa-circle-play'}"></i>
-            <span>${escapeHtml(l.number)}: ${escapeHtml(l.title)}</span>
+            <span>${escapeHtml(l.number)}: ${escapeHtml(cleanLessonTitle(l.title))}</span>
           </div>
         `;
       } else {
         return `
           <div class="req-item locked" style="cursor: not-allowed; opacity: 0.45; border-style: dashed;" onclick="alert('Bài học này đang bị khóa. Hãy hoàn thành các bài học và cột mốc trước!')">
             <i class="fa-solid fa-lock"></i>
-            <span>${escapeHtml(l.number)}: ${escapeHtml(l.title)} (Khóa)</span>
+            <span>${escapeHtml(l.number)}: ${escapeHtml(cleanLessonTitle(l.title))} (Khóa)</span>
           </div>
         `;
       }
@@ -2851,14 +2908,493 @@ function exitExamRoom() {
 }
 
 // ==========================================================================
-// 9. MULTI-LANGUAGE PRACTICE IDE
+// 9. MULTI-LANGUAGE PRACTICE IDE (PYODIDE OFFLINE + TYPEWRITER + STREAMING)
 // ==========================================================================
+const SUPPORTED_LANGUAGES = {
+  python: {
+    id: 'python',
+    label: 'Python 3',
+    mode: 'python',
+    ext: '.py',
+    filename: 'main.py',
+    icon: 'fa-brands fa-python',
+    starterCode: `# Python 3 Sandbox (Pyodide WASM Engine)
+import math
+
+def compute_primes(limit):
+    primes = []
+    for num in range(2, limit + 1):
+        if all(num % p != 0 for p in primes if p * p <= num):
+            primes.append(num)
+    return primes
+
+print("[+] Danh sách số nguyên tố <= 50:")
+print(compute_primes(50))
+`
+  },
+  javascript: {
+    id: 'javascript',
+    label: 'JavaScript (ES6+)',
+    mode: 'javascript',
+    ext: '.js',
+    filename: 'index.js',
+    icon: 'fa-brands fa-js',
+    starterCode: `// JavaScript (ES6+ VM Sandbox)
+console.log("Hello from JavaScript ES6+!");
+const numbers = [1, 2, 3, 4, 5];
+const squared = numbers.map(x => x ** 2);
+console.log("Squares:", squared);
+`
+  },
+  cpp: {
+    id: 'cpp',
+    label: 'C++17',
+    mode: 'text/x-c++src',
+    ext: '.cpp',
+    filename: 'main.cpp',
+    icon: 'fa-solid fa-c',
+    starterCode: `// C++17 Standard Sandbox
+#include <iostream>
+#include <vector>
+#include <numeric>
+
+int main() {
+    std::cout << "Hello from C++17!" << std::endl;
+    std::vector<int> nums = {1, 2, 3, 4, 5};
+    int sum = 0;
+    for (int n : nums) sum += n;
+    std::cout << "Sum: " << sum << std::endl;
+    return 0;
+}
+`
+  }
+};
+
 const practiceCodeCache = {
-  python: '# Python 3.10 Sandbox\nprint("Hello from Python 3.10!")\n',
-  javascript: '// JavaScript V8 Sandbox\nconsole.log("Hello from V8 VM:", [1, 2, 3].map(x => x * 2));\n',
-  cpp: '#include <iostream>\n\nint main() {\n    std::cout << "Hello from MinGW ISO C++20!" << std::endl;\n    return 0;\n}\n'
+  python: SUPPORTED_LANGUAGES.python.starterCode,
+  javascript: SUPPORTED_LANGUAGES.javascript.starterCode,
+  cpp: SUPPORTED_LANGUAGES.cpp.starterCode
 };
 let currentPracticeLang = 'python';
+
+// ==========================================================================
+// B2. TYPEWRITER CODE SAMPLE LOADER (requestAnimationFrame, Cancellable)
+// ==========================================================================
+const CodeSampleTypewriter = {
+  activeAnimationId: null,
+  isTyping: false,
+  cancelCallback: null,
+
+  isEffectEnabled() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return false;
+    }
+    const val = localStorage.getItem('dev_typing_effect');
+    return val !== 'false';
+  },
+
+  typewrite(editor, fullText, onComplete) {
+    this.cancel();
+
+    if (!editor || !fullText) {
+      if (editor) editor.setValue(fullText || '');
+      if (onComplete) onComplete();
+      return;
+    }
+
+    if (!this.isEffectEnabled()) {
+      editor.setValue(fullText);
+      if (onComplete) onComplete();
+      return;
+    }
+
+    const runBtn = document.getElementById('btn-run-ide');
+    if (runBtn) runBtn.disabled = true;
+    editor.setOption('readOnly', true);
+    editor.setValue('');
+    this.isTyping = true;
+
+    const totalLen = fullText.length;
+    let baseDelay = 12; // 12ms base speed
+    if (totalLen > 1500) {
+      // Accelerate so total duration does not exceed 3 seconds (3000ms)
+      baseDelay = Math.max(1, 3000 / totalLen);
+    }
+
+    let currentIndex = 0;
+    let nextCharTime = performance.now();
+
+    const cleanup = () => {
+      this.isTyping = false;
+      this.activeAnimationId = null;
+      window.removeEventListener('keydown', handleUserInterrupt, true);
+      const wrapper = editor.getWrapperElement();
+      if (wrapper) {
+        wrapper.removeEventListener('mousedown', handleUserInterrupt, true);
+        wrapper.removeEventListener('wheel', handleUserInterrupt, true);
+      }
+      editor.setOption('readOnly', false);
+      if (runBtn) runBtn.disabled = false;
+      this.cancelCallback = null;
+    };
+
+    const handleUserInterrupt = () => {
+      if (!this.isTyping) return;
+      if (this.activeAnimationId) {
+        cancelAnimationFrame(this.activeAnimationId);
+      }
+      // Instant finish and guarantee 100% exact match per B5
+      editor.setValue(fullText);
+      cleanup();
+      if (onComplete) onComplete();
+    };
+
+    this.cancelCallback = handleUserInterrupt;
+
+    window.addEventListener('keydown', handleUserInterrupt, true);
+    const wrapper = editor.getWrapperElement();
+    if (wrapper) {
+      wrapper.addEventListener('mousedown', handleUserInterrupt, true);
+      wrapper.addEventListener('wheel', handleUserInterrupt, true);
+    }
+
+    const step = (now) => {
+      if (!this.isTyping) return;
+
+      while (now >= nextCharTime && currentIndex < totalLen) {
+        const char = fullText[currentIndex];
+        
+        let chunk = char;
+        let lookahead = currentIndex + 1;
+        // Chunk consecutive indentation spaces or tabs together with newline
+        if (char === '\n') {
+          while (lookahead < totalLen && (fullText[lookahead] === ' ' || fullText[lookahead] === '\t')) {
+            chunk += fullText[lookahead];
+            lookahead++;
+          }
+        }
+        
+        const doc = editor.getDoc();
+        const cursor = doc.getCursor();
+        doc.replaceRange(chunk, cursor);
+
+        currentIndex = lookahead;
+
+        const jitter = (Math.random() - 0.5) * 12; // +-6ms variation
+        let delay = Math.max(3, baseDelay + jitter);
+        if (char === '\n') {
+          delay += 80; // 80ms pause after newline per B2
+        }
+        nextCharTime += delay;
+      }
+
+      if (currentIndex >= totalLen) {
+        // Guarantee 100% exact code match per B5
+        editor.setValue(fullText);
+        cleanup();
+        if (onComplete) onComplete();
+      } else {
+        this.activeAnimationId = requestAnimationFrame(step);
+      }
+    };
+
+    this.activeAnimationId = requestAnimationFrame(step);
+  },
+
+  cancel() {
+    if (this.cancelCallback) {
+      this.cancelCallback();
+    }
+  }
+};
+
+// ==========================================================================
+// B3. STREAMING TERMINAL OUTPUT (~25ms/line + Flashing Block Cursor)
+// ==========================================================================
+function streamTerminalOutput(terminal, text, isError = false, onDone = null) {
+  if (!terminal) return;
+  const lines = text.split('\n');
+  if (lines.length > 200 || !CodeSampleTypewriter.isEffectEnabled()) {
+    const lineClass = isError ? 'term-output-error' : 'term-output-success';
+    terminal.innerHTML += `<div class="term-line ${lineClass}">${escapeHtml(text)}</div>`;
+    terminal.scrollTop = terminal.scrollHeight;
+    if (onDone) onDone();
+    return;
+  }
+
+  let lineIdx = 0;
+  const lineClass = isError ? 'term-output-error' : 'term-output-success';
+
+  let blockCursor = document.getElementById('term-block-cursor');
+  if (!blockCursor) {
+    blockCursor = document.createElement('span');
+    blockCursor.id = 'term-block-cursor';
+    blockCursor.className = 'term-cursor-block';
+    blockCursor.textContent = '█';
+  }
+
+  function outputNextLine() {
+    if (lineIdx < lines.length) {
+      const lineText = lines[lineIdx];
+      const div = document.createElement('div');
+      div.className = `term-line ${lineClass}`;
+      div.textContent = lineText;
+      terminal.appendChild(div);
+      terminal.appendChild(blockCursor);
+      terminal.scrollTop = terminal.scrollHeight;
+      lineIdx++;
+      setTimeout(outputNextLine, 25);
+    } else {
+      if (blockCursor.parentNode) {
+        blockCursor.parentNode.removeChild(blockCursor);
+      }
+      terminal.scrollTop = terminal.scrollHeight;
+      if (onDone) onDone();
+    }
+  }
+
+  outputNextLine();
+}
+
+// ==========================================================================
+// A3-A8. PYTHON PYODIDE WORKER ENGINE (Zero Mock, Real WASM Execution)
+// ==========================================================================
+const PythonRunner = {
+  worker: null,
+  isExecuting: false,
+  timeoutTimer: null,
+  isWorkerReady: false,
+
+  initWorker() {
+    if (this.worker) return this.worker;
+
+    try {
+      this.worker = new Worker('assets/pyodide/python_worker.js');
+    } catch (e) {
+      console.warn('Web Worker instantiation restricted (possibly file:// protocol), using main thread fallback', e);
+      return null;
+    }
+
+    this.worker.onmessage = (e) => {
+      const data = e.data;
+      const terminal = document.getElementById('ide-terminal-output');
+      const timer = document.getElementById('term-exec-time');
+      const exitStatus = document.getElementById('term-exit-status');
+      const statusPill = document.getElementById('term-status-pill');
+
+      if (data.type === 'status') {
+        if (terminal && !this.isWorkerReady) {
+          terminal.innerHTML += `<div class="term-line" style="color:var(--text-dim); font-size:11px;">[Pyodide]: ${escapeHtml(data.message)}</div>`;
+          terminal.scrollTop = terminal.scrollHeight;
+        }
+        if (data.progress === 100) {
+          this.isWorkerReady = true;
+        }
+      } else if (data.type === 'stdout') {
+        if (terminal) {
+          streamTerminalOutput(terminal, data.text, false);
+        }
+      } else if (data.type === 'stderr') {
+        if (terminal) {
+          streamTerminalOutput(terminal, data.text, true);
+        }
+      } else if (data.type === 'done') {
+        this.clearExecutionTimeout();
+        this.isExecuting = false;
+        this.resetRunButton();
+
+        const durationSec = (data.executionTimeMs / 1000).toFixed(2);
+        if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${durationSec}s`;
+
+        if (exitStatus) {
+          const isOk = data.exitCode === 0;
+          exitStatus.innerHTML = `<span class="status-dot-inline ${isOk ? 'online' : 'error'}"></span> Exit Code ${data.exitCode}`;
+        }
+      }
+    };
+
+    this.worker.onerror = (err) => {
+      console.error('Python Worker Error:', err);
+      this.clearExecutionTimeout();
+      this.isExecuting = false;
+      const terminal = document.getElementById('ide-terminal-output');
+      if (terminal) {
+        terminal.innerHTML += `<div class="term-line term-output-error">[Worker Error]: ${escapeHtml(err.message || 'Lỗi tiến trình thực thi')}</div>`;
+        terminal.scrollTop = terminal.scrollHeight;
+      }
+      this.resetRunButton();
+    };
+
+    return this.worker;
+  },
+
+  clearExecutionTimeout() {
+    if (this.timeoutTimer) {
+      clearTimeout(this.timeoutTimer);
+      this.timeoutTimer = null;
+    }
+  },
+
+  resetRunButton() {
+    const btnRun = document.getElementById('btn-run-ide');
+    if (btnRun) {
+      btnRun.classList.remove('btn-danger-running');
+      btnRun.innerHTML = `<i class="fa-solid fa-play"></i> <span class="btn-text">Chạy</span> <kbd class="kbd-hint">Ctrl+Enter</kbd>`;
+    }
+    const statusPill = document.getElementById('term-status-pill');
+    if (statusPill) {
+      statusPill.className = 'term-status-pill ready';
+      statusPill.innerHTML = '<span class="status-dot"></span> Sẵn sàng';
+    }
+  },
+
+  stop() {
+    if (!this.isExecuting) return;
+    this.clearExecutionTimeout();
+    this.isExecuting = false;
+
+    if (this.worker) {
+      this.worker.terminate();
+      this.worker = null;
+      this.isWorkerReady = false;
+    }
+
+    const terminal = document.getElementById('ide-terminal-output');
+    if (terminal) {
+      terminal.innerHTML += `<div class="term-line term-output-error">[Đã dừng bởi người dùng]</div>`;
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    const exitStatus = document.getElementById('term-exit-status');
+    if (exitStatus) {
+      exitStatus.innerHTML = `<span class="status-dot-inline error"></span> Exit Code 130`;
+    }
+
+    this.resetRunButton();
+  },
+
+  execute(code) {
+    if (this.isExecuting) return;
+
+    const terminal = document.getElementById('ide-terminal-output');
+    const timer = document.getElementById('term-exec-time');
+    const statusPill = document.getElementById('term-status-pill');
+    const exitStatus = document.getElementById('term-exit-status');
+    const btnRun = document.getElementById('btn-run-ide');
+
+    this.isExecuting = true;
+
+    if (btnRun) {
+      btnRun.classList.add('btn-danger-running');
+      btnRun.innerHTML = `<i class="fa-solid fa-stop"></i> <span class="btn-text">Dừng</span> <kbd class="kbd-hint">Esc</kbd>`;
+    }
+
+    if (statusPill) {
+      statusPill.className = 'term-status-pill running';
+      statusPill.innerHTML = '<span class="status-dot"></span> Đang chạy...';
+    }
+
+    if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> 0.00s`;
+
+    if (terminal) {
+      terminal.innerHTML += `<div class="term-line term-prompt">user&gt; Thực thi mã nguồn (Python 3 Pyodide)...</div>`;
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    const worker = this.initWorker();
+
+    if (!worker) {
+      this.runMainThreadFallback(code);
+      return;
+    }
+
+    // 10-second timeout per A6
+    this.timeoutTimer = setTimeout(() => {
+      if (this.isExecuting) {
+        if (this.worker) {
+          this.worker.terminate();
+          this.worker = null;
+          this.isWorkerReady = false;
+        }
+        this.isExecuting = false;
+        this.resetRunButton();
+
+        if (terminal) {
+          terminal.innerHTML += `<div class="term-line term-output-error">[Đã dừng: vượt quá 10 giây]</div>`;
+          terminal.scrollTop = terminal.scrollHeight;
+        }
+        if (exitStatus) {
+          exitStatus.innerHTML = `<span class="status-dot-inline error"></span> Exit Code 124`;
+        }
+      }
+    }, 10000);
+
+    worker.postMessage({
+      type: 'run',
+      code: code
+    });
+  },
+
+  async runMainThreadFallback(code) {
+    const terminal = document.getElementById('ide-terminal-output');
+    const timer = document.getElementById('term-exec-time');
+    const exitStatus = document.getElementById('term-exit-status');
+    const startTime = performance.now();
+
+    try {
+      if (!window.pyodideInstance) {
+        if (terminal) {
+          terminal.innerHTML += `<div class="term-line" style="color:var(--text-dim); font-size:11px;">[Pyodide]: Đang khởi động Python (Main Thread Sandbox)...</div>`;
+          terminal.scrollTop = terminal.scrollHeight;
+        }
+        if (typeof loadPyodide === 'undefined') {
+          await new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = 'assets/pyodide/pyodide.js';
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.appendChild(script);
+          });
+        }
+        window.pyodideInstance = await loadPyodide({ indexURL: 'assets/pyodide/' });
+      }
+
+      const py = window.pyodideInstance;
+
+      py.setStdout({
+        batched: (t) => {
+          if (terminal) streamTerminalOutput(terminal, t, false);
+        }
+      });
+      py.setStderr({
+        batched: (t) => {
+          if (terminal) streamTerminalOutput(terminal, t, true);
+        }
+      });
+
+      const cleanCode = code.replace(/\r\n/g, '\n');
+      await py.runPythonAsync(cleanCode);
+
+      const elapsedMs = Math.round(performance.now() - startTime);
+      if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
+      if (exitStatus) exitStatus.innerHTML = `<span class="status-dot-inline online"></span> Exit Code 0`;
+    } catch (err) {
+      const errMsg = err.message || String(err);
+      const modMatch = errMsg.match(/ModuleNotFoundError:\s*No module named '([^']+)'/);
+      if (modMatch && terminal) {
+        streamTerminalOutput(terminal, `[Lỗi Module]: Thư viện '${modMatch[1]}' không khả dụng trong sandbox trình duyệt.`, true);
+      } else if (terminal) {
+        streamTerminalOutput(terminal, errMsg, true);
+      }
+      const elapsedMs = Math.round(performance.now() - startTime);
+      if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
+      if (exitStatus) exitStatus.innerHTML = `<span class="status-dot-inline error"></span> Exit Code 1`;
+    } finally {
+      this.isExecuting = false;
+      this.resetRunButton();
+    }
+  }
+};
 
 function returnToActiveLesson() {
   switchTab('lesson');
@@ -2871,43 +3407,35 @@ function returnToActiveLesson() {
     dView.style.display = 'flex';
     dView.scrollTop = 0;
   }
-  const returnBtn = document.getElementById('btn-return-to-lesson');
-  if (returnBtn) returnBtn.style.display = 'none';
-  const lessonTab = document.getElementById('ide-lesson-tab');
-  if (lessonTab) lessonTab.style.display = 'none';
+  const breadcrumbBar = document.getElementById('ide-breadcrumb-bar');
+  if (breadcrumbBar) breadcrumbBar.style.display = 'none';
 }
 
 function switchPracticeLang(lang) {
+  const langConf = SUPPORTED_LANGUAGES[lang] || SUPPORTED_LANGUAGES.python;
   const icon = document.getElementById('ide-file-icon');
   const filename = document.getElementById('ide-filename');
+  const badge = document.getElementById('ide-lang-status-badge');
 
-  // Preserve user code in current language before switching
   if (appState.cmPracticeEditor && currentPracticeLang) {
     practiceCodeCache[currentPracticeLang] = appState.cmPracticeEditor.getValue();
   }
   currentPracticeLang = lang;
 
-  if (lang === 'python') {
-    if (icon) icon.className = 'fa-brands fa-python';
-    if (filename) filename.textContent = 'main.py';
-    if (appState.cmPracticeEditor) {
-      appState.cmPracticeEditor.setOption('mode', 'python');
-      appState.cmPracticeEditor.setValue(practiceCodeCache.python);
-    }
-  } else if (lang === 'javascript') {
-    if (icon) icon.className = 'fa-brands fa-js';
-    if (filename) filename.textContent = 'index.js';
-    if (appState.cmPracticeEditor) {
-      appState.cmPracticeEditor.setOption('mode', 'javascript');
-      appState.cmPracticeEditor.setValue(practiceCodeCache.javascript);
-    }
-  } else if (lang === 'cpp') {
-    if (icon) icon.className = 'fa-solid fa-c';
-    if (filename) filename.textContent = 'main.cpp';
-    if (appState.cmPracticeEditor) {
-      appState.cmPracticeEditor.setOption('mode', 'clike');
-      appState.cmPracticeEditor.setValue(practiceCodeCache.cpp);
-    }
+  if (icon) icon.className = langConf.icon;
+  if (filename) filename.textContent = langConf.filename;
+  if (badge) badge.textContent = langConf.label;
+
+  // C6. Update navbar title dynamically if in practice tab
+  if (appState.activeTab === 'practice') {
+    const mainDcn = document.getElementById('display-course-name');
+    if (mainDcn) mainDcn.textContent = `Thực hành IDE › ${langConf.label}`;
+  }
+
+  if (appState.cmPracticeEditor) {
+    appState.cmPracticeEditor.setOption('mode', langConf.mode);
+    const code = practiceCodeCache[lang] || langConf.starterCode;
+    CodeSampleTypewriter.typewrite(appState.cmPracticeEditor, code);
   }
 }
 
@@ -2932,14 +3460,17 @@ function loadTaskToSandbox(lessonId, taskIdx) {
     switchPracticeLang(langSelect.value);
   }
 
-  if (appState.cmPracticeEditor) {
-    appState.cmPracticeEditor.setValue(codeToRun);
-    setTimeout(() => appState.cmPracticeEditor.refresh(), 100);
-  }
+  // D2. Breadcrumb bar above toolbar
+  const breadcrumbBar = document.getElementById('ide-breadcrumb-bar');
+  const lessonTabName = document.getElementById('ide-lesson-tab-name');
+  const returnLabel = document.getElementById('btn-return-lesson-label');
+  if (breadcrumbBar) breadcrumbBar.style.display = 'flex';
+  if (lessonTabName) lessonTabName.textContent = `Thử Thách: ${lesson.number || 'Bài Học'} (${taskIdx + 1})`;
+  if (returnLabel) returnLabel.textContent = `Quay Lại: ${lesson.number || 'Bài Học'}`;
 
-  const ideHeaderLesson = document.getElementById('ide-current-lesson-name');
-  if (ideHeaderLesson) {
-    ideHeaderLesson.textContent = `${lesson.number || 'Bài học'}: Thử thách ${taskIdx + 1}`;
+  if (appState.cmPracticeEditor) {
+    CodeSampleTypewriter.typewrite(appState.cmPracticeEditor, codeToRun);
+    setTimeout(() => appState.cmPracticeEditor.refresh(), 100);
   }
 }
 
@@ -2951,7 +3482,6 @@ function loadTheoryCodeToSandbox(lessonId) {
     return;
   }
 
-  // Extract code from enriched sections, core_theory, hands_on_practice or lesson.code
   let codeToRun = '';
   let codeLang = '';
 
@@ -2994,29 +3524,17 @@ function loadTheoryCodeToSandbox(lessonId) {
     switchPracticeLang(langSelect.value);
   }
 
-  // Reveal return button
-  const returnBtn = document.getElementById('btn-return-to-lesson');
-  const returnLabel = document.getElementById('btn-return-lesson-label');
-  if (returnBtn) {
-    returnBtn.style.display = 'inline-flex';
-    if (returnLabel) returnLabel.textContent = `Quay Lại: ${lesson.number || 'Bài Học'}`;
-  }
-
-  const lessonTab = document.getElementById('ide-lesson-tab');
+  // D2. Breadcrumb bar above toolbar
+  const breadcrumbBar = document.getElementById('ide-breadcrumb-bar');
   const lessonTabName = document.getElementById('ide-lesson-tab-name');
-  if (lessonTab) {
-    lessonTab.style.display = 'inline-flex';
-    if (lessonTabName) lessonTabName.textContent = `Demo: ${lesson.number || 'Bài Học'}`;
-  }
+  const returnLabel = document.getElementById('btn-return-lesson-label');
+  if (breadcrumbBar) breadcrumbBar.style.display = 'flex';
+  if (lessonTabName) lessonTabName.textContent = `Demo: ${lesson.number || 'Bài Học'}`;
+  if (returnLabel) returnLabel.textContent = `Quay Lại: ${lesson.number || 'Bài Học'}`;
 
   if (appState.cmPracticeEditor) {
-    appState.cmPracticeEditor.setValue(codeToRun);
+    CodeSampleTypewriter.typewrite(appState.cmPracticeEditor, codeToRun);
     setTimeout(() => appState.cmPracticeEditor.refresh(), 100);
-  }
-
-  const ideHeaderLesson = document.getElementById('ide-current-lesson-name');
-  if (ideHeaderLesson) {
-    ideHeaderLesson.textContent = `${lesson.number || 'Bài học'}: Thực hành Sandbox`;
   }
 
   showToast(`Đã nạp mã nguồn "${lesson.title || lesson.number}" vào Sandbox IDE`, 'success');
@@ -3026,9 +3544,17 @@ function loadExerciseToSandbox(lessonId) {
   loadTheoryCodeToSandbox(lessonId);
 }
 
+function stopPracticeIDE() {
+  const langSelect = document.getElementById('ide-lang-select');
+  const lang = langSelect ? langSelect.value : 'python';
+  if (lang === 'python') {
+    PythonRunner.stop();
+  }
+}
+
 async function runPracticeIDE() {
   const langSelect = document.getElementById('ide-lang-select');
-  const lang = langSelect ? langSelect.value : 'javascript';
+  const lang = langSelect ? langSelect.value : 'python';
   const code = appState.cmPracticeEditor ? appState.cmPracticeEditor.getValue() : '';
   const terminal = document.getElementById('ide-terminal-output');
   const timer = document.getElementById('term-exec-time');
@@ -3043,136 +3569,187 @@ async function runPracticeIDE() {
     return;
   }
 
-  if (statusPill) {
-    statusPill.className = 'term-status-pill running';
-    statusPill.innerHTML = '<span class="status-dot"></span> Đang chạy...';
-  }
-
-  const langLabel = lang === 'python' ? 'Python 3' : (lang === 'cpp' ? 'C++20' : 'JavaScript');
-  if (terminal) {
-    terminal.innerHTML += `<div class="term-line term-prompt">user&gt; Thực thi mã nguồn (${langLabel})...</div>`;
-    terminal.scrollTop = terminal.scrollHeight;
-  }
-
   const t0 = performance.now();
 
-  try {
-    const res = await fetch('/api/run', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ lang, code })
-    });
+  // Python 3: Pyodide WASM Engine
+  if (lang === 'python') {
+    PythonRunner.execute(code);
+    return;
+  }
 
-    const elapsedMs = Math.round(performance.now() - t0);
-    const durationSec = (elapsedMs / 1000).toFixed(2);
-    if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${durationSec}s`;
-
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+  // JavaScript: ES6+ VM Sandbox
+  if (lang === 'javascript') {
+    if (statusPill) {
+      statusPill.className = 'term-status-pill running';
+      statusPill.innerHTML = '<span class="status-dot"></span> Đang chạy...';
     }
-
-    const data = await res.json();
-    if (!data.success) {
-      throw new Error(data.error || 'Thực thi thất bại');
-    }
-
-    const exitCode = typeof data.exitCode === 'number' ? data.exitCode : 0;
-    if (exitStatus) {
-      exitStatus.innerHTML = `<span class="status-dot-inline ${exitCode === 0 ? 'online' : 'error'}"></span> Trạng thái: Exit Code ${exitCode}`;
-    }
-
     if (terminal) {
-      if (data.stdout && data.stdout.trim()) {
-        terminal.innerHTML += `<div class="term-line term-output-success">${escapeHtml(data.stdout)}</div>`;
-      }
-      if (data.stderr && data.stderr.trim()) {
-        terminal.innerHTML += `<div class="term-line term-output-error">${escapeHtml(data.stderr)}</div>`;
-      }
-      if (!data.stdout && !data.stderr) {
-        terminal.innerHTML += `<div class="term-line" style="color:var(--text-muted); font-size:11px;">[Chương trình kết thúc bình thường không có đầu ra (Exit code: ${exitCode})]</div>`;
-      }
+      terminal.innerHTML += `<div class="term-line term-prompt">user&gt; Thực thi mã nguồn (JavaScript ES6+ VM)...</div>`;
+      terminal.scrollTop = terminal.scrollHeight;
     }
-  } catch (err) {
-    // Offline Client-side Execution Fallback
-    const elapsedMs = Math.max(16, Math.round(performance.now() - t0));
-    const durationSec = (elapsedMs / 1000).toFixed(2);
-    if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${durationSec}s (Client VM)`;
 
-    if (lang === 'javascript') {
-      const logs = [];
-      const fakeConsole = {
-        log: (...args) => logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ')),
-        info: (...args) => logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ')),
-        warn: (...args) => logs.push('[WARN] ' + args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' ')),
-        error: (...args) => logs.push('[ERROR] ' + args.map(a => typeof a === 'object' ? JSON.stringify(a) : String(a)).join(' '))
-      };
-      try {
-        const fn = new Function('console', code);
-        fn(fakeConsole);
+    const logs = [];
+    const fakeConsole = {
+      log: (...args) => logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' ')),
+      info: (...args) => logs.push(args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' ')),
+      warn: (...args) => logs.push('[WARN] ' + args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' ')),
+      error: (...args) => logs.push('[ERROR] ' + args.map(a => typeof a === 'object' ? JSON.stringify(a, null, 2) : String(a)).join(' '))
+    };
+
+    try {
+      const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
+      const fn = new AsyncFunction('console', code);
+      await fn(fakeConsole);
+
+      const elapsedMs = Math.max(4, Math.round(performance.now() - t0));
+      if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
+      if (exitStatus) exitStatus.innerHTML = `<span class="status-dot-inline online"></span> Exit Code 0`;
+
+      if (terminal) {
+        if (logs.length > 0) {
+          streamTerminalOutput(terminal, logs.join('\n'), false);
+        } else {
+          terminal.innerHTML += `<div class="term-line" style="color:var(--text-dim); font-size:11px;">[Chương trình kết thúc bình thường không có đầu ra (Exit code: 0)]</div>`;
+        }
+      }
+    } catch (err) {
+      const elapsedMs = Math.max(4, Math.round(performance.now() - t0));
+      if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
+      if (exitStatus) exitStatus.innerHTML = `<span class="status-dot-inline error"></span> Exit Code 1`;
+      if (terminal) {
+        streamTerminalOutput(terminal, `[Lỗi Runtime]: ${err.message}`, true);
+      }
+    } finally {
+      if (statusPill) {
+        statusPill.className = 'term-status-pill ready';
+        statusPill.innerHTML = '<span class="status-dot"></span> Sẵn sàng';
+      }
+      if (terminal) terminal.scrollTop = terminal.scrollHeight;
+    }
+    return;
+  }
+
+  // C++17 Runner: Local MinGW backend or clear status (NO fake regex!)
+  if (lang === 'cpp') {
+    if (statusPill) {
+      statusPill.className = 'term-status-pill running';
+      statusPill.innerHTML = '<span class="status-dot"></span> Đang chạy...';
+    }
+    if (terminal) {
+      terminal.innerHTML += `<div class="term-line term-prompt">user&gt; Thực thi mã nguồn (C++17)...</div>`;
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    try {
+      const res = await fetch('/api/run', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lang: 'cpp', code })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        const elapsedMs = Math.round(performance.now() - t0);
+        if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
+
+        const exitCode = typeof data.exitCode === 'number' ? data.exitCode : (data.success ? 0 : 1);
         if (exitStatus) {
-          exitStatus.innerHTML = `<span class="status-dot-inline online"></span> Trạng thái: Exit Code 0 (Client Sandbox)`;
+          exitStatus.innerHTML = `<span class="status-dot-inline ${exitCode === 0 ? 'online' : 'error'}"></span> Exit Code ${exitCode}`;
         }
         if (terminal) {
-          if (logs.length > 0) {
-            terminal.innerHTML += `<div class="term-line term-output-success">${escapeHtml(logs.join('\n'))}</div>`;
-          } else {
-            terminal.innerHTML += `<div class="term-line" style="color:var(--text-muted); font-size:11px;">[Chương trình kết thúc bình thường (Exit code: 0)]</div>`;
+          if (data.stdout && data.stdout.trim()) {
+            streamTerminalOutput(terminal, data.stdout, false);
+          }
+          if (data.stderr && data.stderr.trim()) {
+            streamTerminalOutput(terminal, data.stderr, true);
+          }
+          if (!data.stdout && !data.stderr) {
+            terminal.innerHTML += `<div class="term-line" style="color:var(--text-dim); font-size:11px;">[Chương trình kết thúc bình thường (Exit code: ${exitCode})]</div>`;
           }
         }
-        showToast('Thực thi hoàn tất trên Client Sandbox VM', 'success');
-      } catch (runtimeErr) {
-        if (code.includes('curl') || code.includes('HTTP/')) {
-          if (exitStatus) {
-            exitStatus.innerHTML = `<span class="status-dot-inline online"></span> Trạng thái: Exit Code 0 (Client Network Sim)`;
-          }
-          if (terminal) {
-            terminal.innerHTML += `<div class="term-line term-output-success">HTTP/2 200 OK\nserver: github.com\ncontent-type: application/json; charset=utf-8\nstrict-transport-security: max-age=31536000; includeSubdomains\nx-frame-options: DENY\n[Client Network]: Truy vấn HTTP Response Header thành công.</div>`;
-          }
-          showToast('Mô phỏng truy vấn HTTP hoàn tất', 'success');
-        } else {
-          if (exitStatus) {
-            exitStatus.innerHTML = `<span class="status-dot-inline error"></span> Trạng thái: Lỗi Runtime`;
-          }
-          if (terminal) {
-            terminal.innerHTML += `<div class="term-line term-output-error">[Lỗi Runtime]: ${escapeHtml(runtimeErr.message)}</div>`;
-          }
-        }
+        return;
       }
-    } else {
-      // Offline fallback for C++ and Python
-      let mockOutput = [];
-      if (lang === 'python') {
-        const printRegex = /print\s*\(\s*(['"`])(.*?)\1\s*\)/g;
-        let m;
-        while ((m = printRegex.exec(code)) !== null) {
-          mockOutput.push(m[2]);
-        }
-      } else if (lang === 'cpp') {
-        const coutRegex = /std::cout\s*<<\s*(['"])(.*?)\1/g;
-        let m;
-        while ((m = coutRegex.exec(code)) !== null) {
-          mockOutput.push(m[2]);
-        }
+    } catch (err) {
+      // Backend not running
+    } finally {
+      if (statusPill) {
+        statusPill.className = 'term-status-pill ready';
+        statusPill.innerHTML = '<span class="status-dot"></span> Sẵn sàng';
       }
+      if (terminal) terminal.scrollTop = terminal.scrollHeight;
+    }
 
-      if (exitStatus) {
-        exitStatus.innerHTML = `<span class="status-dot-inline online"></span> Trạng thái: Exit Code 0 (Offline Client Mode)`;
-      }
-      if (terminal) {
-        if (mockOutput.length > 0) {
-          terminal.innerHTML += `<div class="term-line term-output-success">${escapeHtml(mockOutput.join('\n'))}</div>`;
-        } else {
-          terminal.innerHTML += `<div class="term-line term-output-success">[Chế độ Sandbox Offline ${langLabel}]: Mã nguồn hợp lệ, đã mô phỏng thực thi (Exit code: 0).</div>`;
-        }
-      }
-      showToast(`Chế độ Offline: Mô phỏng ${langLabel} hoàn tất`, 'info');
+    // A9: Report real C++ status truthfully, NO mock regex
+    const elapsedMs = Math.round(performance.now() - t0);
+    if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
+    if (exitStatus) exitStatus.innerHTML = `<span class="status-dot-inline error"></span> Exit Code 1`;
+    if (terminal) {
+      terminal.innerHTML += `<div class="term-line term-output-error">[C++17]: Không thể kết nối với trình biên dịch MinGW g++ cục bộ (server 'node server/server.js' chưa chạy). Sandbox client-side hiện hỗ trợ thực thi trực tiếp Python 3 (Pyodide WASM) và JavaScript (ES6+ VM). Để biên dịch C++17, vui lòng khởi chạy server backend với MinGW g++.</div>`;
+      terminal.scrollTop = terminal.scrollHeight;
     }
-  } finally {
-    if (statusPill) {
-      statusPill.className = 'term-status-pill ready';
-      statusPill.innerHTML = '<span class="status-dot"></span> Sẵn sàng';
-    }
-    if (terminal) terminal.scrollTop = terminal.scrollHeight;
+  }
+}
+
+// C4. Settings Modal with 2-step confirmation for progress reset
+function initSettingsModal() {
+  const btnOpen = document.getElementById('btn-open-settings');
+  const overlay = document.getElementById('settings-overlay');
+  const btnClose = document.getElementById('btn-close-settings');
+  const btnStep1 = document.getElementById('btn-trigger-reset-step1');
+  const step1Wrap = document.getElementById('reset-progress-step1-wrap');
+  const step2Wrap = document.getElementById('reset-progress-step2-wrap');
+  const btnConfirm = document.getElementById('btn-confirm-reset-step2');
+  const btnCancel = document.getElementById('btn-cancel-reset-step2');
+
+  if (btnOpen && overlay) {
+    btnOpen.addEventListener('click', () => {
+      overlay.style.display = 'flex';
+      if (step1Wrap) step1Wrap.style.display = 'block';
+      if (step2Wrap) step2Wrap.style.display = 'none';
+    });
+  }
+
+  if (btnClose && overlay) {
+    btnClose.addEventListener('click', () => {
+      overlay.style.display = 'none';
+    });
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) overlay.style.display = 'none';
+    });
+  }
+
+  if (btnStep1) {
+    btnStep1.addEventListener('click', () => {
+      if (step1Wrap) step1Wrap.style.display = 'none';
+      if (step2Wrap) step2Wrap.style.display = 'block';
+    });
+  }
+
+  if (btnCancel) {
+    btnCancel.addEventListener('click', () => {
+      if (step1Wrap) step1Wrap.style.display = 'block';
+      if (step2Wrap) step2Wrap.style.display = 'none';
+    });
+  }
+
+  if (btnConfirm) {
+    btnConfirm.addEventListener('click', () => {
+      appState.userProgress = {
+        completed_lessons: [],
+        completed_milestones: [],
+        completed_exercises: [],
+        exercise_submissions: {},
+        exam_results: {}
+      };
+      saveLocalProgress();
+      if (overlay) overlay.style.display = 'none';
+      showToast('Đã xóa toàn bộ tiến độ học tập thành công', 'success');
+      updateTelemetry();
+      renderCurrentTrack();
+    });
   }
 }
 

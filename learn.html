@@ -100,7 +100,7 @@
         </button>
 
         <!-- Track 4: Ngôn ngữ lập trình (Equal Footing) -->
-        <button class="nav-tab-btn" data-target="prog-lang">
+        <button class="nav-tab-btn" data-target="prog-lang" title="Ngôn Ngữ Lập Trình (C++, JavaScript, Python)">
           <span class="tab-icon"><i class="fa-solid fa-terminal"></i></span>
           <span class="tab-text">Ngôn Ngữ Lập Trình</span>
           <span class="tab-counter" id="badge-prog-lang">3 Nhánh (73 Bài)</span>
@@ -120,24 +120,23 @@
               <i class="fa-brands fa-js"></i> JavaScript
             </button>
             <button class="sub-track-pill" data-subtrack="cpp">
-              <i class="fa-solid fa-c"></i> C++ (ISO 20)
+              <i class="fa-solid fa-c"></i> C++17
             </button>
             <button class="sub-track-pill" data-subtrack="python">
               <i class="fa-brands fa-python"></i> Python 3
             </button>
           </div>
         </div>
-        <button class="nav-tab-btn" id="btn-reset-progress">
-          <span class="tab-icon"><i class="fa-solid fa-trash-can"></i></span>
-          <span class="tab-text">Đặt Lại Tiến Độ</span>
-        </button>
       </div>
 
       <div class="sidebar-footer">
+        <button class="sidebar-settings-link" id="btn-open-settings" title="Cài đặt hệ thống & quản lý tiến độ" style="display:flex; align-items:center; gap:8px; width:100%; padding:6px 10px; background:transparent; border:1px solid var(--border-normal); border-radius:var(--radius-sm); color:var(--text-secondary); cursor:pointer; font-size:12px; margin-bottom:8px;">
+          <i class="fa-solid fa-gear"></i> <span>Cài Đặt</span>
+        </button>
         <div class="user-status">
           <span class="status-indicator online"></span>
           <span class="status-label" id="backend-status-label"
-            >Sandbox Engine: Kết Nối Cục Bộ</span
+            >Sandbox: Sẵn sàng</span
           >
         </div>
       </div>
@@ -174,10 +173,10 @@
             <i class="fa-solid fa-book-open"></i> Bài Học
           </button>
           <button class="sub-tab-btn" data-sub="exam">
-            <i class="fa-solid fa-award"></i> Phòng Thi Cột Mốc
+            <i class="fa-solid fa-award"></i> Phòng Lab
           </button>
           <button class="sub-tab-btn" data-sub="practice">
-            <i class="fa-solid fa-laptop-code"></i> Thực Hành IDE (Sandbox)
+            <i class="fa-solid fa-laptop-code"></i> Thực Hành IDE
           </button>
         </nav>
       </header>
@@ -380,12 +379,11 @@
 
                 <div class="conduit-notice-box">
                   <div class="notice-title">
-                    <i class="fa-solid fa-shield-halved"></i> QUY TẮC MỞ KHÓA KỲ
-                    THI
+                    <i class="fa-solid fa-shield-halved"></i> QUY TẮC MỞ KHÓA KỲ THI
                   </div>
                   <p>
                     Hoàn thành 100% các bài học lý thuyết bắt buộc của một cột
-                    mốc để kích hoạt hoạt cảnh <b>Unlock Cutscene</b> và giải
+                    mốc để kích hoạt cảnh mở khoá và giải
                     phóng quyền truy cập vào phòng thi sát hạch.
                   </p>
                 </div>
@@ -394,7 +392,7 @@
                   class="btn btn-action-full"
                   id="btn-resume-latest-lesson"
                 >
-                  <i class="fa-solid fa-bolt"></i> Tiếp Tục Bài Học Dở Dang
+                  <i class="fa-solid fa-play"></i> Bắt Đầu Bài Học
                 </button>
               </div>
             </div>
@@ -602,43 +600,51 @@
             <div class="workspace-split ide-layout">
               <!-- Left: Editor Pane -->
               <div class="workspace-pane ide-editor-pane">
-                <div class="pane-header ide-header">
-                  <div class="ide-tab-bar" style="display:flex; align-items:center; justify-content:space-between; width:100%;">
-                    <div style="display:flex; align-items:center; gap:8px;">
-                      <div class="ide-file-tab active" id="ide-active-tab">
-                        <i class="fa-brands fa-python" id="ide-file-icon"></i>
-                        <span id="ide-filename">main.py</span>
-                      </div>
-                      <div class="ide-file-tab" id="ide-lesson-tab" style="display:none; background:rgba(197, 168, 128, 0.15); border-color:var(--accent-bronze); color:#F4F1EA;">
-                        <i class="fa-solid fa-code" style="color:var(--accent-bronze);"></i>
-                        <span id="ide-lesson-tab-name">Code Demo Bài Học</span>
-                      </div>
-                    </div>
-                    <button class="btn btn-back-sm" id="btn-return-to-lesson" style="display:none; align-items:center; gap:6px; font-size:0.75rem; padding:4px 12px; margin-right:8px; border-color:var(--accent-bronze); color:var(--accent-bronze);" onclick="returnToActiveLesson()">
-                      <i class="fa-solid fa-arrow-left"></i> <span id="btn-return-lesson-label">Quay Lại Bài Học</span>
-                    </button>
-                  </div>
+                <!-- D2. Breadcrumb bar above toolbar -->
+                <div class="ide-breadcrumb-bar" id="ide-breadcrumb-bar" style="display: none;">
+                  <span class="ide-breadcrumb-text" id="ide-lesson-tab-name">Code Demo Bài Học</span>
+                  <button class="btn-back-xs" id="btn-return-to-lesson" onclick="returnToActiveLesson()">
+                    <i class="fa-solid fa-arrow-left"></i> <span id="btn-return-lesson-label">Quay Lại Bài Học</span>
+                  </button>
+                </div>
 
-                  <div class="ide-controls">
+                <!-- D1. Toolbar 2 Groups -->
+                <div class="pane-header ide-header">
+                  <!-- Group Left -->
+                  <div class="ide-toolbar-left">
+                    <div class="ide-file-tab active" id="ide-active-tab">
+                      <i class="fa-brands fa-python" id="ide-file-icon"></i>
+                      <span id="ide-filename">main.py</span>
+                    </div>
+
                     <div class="lang-selector-group">
-                      <span class="selector-label">Ngôn ngữ:</span>
-                      <select id="ide-lang-select" class="custom-select">
-                        <option value="python">Python 3 (Local 3.10)</option>
-                        <option value="javascript">JavaScript (ES6+ VM)</option>
-                        <option value="cpp">C++ (MinGW ISO C++17)</option>
+                      <select id="ide-lang-select" class="custom-select" aria-label="Chọn ngôn ngữ lập trình">
+                        <option value="python">Python 3</option>
+                        <option value="javascript">JavaScript (ES6+)</option>
+                        <option value="cpp">C++17</option>
                       </select>
                     </div>
 
+                    <!-- B4. Typing effect toggle -->
+                    <label class="typing-toggle-switch" title="Bật/Tắt hiệu ứng tự gõ code mẫu">
+                      <input type="checkbox" id="ide-typing-toggle" checked />
+                      <span class="toggle-slider"></span>
+                      <span class="toggle-label">Hiệu ứng gõ</span>
+                    </label>
+                  </div>
+
+                  <!-- Group Right -->
+                  <div class="ide-toolbar-right">
                     <button
-                      class="btn btn-secondary"
+                      class="btn btn-secondary btn-sm"
                       id="btn-reset-ide"
                       title="Khôi phục code mẫu"
                     >
-                      <i class="fa-solid fa-rotate-left"></i> Khôi phục
+                      <i class="fa-solid fa-rotate-left"></i> <span class="btn-text">Khôi phục</span>
                     </button>
 
-                    <button class="btn btn-primary" id="btn-run-ide">
-                      <i class="fa-solid fa-play"></i> Thực thi (Run Sandbox)
+                    <button class="btn btn-primary" id="btn-run-ide" title="Thực thi mã nguồn (Ctrl+Enter)">
+                      <i class="fa-solid fa-play"></i> <span class="btn-text" id="btn-run-ide-text">Chạy</span> <kbd class="kbd-hint">Ctrl+Enter</kbd>
                     </button>
                   </div>
                 </div>
@@ -662,7 +668,7 @@
                       ><i class="fa-regular fa-clock"></i> 0.00s</span
                     >
                     <button
-                      class="btn btn-secondary"
+                      class="btn btn-secondary btn-sm"
                       id="btn-clear-terminal"
                       title="Xóa màn hình Terminal"
                     >
@@ -671,11 +677,11 @@
                   </div>
                 </div>
 
-                <div class="console-box scroll-container ide-full-terminal" id="ide-terminal-output"><div class="term-line term-prompt">dev-conduit-sandbox&gt; Sẵn sàng thực thi mã nguồn...</div></div>
+                <div class="console-box scroll-container ide-full-terminal" id="ide-terminal-output"><div class="term-line term-prompt">dev-academy-sandbox&gt; Sẵn sàng thực thi mã nguồn...</div></div>
               </div>
             </div>
 
-            <!-- Unified Single-Row Bottom Status Bar (Clean 28px, 11px font) -->
+            <!-- Unified Single-Row Bottom Status Bar (C7) -->
             <footer class="ide-unified-statusbar">
               <div class="statusbar-left">
                 <span id="ide-cursor-info"
@@ -685,17 +691,15 @@
                 <span>Tab: 4</span>
                 <span class="status-sep">•</span>
                 <span>UTF-8</span>
+                <span class="status-sep">•</span>
+                <span id="ide-lang-status-badge">Python 3</span>
               </div>
               <div class="statusbar-right">
                 <span id="ide-engine-badge"
-                  ><i class="fa-solid fa-terminal"></i> Sandbox Runner:
-                  Ready</span
+                  ><span class="status-dot-inline online"></span> Sẵn sàng</span
                 >
                 <span class="status-sep">•</span>
-                <span id="term-exit-status"
-                  ><span class="status-dot-inline idle"></span> Trạng thái:
-                  Idle</span
-                >
+                <span id="term-exit-status">Exit Code 0</span>
               </div>
             </footer>
           </div>
@@ -783,6 +787,53 @@
       </div>
     </div>
 
+    <!-- ===================================================================
+       SETTINGS MODAL (2-Step Progress Reset Confirmation per C4)
+       =================================================================== -->
+    <div
+      class="settings-overlay"
+      id="settings-overlay"
+      style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px); z-index: 1100; align-items: center; justify-content: center; padding: 20px;"
+    >
+      <div class="settings-modal-card">
+        <div class="settings-header">
+          <h3><i class="fa-solid fa-gear"></i> Cài Đặt Hệ Thống</h3>
+          <button class="btn-back-xs" id="btn-close-settings" title="Đóng cài đặt">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="settings-body">
+          <div class="settings-section">
+            <div class="settings-section-title">Quản Lý Tiến Độ & Dữ Liệu</div>
+            <p style="font-size: 13px; color: var(--text-dim); margin-top: 6px;">
+              Dữ liệu bài học, mốc mở khóa và kết quả thi được lưu trên trình duyệt của bạn.
+            </p>
+            <div id="reset-progress-step1-wrap" style="margin-top: 14px;">
+              <button class="btn btn-danger-action" id="btn-trigger-reset-step1" style="font-size: 12px; padding: 6px 14px;">
+                <i class="fa-solid fa-trash-can"></i> Đặt Lại Toàn Bộ Tiến Độ
+              </button>
+            </div>
+            <div id="reset-progress-step2-wrap" style="display: none; margin-top: 14px; background: rgba(229, 83, 75, 0.1); border: 1px solid var(--danger); border-radius: var(--radius-sm); padding: 12px;">
+              <div style="font-size: 13px; font-weight: 600; color: var(--danger); margin-bottom: 6px;">
+                <i class="fa-solid fa-triangle-exclamation"></i> Xác nhận xóa lần 2 (Không thể hoàn tác)
+              </div>
+              <p style="font-size: 12px; color: var(--text-dim); margin-bottom: 12px;">
+                Tất cả bài học đã xong, cột mốc mở khóa và điểm thi sẽ bị xóa hoàn toàn về 0.
+              </p>
+              <div style="display: flex; gap: 8px;">
+                <button class="btn btn-danger-action" id="btn-confirm-reset-step2" style="font-size: 12px; padding: 6px 14px; background: var(--danger); color: #fff;">
+                  Xác Nhận Xóa Vĩnh Viễn
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btn-cancel-reset-step2">
+                  Hủy Bỏ
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- CodeMirror Library & Modes -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
@@ -790,6 +841,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/clike/clike.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/closebrackets.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/selection/active-line.min.js"></script>
 
     <!-- Load Curriculum & Pipeline Data -->
     <script src="data.js"></script>
