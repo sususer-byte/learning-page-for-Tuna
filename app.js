@@ -204,6 +204,62 @@ function toggleChapterAccordion(chapterId) {
   }
 }
 
+// ==========================================================================
+// KEYBOARD TYPING EFFECT ENGINE (Tactile Keystroke Sparkles & Caret Glow)
+// ==========================================================================
+let typingSparkContainer = null;
+function getSparkContainer() {
+  if (!typingSparkContainer) {
+    typingSparkContainer = document.createElement('div');
+    typingSparkContainer.className = 'typing-spark-container';
+    document.body.appendChild(typingSparkContainer);
+  }
+  return typingSparkContainer;
+}
+
+function triggerTypingEffects(cm, changeObj) {
+  if (!cm) return;
+
+  // 1. Caret Glow Pulse on typing
+  const wrapper = cm.getWrapperElement();
+  if (wrapper) {
+    const cursors = wrapper.querySelectorAll('.CodeMirror-cursor');
+    cursors.forEach(c => c.classList.add('typing-cursor-active'));
+    if (cm._typingPulseTimer) clearTimeout(cm._typingPulseTimer);
+    cm._typingPulseTimer = setTimeout(() => {
+      cursors.forEach(c => c.classList.remove('typing-cursor-active'));
+    }, 140);
+  }
+
+  // 2. Keystroke Sparkles (only for actual user text input from keyboard)
+  if (changeObj && changeObj.origin === '+input') {
+    const coords = cm.cursorCoords(true, 'window');
+    if (coords && typeof coords.left === 'number' && typeof coords.top === 'number') {
+      const container = getSparkContainer();
+      const sparkCount = (changeObj.text && changeObj.text.length > 1) ? 3 : 2;
+      for (let i = 0; i < sparkCount; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'typing-spark';
+        const size = Math.floor(Math.random() * 3) + 3; // 3-5px
+        spark.style.width = `${size}px`;
+        spark.style.height = `${size}px`;
+        spark.style.left = `${coords.left}px`;
+        spark.style.top = `${coords.top + 8}px`;
+
+        const dx = (Math.random() - 0.5) * 26; // -13px to +13px
+        const dy = -(Math.random() * 18 + 8);  // -8px to -26px float up
+        spark.style.setProperty('--dx', `${dx}px`);
+        spark.style.setProperty('--dy', `${dy}px`);
+
+        container.appendChild(spark);
+        setTimeout(() => {
+          if (spark.parentNode) spark.parentNode.removeChild(spark);
+        }, 360);
+      }
+    }
+  }
+}
+
 // 2. CODEMIRROR INITIALIZATION
 // ==========================================================================
 function initCodeEditors() {
@@ -224,8 +280,9 @@ function initCodeEditors() {
       }
     });
 
-    appState.cmExamEditor.on('change', () => {
+    appState.cmExamEditor.on('change', (cm, changeObj) => {
       saveActiveQuestionCode();
+      triggerTypingEffects(cm, changeObj);
     });
   }
 
@@ -248,6 +305,11 @@ function initCodeEditors() {
         "Esc": () => stopPracticeIDE(),
         "Tab": (cm) => cm.replaceSelection("    ", "end")
       }
+    });
+
+    // Tactile Keyboard Typing Effect
+    appState.cmPracticeEditor.on('change', (cm, changeObj) => {
+      triggerTypingEffects(cm, changeObj);
     });
 
     // Update cursor position dynamically in status bar (C7)
@@ -617,11 +679,7 @@ function bindGlobalEvents() {
       const langConf = (typeof SUPPORTED_LANGUAGES !== 'undefined' && SUPPORTED_LANGUAGES[currentPracticeLang]) ? SUPPORTED_LANGUAGES[currentPracticeLang] : (typeof SUPPORTED_LANGUAGES !== 'undefined' ? SUPPORTED_LANGUAGES.python : null);
       const starter = langConf ? langConf.starterCode : '// Khởi tạo mã nguồn...';
       if (appState.cmPracticeEditor) {
-        if (typeof CodeSampleTypewriter !== 'undefined') {
-          CodeSampleTypewriter.typewrite(appState.cmPracticeEditor, starter);
-        } else {
-          appState.cmPracticeEditor.setValue(starter);
-        }
+        appState.cmPracticeEditor.setValue(starter);
       }
       const out = document.getElementById('ide-terminal-output');
       if (out) out.innerHTML = '<div class="term-line term-prompt">dev-conduit-sandbox&gt; Đã khôi phục mã nguồn ban đầu.</div>';
@@ -3111,49 +3169,26 @@ const CodeSampleTypewriter = {
 // ==========================================================================
 // B3. STREAMING TERMINAL OUTPUT (~25ms/line + Flashing Block Cursor)
 // ==========================================================================
-function streamTerminalOutput(terminal, text, isError = false, onDone = null) {
-  if (!terminal) return;
-  const lines = text.split('\n');
-  if (lines.length > 200 || !CodeSampleTypewriter.isEffectEnabled()) {
-    const lineClass = isError ? 'term-output-error' : 'term-output-success';
-    terminal.innerHTML += `<div class="term-line ${lineClass}">${escapeHtml(text)}</div>`;
-    terminal.scrollTop = terminal.scrollHeight;
-    if (onDone) onDone();
-    return;
-  }
-
-  let lineIdx = 0;
+// DIRECT TERMINAL OUTPUT (Instant Rendering, No Delay/Animation)
+// ==========================================================================
+function outputTerminalDirect(terminal, text, isError = false) {
+  if (!terminal || text === null || text === undefined) return;
   const lineClass = isError ? 'term-output-error' : 'term-output-success';
-
-  let blockCursor = document.getElementById('term-block-cursor');
-  if (!blockCursor) {
-    blockCursor = document.createElement('span');
-    blockCursor.id = 'term-block-cursor';
-    blockCursor.className = 'term-cursor-block';
-    blockCursor.textContent = '█';
+  const lines = String(text).split('\n');
+  const frag = document.createDocumentFragment();
+  for (const line of lines) {
+    const div = document.createElement('div');
+    div.className = `term-line ${lineClass}`;
+    div.textContent = line;
+    frag.appendChild(div);
   }
+  terminal.appendChild(frag);
+  terminal.scrollTop = terminal.scrollHeight;
+}
 
-  function outputNextLine() {
-    if (lineIdx < lines.length) {
-      const lineText = lines[lineIdx];
-      const div = document.createElement('div');
-      div.className = `term-line ${lineClass}`;
-      div.textContent = lineText;
-      terminal.appendChild(div);
-      terminal.appendChild(blockCursor);
-      terminal.scrollTop = terminal.scrollHeight;
-      lineIdx++;
-      setTimeout(outputNextLine, 25);
-    } else {
-      if (blockCursor.parentNode) {
-        blockCursor.parentNode.removeChild(blockCursor);
-      }
-      terminal.scrollTop = terminal.scrollHeight;
-      if (onDone) onDone();
-    }
-  }
-
-  outputNextLine();
+function streamTerminalOutput(terminal, text, isError = false, onDone = null) {
+  outputTerminalDirect(terminal, text, isError);
+  if (onDone) onDone();
 }
 
 // ==========================================================================
@@ -3435,7 +3470,7 @@ function switchPracticeLang(lang) {
   if (appState.cmPracticeEditor) {
     appState.cmPracticeEditor.setOption('mode', langConf.mode);
     const code = practiceCodeCache[lang] || langConf.starterCode;
-    CodeSampleTypewriter.typewrite(appState.cmPracticeEditor, code);
+    appState.cmPracticeEditor.setValue(code);
   }
 }
 
@@ -3469,7 +3504,7 @@ function loadTaskToSandbox(lessonId, taskIdx) {
   if (returnLabel) returnLabel.textContent = `Quay Lại: ${lesson.number || 'Bài Học'}`;
 
   if (appState.cmPracticeEditor) {
-    CodeSampleTypewriter.typewrite(appState.cmPracticeEditor, codeToRun);
+    appState.cmPracticeEditor.setValue(codeToRun);
     setTimeout(() => appState.cmPracticeEditor.refresh(), 100);
   }
 }
@@ -3533,7 +3568,7 @@ function loadTheoryCodeToSandbox(lessonId) {
   if (returnLabel) returnLabel.textContent = `Quay Lại: ${lesson.number || 'Bài Học'}`;
 
   if (appState.cmPracticeEditor) {
-    CodeSampleTypewriter.typewrite(appState.cmPracticeEditor, codeToRun);
+    appState.cmPracticeEditor.setValue(codeToRun);
     setTimeout(() => appState.cmPracticeEditor.refresh(), 100);
   }
 
@@ -3629,22 +3664,26 @@ async function runPracticeIDE() {
     return;
   }
 
-  // C++17 Runner: Local MinGW backend or clear status (NO fake regex!)
+  // C++17 Runner: Local MinGW backend -> Wandbox GCC C++17 (for Vercel & Web) -> fallback
   if (lang === 'cpp') {
     if (statusPill) {
       statusPill.className = 'term-status-pill running';
-      statusPill.innerHTML = '<span class="status-dot"></span> Đang chạy...';
+      statusPill.innerHTML = '<span class="status-dot"></span> Đang biên dịch C++17...';
     }
     if (terminal) {
-      terminal.innerHTML += `<div class="term-line term-prompt">user&gt; Thực thi mã nguồn (C++17)...</div>`;
+      terminal.innerHTML += `<div class="term-line term-prompt">user&gt; Biên dịch & thực thi C++17 (GCC)...</div>`;
       terminal.scrollTop = terminal.scrollHeight;
     }
 
+    let executed = false;
+
+    // 1. Try local server first (if running locally with node server)
     try {
       const res = await fetch('/api/run', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lang: 'cpp', code })
+        body: JSON.stringify({ lang: 'cpp', code }),
+        signal: (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) ? AbortSignal.timeout(2000) : undefined
       });
 
       if (res.ok) {
@@ -3658,35 +3697,80 @@ async function runPracticeIDE() {
         }
         if (terminal) {
           if (data.stdout && data.stdout.trim()) {
-            streamTerminalOutput(terminal, data.stdout, false);
+            outputTerminalDirect(terminal, data.stdout, false);
           }
           if (data.stderr && data.stderr.trim()) {
-            streamTerminalOutput(terminal, data.stderr, true);
+            outputTerminalDirect(terminal, data.stderr, true);
           }
           if (!data.stdout && !data.stderr) {
             terminal.innerHTML += `<div class="term-line" style="color:var(--text-dim); font-size:11px;">[Chương trình kết thúc bình thường (Exit code: ${exitCode})]</div>`;
           }
         }
-        return;
+        executed = true;
       }
     } catch (err) {
-      // Backend not running
-    } finally {
-      if (statusPill) {
-        statusPill.className = 'term-status-pill ready';
-        statusPill.innerHTML = '<span class="status-dot"></span> Sẵn sàng';
-      }
-      if (terminal) terminal.scrollTop = terminal.scrollHeight;
+      // Local backend not reachable (e.g. running on Vercel)
     }
 
-    // A9: Report real C++ status truthfully, NO mock regex
-    const elapsedMs = Math.round(performance.now() - t0);
-    if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
-    if (exitStatus) exitStatus.innerHTML = `<span class="status-dot-inline error"></span> Exit Code 1`;
-    if (terminal) {
-      terminal.innerHTML += `<div class="term-line term-output-error">[C++17]: Không thể kết nối với trình biên dịch MinGW g++ cục bộ (server 'node server/server.js' chưa chạy). Sandbox client-side hiện hỗ trợ thực thi trực tiếp Python 3 (Pyodide WASM) và JavaScript (ES6+ VM). Để biên dịch C++17, vui lòng khởi chạy server backend với MinGW g++.</div>`;
-      terminal.scrollTop = terminal.scrollHeight;
+    // 2. If local backend is not available (e.g. on Vercel), execute via Wandbox GCC API (Full CORS open API)
+    if (!executed) {
+      try {
+        const wbRes = await fetch('https://wandbox.org/api/compile.json', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            compiler: 'gcc-head',
+            code: code,
+            options: 'warning,c++17'
+          })
+        });
+
+        if (wbRes.ok) {
+          const wbData = await wbRes.json();
+          const elapsedMs = Math.round(performance.now() - t0);
+          if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
+
+          const exitCode = wbData.status === 0 ? 0 : (wbData.status || (wbData.compiler_error ? 1 : 0));
+          if (exitStatus) {
+            exitStatus.innerHTML = `<span class="status-dot-inline ${exitCode === 0 ? 'online' : 'error'}"></span> Exit Code ${exitCode}`;
+          }
+
+          if (terminal) {
+            if (wbData.program_output && wbData.program_output.trim()) {
+              outputTerminalDirect(terminal, wbData.program_output, false);
+            }
+            if (wbData.program_error && wbData.program_error.trim()) {
+              outputTerminalDirect(terminal, wbData.program_error, true);
+            }
+            if (wbData.compiler_error && wbData.compiler_error.trim()) {
+              outputTerminalDirect(terminal, `[Lỗi Biên Dịch GCC]:\n${wbData.compiler_error}`, true);
+            }
+            if (!wbData.program_output && !wbData.program_error && !wbData.compiler_error) {
+              terminal.innerHTML += `<div class="term-line" style="color:var(--text-dim); font-size:11px;">[Chương trình kết thúc bình thường (Exit code: ${exitCode})]</div>`;
+            }
+          }
+          executed = true;
+        }
+      } catch (wbErr) {
+        // Network/offline
+      }
     }
+
+    if (!executed) {
+      const elapsedMs = Math.round(performance.now() - t0);
+      if (timer) timer.innerHTML = `<i class="fa-regular fa-clock"></i> ${(elapsedMs / 1000).toFixed(2)}s`;
+      if (exitStatus) exitStatus.innerHTML = `<span class="status-dot-inline error"></span> Exit Code 1`;
+      if (terminal) {
+        terminal.innerHTML += `<div class="term-line term-output-error">[C++17]: Không thể kết nối với dịch vụ biên dịch C++ (Cần kết nối mạng hoặc khởi chạy server backend cục bộ với MinGW g++).</div>`;
+      }
+    }
+
+    if (statusPill) {
+      statusPill.className = 'term-status-pill ready';
+      statusPill.innerHTML = '<span class="status-dot"></span> Sẵn sàng';
+    }
+    if (terminal) terminal.scrollTop = terminal.scrollHeight;
+    return;
   }
 }
 
@@ -3795,27 +3879,6 @@ function copySnippetCode(btn) {
     fallbackCopyText(textToCopy, onSuccess);
   }
 }
-
-  // Reset Button Injection
-  setTimeout(() => {
-    const sidebar = document.querySelector('.sidebar-menu');
-    if (sidebar && !document.getElementById('btn-reset-progress')) {
-      const resetBtn = document.createElement('button');
-      resetBtn.id = 'btn-reset-progress';
-      resetBtn.className = 'nav-tab-btn';
-      resetBtn.style.marginTop = '20px';
-      resetBtn.style.color = '#EF4444';
-      resetBtn.innerHTML = '<span class="tab-icon"><i class="fa-solid fa-trash"></i></span><span class="tab-text">Reset Tiến Độ</span>';
-      resetBtn.onclick = () => {
-        if(confirm('Bạn có chắc chắn muốn xóa toàn bộ tiến độ học tập?')) {
-          localStorage.removeItem('dev_conduit_progress_v6');
-          location.reload();
-        }
-      };
-      sidebar.appendChild(resetBtn);
-    }
-  }, 1000);
-
 
 // Global Navigation and Runner Bindings
 window.selectLesson = openLesson;

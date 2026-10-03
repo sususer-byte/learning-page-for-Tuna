@@ -1673,50 +1673,56 @@ h1, h2, h3, h4 {
   border-color: var(--accent-primary);
 }
 
-/* B4. Typing Effect Switch */
-.typing-toggle-switch {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  user-select: none;
-  font-size: 11px;
-  color: var(--text-dim);
-  white-space: nowrap;
-  margin-left: 2px;
-  flex-shrink: 0;
+/* Interactive Keyboard Typing Effect (Keystroke Sparkles & Active Caret Glow) */
+.typing-spark-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 99999;
+  overflow: hidden;
 }
-.typing-toggle-switch input {
-  display: none;
-}
-.toggle-slider {
-  position: relative;
-  width: 28px;
-  height: 16px;
-  background-color: var(--panel-2);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  transition: 0.2s;
-  display: inline-block;
-}
-.toggle-slider::before {
-  content: '';
+
+.typing-spark {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  left: 2px;
-  top: 2px;
-  background-color: var(--text-dim);
   border-radius: 50%;
-  transition: 0.2s;
+  pointer-events: none;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent), 0 0 3px #ffffff;
+  transform: translate(-50%, -50%);
+  animation: sparkFly 350ms cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
-.typing-toggle-switch input:checked + .toggle-slider {
-  background-color: rgba(212, 180, 138, 0.25);
-  border-color: var(--accent);
+
+@keyframes sparkFly {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, -16px))) scale(0.2);
+  }
 }
-.typing-toggle-switch input:checked + .toggle-slider::before {
-  transform: translateX(12px);
-  background-color: var(--accent);
+
+.typing-cursor-active {
+  box-shadow: 0 0 10px rgba(212, 180, 138, 0.95), 0 0 4px #ffffff !important;
+  transition: transform 60ms ease, box-shadow 150ms ease !important;
+  transform: scaleY(1.15) !important;
+}
+
+.cm-line-type-flash {
+  animation: lineTypeFlash 250ms ease-out forwards;
+}
+
+@keyframes lineTypeFlash {
+  0% {
+    background-color: rgba(212, 180, 138, 0.16) !important;
+  }
+  100% {
+    background-color: var(--panel-2) !important;
+  }
 }
 
 /* D1. Group Right: Khôi phục, Chạy */
@@ -1780,8 +1786,7 @@ h1, h2, h3, h4 {
 
 @media (max-width: 640px) {
   .ide-toolbar-right .btn-text,
-  .ide-toolbar-right .kbd-hint,
-  .typing-toggle-switch .toggle-label {
+  .ide-toolbar-right .kbd-hint {
     display: none !important;
   }
 }
